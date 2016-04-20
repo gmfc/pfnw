@@ -4,7 +4,7 @@ describe('Deve dar certo', function() {
     
     var resultado;
     beforeEach(function() {
-        var resultado = true;
+        resultado = true;
         console.log("Antes");
     });
     
