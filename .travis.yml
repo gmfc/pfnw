@@ -3,5 +3,5 @@ node_js:
   - "4.1"
 notifications:
   email:
-    - $emailA
-    - emailB
+    - $emailB
+    - EMAILB
