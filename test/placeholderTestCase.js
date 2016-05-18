@@ -10,7 +10,7 @@ describe('Deve dar certo', function() {
     
     
     it('Da cerrto por padrao', function() {
-        assert.equal(resultado, true);
+        assert.equal(resultado, false);
     });
     
     
