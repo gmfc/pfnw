@@ -4,4 +4,4 @@ node_js:
 notifications:
   email:
     - $emailA
-    - $emailB
+    - emailB
