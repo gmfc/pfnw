@@ -3,5 +3,4 @@ node_js:
   - "4.1"
 notifications:
   email:
-    - $emailB
-    - EMAILB
+    - ana.rossi@gmail.com
