@@ -1,16 +1,16 @@
 var assert = require("assert");
 
-describe('Deve dar certo', function() {
+describe('Teste do sistema de testes', function() {
     
     var resultado;
     beforeEach(function() {
+        console.log("Configurando variaveis");
         resultado = true;
-        console.log("Antes");
     });
     
     
-    it('Da cerrto por padrao', function() {
-        assert.equal(resultado, false);
+    it('Compara true com true...', function() {
+        assert.equal(resultado, true);
     });
     
     
