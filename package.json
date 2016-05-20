@@ -1,10 +1,11 @@
 {
-  "name": "pfnw5",
+  "name": "plataforma",
   "version": "0.0.1",
-  "description": "pfnw5",
+  "description": "plataforma de força.",
   "main": "index.html",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --reporter spec",
+	"start": "nw ."
   },
   "repository": {
     "type": "git",
@@ -15,8 +16,9 @@
     "url": "https://github.com/gmfc/pfnw5/issues"
   },
   "window": {
-    "width": 800,
-    "height": 600
+    "toolbar": false,
+    "width": 950,
+    "height": 800
   },
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
