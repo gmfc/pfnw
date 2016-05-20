@@ -1,7 +1,7 @@
 {
-  "name": "Plataforma de forca.",
+  "name": "plataforma de força",
   "version": "0.0.1",
-  "description": "Plataforma de forca.",
+  "description": "plataforma de força.",
   "main": "index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
