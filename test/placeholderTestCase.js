@@ -4,7 +4,6 @@ describe('Teste do sistema de testes', function() {
     
     var resultado;
     beforeEach(function() {
-        console.log("Configurando variaveis");
         resultado = true;
     });
     
