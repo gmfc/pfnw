@@ -1,5 +1,5 @@
 var should = require('should');
-var Raw = require('../js/rawData.js');
+var PlatData = require('../js/Data.js');
 
 
 describe('Testes da classe Raw', function() {
@@ -21,7 +21,7 @@ describe('Testes da classe Raw', function() {
     
     
     it('Phrase test ' + nDeLinhas + ' linhas', function() {
-        var rawTest = new Raw();
+        var rawTest = new PlatData();
         for(var i=0;i<nDeLinhas;i++){
             rawTest.pushData(strings[i]);
         }

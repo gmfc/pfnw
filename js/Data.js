@@ -2,7 +2,7 @@
  *  Classe responsavel por administrar e receber os dados da plataforma
  *
  */
-function Raw() {
+function PlatData() {
     // arrays do cada sensor
     this.TR = []; // top right
     this.TL = []; // top left
@@ -14,7 +14,7 @@ function Raw() {
 
 // push leitura. Recebe String com leitura dos dados no ciclo
 // e adiciona no final de cada array;
-Raw.prototype.pushData = function (data) {
+PlatData.prototype.pushData = function (data) {
 
     var arr = data.split(",").map(function (val) {
         return Number(val);
@@ -25,25 +25,25 @@ Raw.prototype.pushData = function (data) {
     this.BL.push(arr[3]);
 };
 
-Raw.prototype.getTR = function () {
+PlatData.prototype.getTR = function () {
     return this.TR;
 };
 
 
-Raw.prototype.getTL = function () {
+PlatData.prototype.getTL = function () {
     return this.TL;
 };
 
 
-Raw.prototype.getBR = function () {
+PlatData.prototype.getBR = function () {
     return this.BR;
 };
 
 
-Raw.prototype.getBL = function () {
+PlatData.prototype.getBL = function () {
     return this.BL;
 };
 
 
 // export the class
-module.exports = Raw;
+module.exports = PlatData;
