@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
-	"start": "nw ."
+    "start": "nw ."
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "nwjs-j5-fix": "^1.0.2"
   },
   "devDependencies": {
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "should": "^10.0.0"
   }
 }
