@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
+	"watch": "./node_modules/.bin/mocha --reporter spec --watch",
     "start": "nw ."
   },
   "repository": {
