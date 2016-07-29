@@ -7,6 +7,7 @@ describe('Testes da classe Raw', function() {
     var numbers = [];
     var nDeLinhas = 20000;
     this.timeout(20000);
+	var rawTest = new PlatData();
     before('populando linhas...',function() {
         for(var i=0;i<nDeLinhas;i++){
             var TR = Math.random(),
@@ -21,7 +22,7 @@ describe('Testes da classe Raw', function() {
     
     
     it('Phrase test ' + nDeLinhas + ' linhas', function() {
-        var rawTest = new PlatData();
+        
         for(var i=0;i<nDeLinhas;i++){
             rawTest.pushData(strings[i]);
         }
@@ -36,8 +37,23 @@ describe('Testes da classe Raw', function() {
         
     });
     
-    it('Calcula Fx12,Fx34,Fx14,Fx23');
-    it('Calcula CPx e CPy');
+    it('Calcula Fx12,Fx34,Fx14,Fx23', function() {
+		rawTest.calcFx();
+		for(var i=0;i<rawTest.TR.length;i++){
+			rawTest.FxTRL[i].should.be.Number();
+			rawTest.FxBLR[i].should.be.Number();
+			rawTest.FxTBR[i].should.be.Number();
+			rawTest.FxTBL[i].should.be.Number();
+		}
+	});
+	
+    it('Calcula CPx e CPy', function() {
+		rawTest.calcCOP();
+		for(var i=0;i<rawTest.TR.length;i++){
+			rawTest.CPx[i].should.be.Number();
+			rawTest.CPy[i].should.be.Number();
+		}
+	});
     it('Calcula Deslocamento da oscilação total, DOT');
     it('Calcula Desvio padrão (AP e ML)'); 
     it('Calcula RMS (Root Mean Square) AP e ML');
