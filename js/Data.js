@@ -9,6 +9,8 @@ function PlatData() {
 	this.a = 24.76; //Medida centro -> lteral
 	this.b = 15.24; //Medida centro -> topo
 
+	// timestamps
+	this.TI = [];
 	// arrays de cada sensor
 	this.TR = []; // top right
 	this.TL = []; // top left
@@ -36,10 +38,11 @@ PlatData.prototype.pushData = function(data) {
 	var arr = data.split(";").map(function(val) {
 		return Number(val);
 	});
-	this.TR.push(arr[0]);
-	this.TL.push(arr[1]);
-	this.BR.push(arr[2]);
-	this.BL.push(arr[3]);
+	this.TI.push(arr[0]);
+	this.TR.push(arr[1]);
+	this.TL.push(arr[2]);
+	this.BR.push(arr[3]);
+	this.BL.push(arr[4]);
 };
 
 PlatData.prototype.getTR = function() {
@@ -105,6 +108,15 @@ PlatData.prototype.calcRMS = function() {
 
 	this.rmsAP = Math.sqrt(sumAP/this.CPy.length);
 	this.rmsML = Math.sqrt(sumML/this.CPx.length);
+}
+
+
+PlatData.prototype.calcFREQ = function() {
+	let sum = 0;
+	for(let i=0;i<this.TI.length;i++){
+		sum += this.TI[i];
+	}
+	this.avgFrq = sum/this.TI.length;
 }
 
 //////

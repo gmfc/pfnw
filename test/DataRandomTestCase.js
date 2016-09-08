@@ -17,8 +17,8 @@ describe('Testes da classe Data com dados aleatorios', function() {
 				TL = Math.random()*100,
 				BR = Math.random()*100,
 				BL = Math.random()*100;
-			numbers[i] = [TR, TL, BR, BL];
-			strings[i] = TR + ";" + TL + ";" + BR + ";" + BL;
+			numbers[i] = [TI,TR, TL, BR, BL];
+			strings[i] = TI + ";" + TR + ";" + TL + ";" + BR + ";" + BL;
 		}
 	});
 
@@ -76,7 +76,10 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		rawTest.rmsML.should.be.Number();
 	});
 	
-	it('Calcula Frequencia');
+	it('Calcula Frequencia', function() {
+		rawTest.calcFREQ();
+		rawTest.avgFrq.should.be.Number();
+	});
 	
 	it('Calcula Velocidade média (VM)');
 	it('Calcula Amplitude de deslocamento do CP');
