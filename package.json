@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
-	"watch": "./node_modules/.bin/mocha --reporter spec --watch",
+    "watch": "./node_modules/.bin/mocha --reporter spec --watch",
     "start": "nw ."
   },
   "repository": {
@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
-    "johnny-five": "^0.9.34",
-    "nwjs-j5-fix": "^1.0.2"
+    "browser-serialport": "^2.0.3"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
