@@ -94,7 +94,11 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		rawTest.ampML.should.be.Number();
 	});
 
-	it('Calcula Velocidade média total (VMT)');
+	it('Calcula Velocidade média total (VMT)', function() {
+		rawTest.calcVelTotal();
+		rawTest.VMT.should.be.Number();
+	});
+	
 	it('Calcula Área');
 
 

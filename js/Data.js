@@ -81,65 +81,78 @@ PlatData.prototype.calcCOP = function() {
 };
 
 PlatData.prototype.calcDOT = function() {
-	this.DOT = 0;
-	for (let i = 0; i < this.CPx.length; i++) {
-		this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
+		this.DOT = 0;
+		for (let i = 0; i < this.CPx.length; i++) {
+			this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
+		}
 	}
-}
-// AP = y ML = x
+	// AP = y ML = x
 PlatData.prototype.calcDEV = function() {
 	this.DevAP = standardDeviation(this.CPy);
 	this.DevML = standardDeviation(this.CPx);
 }
 
 PlatData.prototype.calcRMS = function() {
-	
+
 	// calc AP(y)
 	let sumAP = 0;
-	for(let i=0;i<this.CPy.length;i++){
-		sumAP = this.CPy[i]*this.CPy[i];
-	}
-	
-	// calc ML(x)
-	let sumML = 0;
-	for(let i=0;i<this.CPx.length;i++){
-		sumML = this.CPx[i]*this.CPx[i];
+	for (let i = 0; i < this.CPy.length; i++) {
+		sumAP = this.CPy[i] * this.CPy[i];
 	}
 
-	this.rmsAP = Math.sqrt(sumAP/this.CPy.length);
-	this.rmsML = Math.sqrt(sumML/this.CPx.length);
+	// calc ML(x)
+	let sumML = 0;
+	for (let i = 0; i < this.CPx.length; i++) {
+		sumML = this.CPx[i] * this.CPx[i];
+	}
+
+	this.rmsAP = Math.sqrt(sumAP / this.CPy.length);
+	this.rmsML = Math.sqrt(sumML / this.CPx.length);
 }
 
 
 PlatData.prototype.calcFREQ = function() {
 	let sum = 0;
-	for(let i=0;i<this.TI.length;i++){
+	for (let i = 0; i < this.TI.length; i++) {
 		sum += this.TI[i];
 	}
-	this.avgFrq = sum/this.TI.length;
+	this.avgFrq = sum / this.TI.length;
 }
 
 PlatData.prototype.calcVel = function() {
 	this.calcFREQ();
 	// calc AP
 	let ApDeslocSum = 0;
-	for(let i=1; i<this.CPy.length;i++){
-		ApDeslocSum += Math.abs(this.CPy[i]-this.CPy[i-1])
+	for (let i = 1; i < this.CPy.length; i++) {
+		ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1])
 	}
 	// calc ML
 	let MlDeslocSum = 0;
-	for(let i=1; i<this.CPx.length;i++){
-		ApDeslocSum += Math.abs(this.CPx[i]-this.CPx[i-1])
+	for (let i = 1; i < this.CPx.length; i++) {
+		ApDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
 	}
-	
-	this.VMap = (ApDeslocSum*this.avgFrq)/this.CPy.length;
-	this.VMml = (MlDeslocSum*this.avgFrq)/this.CPx.length;
+
+	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
+	this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
 }
 
 
 PlatData.prototype.calcAmpl = function() {
 	this.ampAP = Math.max(this.CPy) - Math.min(this.CPy);
 	this.ampML = Math.max(this.CPx) - Math.min(this.CPx);
+}
+
+PlatData.prototype.calcVelTotal = function() {
+	let sum = 0;
+	// sum(sqrt(diff(CPap).^2+diff(CPml).^2))
+	for (let i = 1; i < this.CPx.length; i++) {
+		sum += Math.sqrt(
+			Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
+			Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
+		)
+	}
+	// sum*freq/length(CPap)
+	this.VMT = sum*this.avgFrq/this.CPy.length;
 }
 
 //////
