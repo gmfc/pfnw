@@ -138,7 +138,8 @@ PlatData.prototype.calcVel = function() {
 
 
 PlatData.prototype.calcAmpl = function() {
-	//let minAP = TO FAZENDO ISSO AGORA VAI DAR ERRO SE MANTER ASSIM
+	this.ampAP = Math.max(this.CPy) - Math.min(this.CPy);
+	this.ampML = Math.max(this.CPx) - Math.min(this.CPx);
 }
 
 //////

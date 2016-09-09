@@ -88,7 +88,11 @@ describe('Testes da classe Data com dados aleatorios', function() {
 	});
 
 // testes unitarios
-	it('Calcula Amplitude de deslocamento do CP');
+	it('Calcula Amplitude de deslocamento do CP', function() {
+		rawTest.calcAmpl();
+		rawTest.ampAP.should.be.Number();
+		rawTest.ampML.should.be.Number();
+	});
 
 	it('Calcula Velocidade média total (VMT)');
 	it('Calcula Área');
