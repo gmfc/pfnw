@@ -1,7 +1,7 @@
 'use strict'
 /*
  *  Classe responsavel por administrar e receber os dados da plataforma
- *
+ * 
  */
 function PlatData() {
 
@@ -72,7 +72,7 @@ PlatData.prototype.calcFx = function() {
 		this.FxTBL[i] = this.TL[i] + this.BL[i];
 	}
 };
-
+// COP = centro de pressao (x,y)
 PlatData.prototype.calcCOP = function() {
 	for (var i = 0; i < this.BR.length; i++) {
 		this.CPx[i] = fax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i], this.az0, this.FxTRL[i], this.FxBLR[i]);
@@ -117,6 +117,28 @@ PlatData.prototype.calcFREQ = function() {
 		sum += this.TI[i];
 	}
 	this.avgFrq = sum/this.TI.length;
+}
+
+PlatData.prototype.calcVel = function() {
+	this.calcFREQ();
+	// calc AP
+	let ApDeslocSum = 0;
+	for(let i=1; i<this.CPy.length;i++){
+		ApDeslocSum += Math.abs(this.CPy[i]-this.CPy[i-1])
+	}
+	// calc ML
+	let MlDeslocSum = 0;
+	for(let i=1; i<this.CPx.length;i++){
+		ApDeslocSum += Math.abs(this.CPx[i]-this.CPx[i-1])
+	}
+	
+	this.VMap = (ApDeslocSum*this.avgFrq)/this.CPy.length;
+	this.VMml = (MlDeslocSum*this.avgFrq)/this.CPx.length;
+}
+
+
+PlatData.prototype.calcAmpl = function() {
+	//let minAP = TO FAZENDO ISSO AGORA VAI DAR ERRO SE MANTER ASSIM
 }
 
 //////

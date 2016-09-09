@@ -9,15 +9,15 @@ describe('Testes da classe Data com dados aleatorios', function() {
 	var nDeLinhas = 20000;
 	this.timeout(20000);
 	var rawTest = new PlatData();
-	
+
 	before('populando linhas...', function() {
 		for (var i = 0; i < nDeLinhas; i++) {
-			var TI =  Math.floor(Math.random() * 8) + 5,
-				TR = Math.random()*100,
-				TL = Math.random()*100,
-				BR = Math.random()*100,
-				BL = Math.random()*100;
-			numbers[i] = [TI,TR, TL, BR, BL];
+			var TI = Math.floor(Math.random() * 8) + 5,
+				TR = Math.random() * 100,
+				TL = Math.random() * 100,
+				BR = Math.random() * 100,
+				BL = Math.random() * 100;
+			numbers[i] = [TI, TR, TL, BR, BL];
 			strings[i] = TI + ";" + TR + ";" + TL + ";" + BR + ";" + BL;
 		}
 	});
@@ -69,20 +69,27 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		rawTest.DevAP.should.be.Number();
 		rawTest.DevML.should.be.Number();
 	});
-	
+
 	it('Calcula RMS (Root Mean Square) AP e ML', function() {
 		rawTest.calcRMS();
 		rawTest.rmsAP.should.be.Number();
 		rawTest.rmsML.should.be.Number();
 	});
-	
+
 	it('Calcula Frequencia', function() {
 		rawTest.calcFREQ();
 		rawTest.avgFrq.should.be.Number();
 	});
-	
-	it('Calcula Velocidade média (VM)');
+
+	it('Calcula Velocidade média (VM)', function() {
+		rawTest.calcVel();
+		rawTest.VMap.should.be.Number();
+		rawTest.VMml.should.be.Number();
+	});
+
+// testes unitarios
 	it('Calcula Amplitude de deslocamento do CP');
+
 	it('Calcula Velocidade média total (VMT)');
 	it('Calcula Área');
 
