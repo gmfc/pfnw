@@ -26,8 +26,6 @@ function PlatData() {
 	this.CPx = [];
 	this.CPy = [];
 
-	//this.DOT = 0;
-
 }
 
 
@@ -45,25 +43,6 @@ PlatData.prototype.pushData = function(data) {
 	this.BL.push(arr[4]);
 };
 
-PlatData.prototype.getTR = function() {
-	return this.TR;
-};
-
-
-PlatData.prototype.getTL = function() {
-	return this.TL;
-};
-
-
-PlatData.prototype.getBR = function() {
-	return this.BR;
-};
-
-
-PlatData.prototype.getBL = function() {
-	return this.BL;
-};
-
 PlatData.prototype.calcFx = function() {
 	for (var i = 0; i < this.BR.length; i++) {
 		this.FxTRL[i] = this.TR[i] + this.TL[i];
@@ -72,6 +51,7 @@ PlatData.prototype.calcFx = function() {
 		this.FxTBL[i] = this.TL[i] + this.BL[i];
 	}
 };
+
 // COP = centro de pressao (x,y)
 PlatData.prototype.calcCOP = function() {
 	for (var i = 0; i < this.BR.length; i++) {
@@ -81,12 +61,13 @@ PlatData.prototype.calcCOP = function() {
 };
 
 PlatData.prototype.calcDOT = function() {
-		this.DOT = 0;
-		for (let i = 0; i < this.CPx.length; i++) {
-			this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
-		}
+	this.DOT = 0;
+	for (let i = 0; i < this.CPx.length; i++) {
+		this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
 	}
-	// AP = y ML = x
+}
+
+// AP = y ML = x
 PlatData.prototype.calcDEV = function() {
 	this.DevAP = standardDeviation(this.CPy);
 	this.DevML = standardDeviation(this.CPx);
@@ -110,7 +91,6 @@ PlatData.prototype.calcRMS = function() {
 	this.rmsML = Math.sqrt(sumML / this.CPx.length);
 }
 
-
 PlatData.prototype.calcFREQ = function() {
 	let sum = 0;
 	for (let i = 0; i < this.TI.length; i++) {
@@ -119,7 +99,7 @@ PlatData.prototype.calcFREQ = function() {
 	this.avgFrq = sum / this.TI.length;
 }
 
-PlatData.prototype.calcVel = function() {
+PlatData.prototype.calcVEL = function() {
 	this.calcFREQ();
 	// calc AP
 	let ApDeslocSum = 0;
@@ -136,13 +116,12 @@ PlatData.prototype.calcVel = function() {
 	this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
 }
 
-
-PlatData.prototype.calcAmpl = function() {
+PlatData.prototype.calcAMPL = function() {
 	this.ampAP = Math.max(this.CPy) - Math.min(this.CPy);
 	this.ampML = Math.max(this.CPx) - Math.min(this.CPx);
 }
 
-PlatData.prototype.calcVelTotal = function() {
+PlatData.prototype.calcVELTotal = function() {
 	let sum = 0;
 	// sum(sqrt(diff(CPap).^2+diff(CPml).^2))
 	for (let i = 1; i < this.CPx.length; i++) {
@@ -152,12 +131,43 @@ PlatData.prototype.calcVelTotal = function() {
 		)
 	}
 	// sum*freq/length(CPap)
-	this.VMT = sum*this.avgFrq/this.CPy.length;
+	this.VMT = sum * this.avgFrq / this.CPy.length;
+}
+
+PlatData.prototype.calcAREA = function() {
+	let medianAP = median(this.CPy);
+	let medianML = median(this.CPx);
+	
+	let deltaAPmin = Math.abs(medianAP - Math.min(this.CPy));
+	let deltaAPmax = Math.abs(Math.max(this.CPy) - medianAP);
+	
+	let deltaMLmin = Math.abs(medianML - Math.min(this.CPx));
+	let deltaMLmax = Math.abs(Math.max(this.CPx) - medianML);
+	
+	let deltaAP = (deltaAPmin + deltaAPmax)/2;
+	let deltaML = (deltaMLmin + deltaMLmax)/2;
+	
+	this.area = Math.PI*deltaAP*deltaML;
 }
 
 //////
 // HELPERS
 /////
+
+
+function median(values) {
+
+	values.sort(function(a, b) {
+		return a - b;
+	});
+
+	var half = Math.floor(values.length / 2);
+
+	if (values.length % 2)
+		return values[half];
+	else
+		return (values[half - 1] + values[half]) / 2.0;
+}
 
 function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t1 = a * (-fz1 + fz2 + fz3 - fz4);

@@ -58,7 +58,6 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		}
 	});
 
-
 	it('Calcula Deslocamento da oscilação total, DOT', function() {
 		rawTest.calcDOT();
 		rawTest.DOT.should.be.Number();
@@ -82,24 +81,26 @@ describe('Testes da classe Data com dados aleatorios', function() {
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
-		rawTest.calcVel();
+		rawTest.calcVEL();
 		rawTest.VMap.should.be.Number();
 		rawTest.VMml.should.be.Number();
 	});
 
-// testes unitarios
 	it('Calcula Amplitude de deslocamento do CP', function() {
-		rawTest.calcAmpl();
+		rawTest.calcAMPL();
 		rawTest.ampAP.should.be.Number();
 		rawTest.ampML.should.be.Number();
 	});
 
 	it('Calcula Velocidade média total (VMT)', function() {
-		rawTest.calcVelTotal();
+		rawTest.calcVELTotal();
 		rawTest.VMT.should.be.Number();
 	});
 	
-	it('Calcula Área');
+	it('Calcula Área', function() {
+		rawTest.calcAREA();
+		rawTest.area.should.be.Number();
+	});
 
 
 
