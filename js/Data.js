@@ -1,4 +1,5 @@
 'use strict'
+var sm = require('simple-statistics');
 /*
  *  Classe responsavel por administrar e receber os dados da plataforma
  * 
@@ -69,33 +70,22 @@ PlatData.prototype.calcDOT = function() {
 
 // AP = y ML = x
 PlatData.prototype.calcDEV = function() {
-	this.DevAP = standardDeviation(this.CPy);
-	this.DevML = standardDeviation(this.CPx);
+	this.DevAP = sm.standardDeviation(this.CPy);
+	this.DevML = sm.standardDeviation(this.CPx);
 }
 
 PlatData.prototype.calcRMS = function() {
-
-	// calc AP(y)
-	let sumAP = 0;
-	for (let i = 0; i < this.CPy.length; i++) {
-		sumAP = this.CPy[i] * this.CPy[i];
-	}
-
-	// calc ML(x)
-	let sumML = 0;
-	for (let i = 0; i < this.CPx.length; i++) {
-		sumML = this.CPx[i] * this.CPx[i];
-	}
-
-	this.rmsAP = Math.sqrt(sumAP / this.CPy.length);
-	this.rmsML = Math.sqrt(sumML / this.CPx.length);
+	this.rmsAP = sm.rootMeanSquare(this.CPy);
+	this.rmsML = sm.rootMeanSquare(this.CPx);
 }
 
 PlatData.prototype.calcFREQ = function() {
-	let sum = 0;
+	/*let sum = 0;
 	for (let i = 0; i < this.TI.length; i++) {
 		sum += this.TI[i];
-	}
+	}*/
+	//this.avgFrq = sum / this.TI.length;
+	
 	this.avgFrq = sum / this.TI.length;
 }
 
@@ -135,39 +125,25 @@ PlatData.prototype.calcVELTotal = function() {
 }
 
 PlatData.prototype.calcAREA = function() {
-	let medianAP = median(this.CPy);
-	let medianML = median(this.CPx);
-	
+	let medianAP = sm.median(this.CPy);
+	let medianML = sm.median(this.CPx);
+
 	let deltaAPmin = Math.abs(medianAP - Math.min(this.CPy));
 	let deltaAPmax = Math.abs(Math.max(this.CPy) - medianAP);
-	
+
 	let deltaMLmin = Math.abs(medianML - Math.min(this.CPx));
 	let deltaMLmax = Math.abs(Math.max(this.CPx) - medianML);
-	
-	let deltaAP = (deltaAPmin + deltaAPmax)/2;
-	let deltaML = (deltaMLmin + deltaMLmax)/2;
-	
-	this.area = Math.PI*deltaAP*deltaML;
+
+	let deltaAP = (deltaAPmin + deltaAPmax) / 2;
+	let deltaML = (deltaMLmin + deltaMLmax) / 2;
+
+	this.area = Math.PI * deltaAP * deltaML;
 }
 
 //////
 // HELPERS
 /////
 
-
-function median(values) {
-
-	values.sort(function(a, b) {
-		return a - b;
-	});
-
-	var half = Math.floor(values.length / 2);
-
-	if (values.length % 2)
-		return values[half];
-	else
-		return (values[half - 1] + values[half]) / 2.0;
-}
 
 function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t1 = a * (-fz1 + fz2 + fz3 - fz4);
@@ -183,21 +159,6 @@ function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	return (t1 + t2) / t3;
 }
 
-
-function standardDeviation(values) {
-	var avg = average(values);
-
-	var squareDiffs = values.map(function(value) {
-		var diff = value - avg;
-		var sqrDiff = diff * diff;
-		return sqrDiff;
-	});
-
-	var avgSquareDiff = average(squareDiffs);
-
-	var stdDev = Math.sqrt(avgSquareDiff);
-	return stdDev;
-}
 
 function average(data) {
 	var sum = data.reduce(function(sum, value) {

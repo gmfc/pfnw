@@ -96,7 +96,7 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		rawTest.calcVELTotal();
 		rawTest.VMT.should.be.Number();
 	});
-	
+
 	it('Calcula Área', function() {
 		rawTest.calcAREA();
 		rawTest.area.should.be.Number();

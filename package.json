@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
-    "browser-serialport": "^2.0.3"
+    "browser-serialport": "^2.0.3",
+    "simple-statistics": "^2.1.0"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
