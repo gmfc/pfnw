@@ -60,13 +60,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> serialLib = <span class="hljs-built_in">require</span>(<span class="hljs-string">"browser-serialport"</span>);
-<span class="hljs-keyword">var</span> SerialPort = serialLib.SerialPort;
-
-<span class="hljs-comment">/*
- * Praser delimitador de linhas
- * Serve de buffer para dados do Arduino
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readline</span>(<span class="hljs-params">delimiter, encoding</span>) </span>{</pre></div></div>
+<span class="hljs-keyword">var</span> SerialPort = serialLib.SerialPort;</pre></div></div>
             
         </li>
         
@@ -76,6 +70,22 @@
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Praser delimitador de linhas
+Serve de buffer para dados do Arduino</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readline</span>(<span class="hljs-params">delimiter, encoding</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>checa delimitador usado, padrao ‘\n’</p>
 
@@ -88,11 +98,11 @@
         </li>
         
         
-        <li id="section-3">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>checa codificacao usada, padrao utf8</p>
 
@@ -105,11 +115,11 @@
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Buffer delimitador salvo em escopo externo</p>
 
@@ -121,11 +131,11 @@
         </li>
         
         
-        <li id="section-5">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>Coleta dados</p>
 
@@ -136,11 +146,11 @@
         </li>
         
         
-        <li id="section-6">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>Split com delimitador le linha (delimiter)</p>
 
@@ -151,11 +161,11 @@
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>Recupera linha coletada</p>
 
@@ -166,11 +176,11 @@
         </li>
         
         
-        <li id="section-8">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Emite evento para cada linha coletada</p>
 
@@ -180,32 +190,62 @@
       emitter.emit(<span class="hljs-string">'data'</span>, part);
     });
   };
-}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Lista as portas conectadas</p>
 
-<span class="hljs-comment">/*
- * Lista as portas conectadas
- */</span>
-serialLib.list(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, ports</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>serialLib.list(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, ports</span>) </span>{
   ports.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">port</span>) </span>{
     <span class="hljs-built_in">console</span>.log(port.comName);
     <span class="hljs-built_in">console</span>.log(port.pnpId);
     <span class="hljs-built_in">console</span>.log(port.manufacturer);
   });
-});
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Porta conectada com a placa
+TODO: Enderecamento dinamico</p>
 
-<span class="hljs-comment">/*
- * Porta conectada com a placa
- * <span class="hljs-doctag">TODO:</span> Enderecamento dinamico
- */</span>
-<span class="hljs-keyword">var</span> port = <span class="hljs-keyword">new</span> SerialPort(<span class="hljs-string">"COM6"</span>, {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> port = <span class="hljs-keyword">new</span> SerialPort(<span class="hljs-string">"COM6"</span>, {
   baudrate: <span class="hljs-number">9600</span>,
   praser: readline(<span class="hljs-string">'\n'</span>)
-}, <span class="hljs-literal">true</span>);
+}, <span class="hljs-literal">true</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Exemplo de listener de eventos</p>
 
-<span class="hljs-comment">/*
- * Exemplo de listener de eventos
- */</span>
-port.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>port.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
   <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"data"</span>).innerHTML = data;
 });</pre></div></div>
             

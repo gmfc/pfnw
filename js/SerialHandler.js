@@ -2,10 +2,8 @@
 var serialLib = require("browser-serialport");
 var SerialPort = serialLib.SerialPort;
 
-/*
- * Praser delimitador de linhas
- * Serve de buffer para dados do Arduino
- */
+// Praser delimitador de linhas
+// Serve de buffer para dados do Arduino
 function readline(delimiter, encoding) {
   // checa delimitador usado, padrao '\n'
   if (typeof delimiter === 'undefined' || delimiter === null) {
@@ -31,9 +29,7 @@ function readline(delimiter, encoding) {
   };
 }
 
-/*
- * Lista as portas conectadas
- */
+// Lista as portas conectadas
 serialLib.list(function(err, ports) {
   ports.forEach(function(port) {
     console.log(port.comName);
@@ -42,18 +38,14 @@ serialLib.list(function(err, ports) {
   });
 });
 
-/*
- * Porta conectada com a placa
- * TODO: Enderecamento dinamico
- */
+// Porta conectada com a placa
+// TODO: Enderecamento dinamico
 var port = new SerialPort("COM6", {
   baudrate: 9600,
   praser: readline('\n')
 }, true);
 
-/*
- * Exemplo de listener de eventos
- */
+// Exemplo de listener de eventos
 port.on("data", function(data) {
   document.getElementById("data").innerHTML = data;
 });

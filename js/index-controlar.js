@@ -1,13 +1,8 @@
-/*
- * Interface grafica
- *
- */
+ // Interface grafica
 
 
-/*
- * Metodos de controle da GUI
- */
-//////////////////////////////////////////
+// # Metodos de controle da GUI
+
 function playbtn() {
   if ($('#tempo').val() >= 1) {
     $('#play').addClass('green').removeClass('disabled');
@@ -87,7 +82,6 @@ function reset() {
 
 function estatograph(temp) {
 
-  //----------------------------
 
   /*
           var data = [
