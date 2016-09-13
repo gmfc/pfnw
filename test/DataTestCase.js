@@ -3,33 +3,21 @@ var should = require('should');
 var PlatData = require('../js/Data.js');
 
 
-describe('Testes da classe Data com dados aleatorios', function() {
-	var strings = [];
-	var numbers = [];
-	var nDeLinhas = 20000;
+describe('Testes da classe Data com dados REAIS', function() {
+	var strings = require('./dataString.json');
+	var numbers = require('./data.json');
+	//var nDeLinhas = 20000;
 	this.timeout(20000);
 	var rawTest = new PlatData();
 
-	before('populando linhas...', function() {
-		for (var i = 0; i < nDeLinhas; i++) {
-			var TI = Math.floor(Math.random() * 8) + 5,
-				TR = Math.random() * 100,
-				TL = Math.random() * 100,
-				BR = Math.random() * 100,
-				BL = Math.random() * 100;
-			numbers[i] = [TI, TR, TL, BR, BL];
-			strings[i] = TI + ";" + TR + ";" + TL + ";" + BR + ";" + BL;
-		}
-	});
 
+	it('Phrase test ' + strings.length + ' linhas', function() {
 
-	it('Phrase test ' + nDeLinhas + ' linhas', function() {
-
-		for (let i = 0; i < nDeLinhas; i++) {
+		for (let i = 0; i < strings.length; i++) {
 			rawTest.pushData(strings[i]);
 		}
 
-		for (let i = 0; i < nDeLinhas; i++) {
+		for (let i = 0; i < numbers.length; i++) {
 			rawTest.TI[i].should.be.exactly(numbers[i][0]);
 			rawTest.TR[i].should.be.exactly(numbers[i][1]);
 			rawTest.TL[i].should.be.exactly(numbers[i][2]);
@@ -60,46 +48,46 @@ describe('Testes da classe Data com dados aleatorios', function() {
 
 	it('Calcula Deslocamento da oscilação total, DOT', function() {
 		rawTest.calcDOT();
-		rawTest.DOT.should.be.Number();
+		rawTest.DOT.should.be.equal(126.18380999831666);
 	});
 
 	it('Calcula Desvio padrão (AP e ML)', function() {
 		rawTest.calcDEV();
-		rawTest.DevAP.should.be.Number();
-		rawTest.DevML.should.be.Number();
+		rawTest.DevAP.should.be.equal(1.9922037290478767);
+		rawTest.DevML.should.be.equal(2.1934201029090516);
 	});
 
 	it('Calcula RMS (Root Mean Square) AP e ML', function() {
 		rawTest.calcRMS();
-		rawTest.rmsAP.should.be.Number();
-		rawTest.rmsML.should.be.Number();
+		rawTest.rmsAP.should.be.equal(2.421545965694047);
+		rawTest.rmsML.should.be.equal(2.50425636752085);
 	});
 
-	it('Calcula Frequencia', function() {
+	it('Calcula Frequencia (hz)', function() {
 		rawTest.calcFREQ();
-		rawTest.avgFrq.should.be.Number();
+		rawTest.avgFrq.should.be.equal(2);
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
 		rawTest.calcVEL();
-		rawTest.VMap.should.be.Number();
-		rawTest.VMml.should.be.Number();
+		rawTest.VMap.should.be.equal(4.925516889469856);
+		rawTest.VMml.should.be.equal(4.69599427181104);
 	});
 
 	it('Calcula Amplitude de deslocamento do CP', function() {
 		rawTest.calcAMPL();
-		rawTest.ampAP.should.be.Number();
-		rawTest.ampML.should.be.Number();
+		rawTest.ampAP.should.be.equal(8.79596010661087);
+		rawTest.ampML.should.be.equal(10.120240926864637);
 	});
 
 	it('Calcula Velocidade média total (VMT)', function() {
 		rawTest.calcVELTotal();
-		rawTest.VMT.should.be.Number();
+		rawTest.VMT.should.be.equal(7.429399583141942);
 	});
 
 	it('Calcula Área', function() {
 		rawTest.calcAREA();
-		rawTest.area.should.be.Number();
+		rawTest.area.should.be.equal(69.9139732425667);
 	});
 
 
