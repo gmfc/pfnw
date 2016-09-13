@@ -1,14 +1,15 @@
 'use strict'
+// biblioteca de estatistica
 var sm = require('simple-statistics');
 /*
  *  Classe responsavel por administrar e receber os dados da plataforma
- * 
+ *  Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
  */
 function PlatData() {
 
 	this.az0 = 0;
-	this.a = 24.76; //Medida centro -> lteral
-	this.b = 15.24; //Medida centro -> topo
+	this.a = 1;//24.76; //Medida centro -> lteral
+	this.b = 1;//15.24; //Medida centro -> topo
 
 	// timestamps
 	this.TI = [];
@@ -81,11 +82,11 @@ PlatData.prototype.calcRMS = function() {
 
 PlatData.prototype.calcFREQ = function() {
 	let deltas = [];
-	for(let i=1;i<this.TI.length;i++){
-		deltas.push(this.TI[i] - this.TI[i-1]);
+	for (let i = 1; i < this.TI.length; i++) {
+		deltas.push(this.TI[i] - this.TI[i - 1]);
 	}
-	this.avgFrq = 1000/sm.mean(deltas);
-	
+	this.avgFrq = 1000 / sm.mean(deltas);
+
 }
 
 PlatData.prototype.calcVEL = function() {
@@ -157,18 +158,6 @@ function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	var t2 = az0 * (fy14 + fy23);
 	return (t1 + t2) / t3;
 }
-
-
-function average(data) {
-	var sum = data.reduce(function(sum, value) {
-		return sum + value;
-	}, 0);
-
-	var avg = sum / data.length;
-	return avg;
-}
-
-
 
 // export the class
 module.exports = PlatData;

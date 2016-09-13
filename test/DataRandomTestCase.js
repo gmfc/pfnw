@@ -30,11 +30,11 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		}
 
 		for (let i = 0; i < nDeLinhas; i++) {
-			rawTest.TI[i].should.be.exactly(numbers[i][0]);
-			rawTest.TR[i].should.be.exactly(numbers[i][1]);
-			rawTest.TL[i].should.be.exactly(numbers[i][2]);
-			rawTest.BR[i].should.be.exactly(numbers[i][3]);
-			rawTest.BL[i].should.be.exactly(numbers[i][4]);
+			rawTest.TI[i].should.be.exactly(numbers[i][0]).and.not.be.NaN();
+			rawTest.TR[i].should.be.exactly(numbers[i][1]).and.not.be.NaN();
+			rawTest.TL[i].should.be.exactly(numbers[i][2]).and.not.be.NaN();
+			rawTest.BR[i].should.be.exactly(numbers[i][3]).and.not.be.NaN();
+			rawTest.BL[i].should.be.exactly(numbers[i][4]).and.not.be.NaN();
 
 		}
 
@@ -43,63 +43,63 @@ describe('Testes da classe Data com dados aleatorios', function() {
 	it('Calcula Fx12,Fx34,Fx14,Fx23', function() {
 		rawTest.calcFx();
 		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.FxTRL[i].should.be.Number();
-			rawTest.FxBLR[i].should.be.Number();
-			rawTest.FxTBR[i].should.be.Number();
-			rawTest.FxTBL[i].should.be.Number();
+			rawTest.FxTRL[i].should.be.Number().and.not.be.NaN();
+			rawTest.FxBLR[i].should.be.Number().and.not.be.NaN();
+			rawTest.FxTBR[i].should.be.Number().and.not.be.NaN();
+			rawTest.FxTBL[i].should.be.Number().and.not.be.NaN();
 		}
 	});
 
 	it('Calcula CPx e CPy', function() {
 		rawTest.calcCOP();
 		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.CPx[i].should.be.Number();
-			rawTest.CPy[i].should.be.Number();
+			rawTest.CPx[i].should.be.Number().and.not.be.NaN();
+			rawTest.CPy[i].should.be.Number().and.not.be.NaN();
 		}
 	});
 
 	it('Calcula Deslocamento da oscilação total, DOT', function() {
 		rawTest.calcDOT();
-		rawTest.DOT.should.be.Number();
+		rawTest.DOT.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Desvio padrão (AP e ML)', function() {
 		rawTest.calcDEV();
-		rawTest.DevAP.should.be.Number();
-		rawTest.DevML.should.be.Number();
+		rawTest.DevAP.should.be.Number().and.not.be.NaN().and.be.above(0);
+		rawTest.DevML.should.be.Number().and.not.be.NaN().and.be.above(0);
 	});
 
 	it('Calcula RMS (Root Mean Square) AP e ML', function() {
 		rawTest.calcRMS();
-		rawTest.rmsAP.should.be.Number();
-		rawTest.rmsML.should.be.Number();
+		rawTest.rmsAP.should.be.Number().and.not.be.NaN();
+		rawTest.rmsML.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Frequencia', function() {
 		rawTest.calcFREQ();
-		rawTest.avgFrq.should.be.Number();
+		rawTest.avgFrq.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
 		rawTest.calcVEL();
-		rawTest.VMap.should.be.Number();
-		rawTest.VMml.should.be.Number();
+		rawTest.VMap.should.be.Number().and.not.be.NaN();
+		rawTest.VMml.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Amplitude de deslocamento do CP', function() {
 		rawTest.calcAMPL();
-		rawTest.ampAP.should.be.Number();
-		rawTest.ampML.should.be.Number();
+		rawTest.ampAP.should.be.Number().and.not.be.NaN();
+		rawTest.ampML.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Velocidade média total (VMT)', function() {
 		rawTest.calcVELTotal();
-		rawTest.VMT.should.be.Number();
+		rawTest.VMT.should.be.Number().and.not.be.NaN();
 	});
 
 	it('Calcula Área', function() {
 		rawTest.calcAREA();
-		rawTest.area.should.be.Number();
+		rawTest.area.should.be.Number().and.not.be.NaN();
 	});
 
 
