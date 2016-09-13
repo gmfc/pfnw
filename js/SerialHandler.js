@@ -1,24 +1,30 @@
+// biblioteca de acesso serial
 var serialLib = require("browser-serialport");
 var SerialPort = serialLib.SerialPort;
 
 /*
  * Praser delimitador de linhas
+ * Serve de buffer para dados do Arduino
  */
 function readline(delimiter, encoding) {
+  // checa delimitador usado, padrao '\n'
   if (typeof delimiter === 'undefined' || delimiter === null) {
-    delimiter = '\r'
+    delimiter = '\n'
   }
+  // checa codificacao usada, padrao utf8
   if (typeof encoding === 'undefined' || encoding === null) {
     encoding = 'utf8'
   }
-  // Delimiter buffer saved in closure
+  // Buffer delimitador salvo em escopo externo
   var data = '';
   return function(emitter, buffer) {
-    // Collect data
+    // Coleta dados
     data += buffer.toString(encoding);
-    // Split collected data by delimiter
+    // Split com delimitador le linha (delimiter)
     var parts = data.split(delimiter);
+    // Recupera linha coletada
     data = parts.pop();
+    // Emite evento para cada linha coletada
     parts.forEach(function(part) {
       emitter.emit('data', part);
     });
