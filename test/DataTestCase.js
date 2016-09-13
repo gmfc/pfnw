@@ -63,32 +63,31 @@ describe('Testes da classe Data com dados REAIS', function() {
 		rawTest.rmsML.should.be.equal(2.50425636752085);
 	});
 
-	it('Calcula Frequencia', function() {
+	it('Calcula Frequencia (hz)', function() {
 		rawTest.calcFREQ();
-		rawTest.avgFrq.should.be.Number();
-    console.log(rawTest.avgFrq);
+		rawTest.avgFrq.should.be.equal(2);
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
 		rawTest.calcVEL();
-		rawTest.VMap.should.be.Number();
-		rawTest.VMml.should.be.Number();
+		rawTest.VMap.should.be.equal(4.925516889469856);
+		rawTest.VMml.should.be.equal(4.69599427181104);
 	});
 
 	it('Calcula Amplitude de deslocamento do CP', function() {
 		rawTest.calcAMPL();
-		rawTest.ampAP.should.be.Number();
-		rawTest.ampML.should.be.Number();
+		rawTest.ampAP.should.be.equal(8.79596010661087);
+		rawTest.ampML.should.be.equal(10.120240926864637);
 	});
 
 	it('Calcula Velocidade média total (VMT)', function() {
 		rawTest.calcVELTotal();
-		rawTest.VMT.should.be.Number();
+		rawTest.VMT.should.be.equal(7.429399583141942);
 	});
 
 	it('Calcula Área', function() {
 		rawTest.calcAREA();
-		rawTest.area.should.be.Number();
+		rawTest.area.should.be.equal(69.9139732425667);
 	});
 
 

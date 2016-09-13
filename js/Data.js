@@ -80,13 +80,12 @@ PlatData.prototype.calcRMS = function() {
 }
 
 PlatData.prototype.calcFREQ = function() {
-	/*let sum = 0;
-	for (let i = 0; i < this.TI.length; i++) {
-		sum += this.TI[i];
-	}*/
-	//this.avgFrq = sum / this.TI.length;
+	let deltas = [];
+	for(let i=1;i<this.TI.length;i++){
+		deltas.push(this.TI[i] - this.TI[i-1]);
+	}
+	this.avgFrq = 1000/sm.mean(deltas);
 	
-	this.avgFrq = sum / this.TI.length;
 }
 
 PlatData.prototype.calcVEL = function() {
@@ -99,7 +98,7 @@ PlatData.prototype.calcVEL = function() {
 	// calc ML
 	let MlDeslocSum = 0;
 	for (let i = 1; i < this.CPx.length; i++) {
-		ApDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
+		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
 	}
 
 	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
@@ -107,8 +106,8 @@ PlatData.prototype.calcVEL = function() {
 }
 
 PlatData.prototype.calcAMPL = function() {
-	this.ampAP = Math.max(this.CPy) - Math.min(this.CPy);
-	this.ampML = Math.max(this.CPx) - Math.min(this.CPx);
+	this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
+	this.ampML = sm.max(this.CPx) - sm.min(this.CPx);
 }
 
 PlatData.prototype.calcVELTotal = function() {
@@ -128,11 +127,11 @@ PlatData.prototype.calcAREA = function() {
 	let medianAP = sm.median(this.CPy);
 	let medianML = sm.median(this.CPx);
 
-	let deltaAPmin = Math.abs(medianAP - Math.min(this.CPy));
-	let deltaAPmax = Math.abs(Math.max(this.CPy) - medianAP);
+	let deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
+	let deltaAPmax = Math.abs(sm.max(this.CPy) - medianAP);
 
-	let deltaMLmin = Math.abs(medianML - Math.min(this.CPx));
-	let deltaMLmax = Math.abs(Math.max(this.CPx) - medianML);
+	let deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
+	let deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
 
 	let deltaAP = (deltaAPmin + deltaAPmax) / 2;
 	let deltaML = (deltaMLmin + deltaMLmax) / 2;
