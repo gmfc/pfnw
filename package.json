@@ -6,7 +6,8 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
     "watch": "./node_modules/.bin/mocha --reporter spec --watch",
-    "start": "nw ."
+    "start": "nw .",
+    "docs" : "docco js/*.js"
   },
   "repository": {
     "type": "git",
