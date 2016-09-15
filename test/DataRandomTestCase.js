@@ -5,7 +5,7 @@ var PlatData = require('../js/Data.js');
 describe('Testes da classe Data com dados aleatorios', function () {
     var strings = [];
     var numbers = [];
-    var nDeLinhas = 20000;
+    var nDeLinhas = 2000;
     this.timeout(20000);
     var rawTest = new PlatData();
 
