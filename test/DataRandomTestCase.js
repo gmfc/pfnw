@@ -99,7 +99,5 @@ describe('Testes da classe Data com dados aleatorios', function () {
         rawTest.area.should.be.Number().and.not.be.NaN();
     });
 
-
-
-
+    
 });
