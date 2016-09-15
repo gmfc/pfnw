@@ -2,11 +2,25 @@
 var sm = require('simple-statistics');
 //  Classe responsavel por administrar e receber os dados da plataforma
 //  Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
-function PlatData() {
-
-    this.az0 = 0;
+function PlatData(a, b, az0) {
+    // Deslocamento vertical da plataforma
+    if (az0) {
+        this.az0 = az0;
+    } else {
+        this.az0 = 0;
+    }
     //Medida centro -> lteral
-    this.a = 1;
+    if (a) {
+        this.a = a;
+    } else {
+        this.a = 1;
+    }
+    //Medida centro -> topo
+    if (b) {
+        this.b = b;
+    } else {
+        this.b = 1;
+    }
     //Medida centro -> topo
     this.b = 1;
 
@@ -65,7 +79,8 @@ PlatData.prototype.calcCOP = function () {
 };
 
 
-
+// Calcula o COP para dada String recebida
+// Usado para exibir o COP em tempo real
 PlatData.prototype.RTCOP = function (data) {
     var arr = data.split(";").map(function (val) {
         return Number(val);
