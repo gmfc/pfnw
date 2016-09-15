@@ -1,4 +1,3 @@
-'use strict'
 // biblioteca de estatistica
 var sm = require('simple-statistics');
 //  Classe responsavel por administrar e receber os dados da plataforma
@@ -76,7 +75,7 @@ PlatData.prototype.calcCOP = function() {
 // DEPENDE DE calcCOP
 PlatData.prototype.calcDOT = function() {
 	this.DOT = 0;
-	for (let i = 0; i < this.CPx.length; i++) {
+	for (var i = 0; i < this.CPx.length; i++) {
 		this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
 	}
 }
@@ -98,8 +97,8 @@ PlatData.prototype.calcRMS = function() {
 // Calcula a frequencia da medicao
 // PRECISA DOS DADOS EM TI[]
 PlatData.prototype.calcFREQ = function() {
-	let deltas = [];
-	for (let i = 1; i < this.TI.length; i++) {
+	var deltas = [];
+	for (var i = 1; i < this.TI.length; i++) {
 		deltas.push(this.TI[i] - this.TI[i - 1]);
 	}
 	this.avgFrq = 1000 / sm.mean(deltas);
@@ -109,12 +108,12 @@ PlatData.prototype.calcFREQ = function() {
 // chama calcFREQ previamente
 PlatData.prototype.calcVEL = function() {
 	this.calcFREQ();
-	let ApDeslocSum = 0;
-	for (let i = 1; i < this.CPy.length; i++) {
+	var ApDeslocSum = 0;
+	for (var i = 1; i < this.CPy.length; i++) {
 		ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1])
 	}
-	let MlDeslocSum = 0;
-	for (let i = 1; i < this.CPx.length; i++) {
+	var MlDeslocSum = 0;
+	for (var i = 1; i < this.CPx.length; i++) {
 		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
 	}
 	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
@@ -133,8 +132,8 @@ PlatData.prototype.calcAMPL = function() {
 // chama calcFREQ previamente
 PlatData.prototype.calcVELTotal = function() {
 	this.calcFREQ();
-	let sum = 0;
-	for (let i = 1; i < this.CPx.length; i++) {
+	var sum = 0;
+	for (var i = 1; i < this.CPx.length; i++) {
 		sum += Math.sqrt(
 			Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
 			Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
@@ -149,14 +148,14 @@ PlatData.prototype.calcVELTotal = function() {
 // 
 // Pode ser alterado para tracar um poligono com as coordenadas perifiricas
 PlatData.prototype.calcAREA = function() {
-	let medianAP = sm.median(this.CPy);
-	let medianML = sm.median(this.CPx);
-	let deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
-	let deltaAPmax = Math.abs(sm.max(this.CPy) - medianAP);
-	let deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
-	let deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
-	let deltaAP = (deltaAPmin + deltaAPmax) / 2;
-	let deltaML = (deltaMLmin + deltaMLmax) / 2;
+	var medianAP = sm.median(this.CPy);
+	var medianML = sm.median(this.CPx);
+	var deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
+	var deltaAPmax = Math.abs(sm.max(this.CPy) - medianAP);
+	var deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
+	var deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
+	var deltaAP = (deltaAPmin + deltaAPmax) / 2;
+	var deltaML = (deltaMLmin + deltaMLmax) / 2;
 	this.area = Math.PI * deltaAP * deltaML;
 }
 

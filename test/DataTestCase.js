@@ -1,11 +1,10 @@
-'use strict'
 var should = require('should');
 var PlatData = require('../js/Data.js');
 
 
 describe('Testes da classe Data com dados REAIS', function() {
-	var strings = require('./dataString.json');
-	var numbers = require('./data.json');
+	var strings = require('./testData/dataString.json');
+	var numbers = require('./testData/data.json');
 	//var nDeLinhas = 20000;
 	this.timeout(20000);
 	var rawTest = new PlatData();
@@ -20,11 +19,11 @@ describe('Testes da classe Data com dados REAIS', function() {
 
 	it('Phrase test ' + strings.length + ' linhas', function() {
 
-		for (let i = 0; i < strings.length; i++) {
+		for (var i = 0; i < strings.length; i++) {
 			rawTest.pushData(strings[i]);
 		}
 
-		for (let i = 0; i < numbers.length; i++) {
+		for (var i = 0; i < numbers.length; i++) {
 			rawTest.TI[i].should.be.exactly(numbers[i][0]);
 			rawTest.TR[i].should.be.exactly(numbers[i][1]);
 			rawTest.TL[i].should.be.exactly(numbers[i][2]);

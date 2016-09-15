@@ -1,4 +1,3 @@
-'use strict'
 var should = require('should');
 var PlatData = require('../js/Data.js');
 
@@ -25,11 +24,11 @@ describe('Testes da classe Data com dados aleatorios', function() {
 
 	it('Phrase test ' + nDeLinhas + ' linhas', function() {
 
-		for (let i = 0; i < nDeLinhas; i++) {
+		for (var i = 0; i < nDeLinhas; i++) {
 			rawTest.pushData(strings[i]);
 		}
 
-		for (let i = 0; i < nDeLinhas; i++) {
+		for (var i = 0; i < nDeLinhas; i++) {
 			rawTest.TI[i].should.be.exactly(numbers[i][0]).and.not.be.NaN();
 			rawTest.TR[i].should.be.exactly(numbers[i][1]).and.not.be.NaN();
 			rawTest.TL[i].should.be.exactly(numbers[i][2]).and.not.be.NaN();
