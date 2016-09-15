@@ -5,7 +5,7 @@ var PlatData = require('../js/Data.js');
 describe('Testes da classe Data com dados aleatorios', function() {
 	var strings = [];
 	var numbers = [];
-	var nDeLinhas = 20000;
+	var nDeLinhas = 2000;
 	this.timeout(20000);
 	var rawTest = new PlatData();
 
@@ -22,7 +22,7 @@ describe('Testes da classe Data com dados aleatorios', function() {
 	});
 
 
-	it('Phrase test ' + nDeLinhas + ' linhas', function() {
+	it('Parse test ' + nDeLinhas + ' linhas', function() {
 
 		for (var i = 0; i < nDeLinhas; i++) {
 			rawTest.pushData(strings[i]);
@@ -37,16 +37,6 @@ describe('Testes da classe Data com dados aleatorios', function() {
 
 		}
 
-	});
-
-	it('Calcula Fx12,Fx34,Fx14,Fx23', function() {
-		rawTest.calcFx();
-		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.FxTRL[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxBLR[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxTBR[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxTBL[i].should.be.Number().and.not.be.NaN();
-		}
 	});
 
 	it('Calcula CPx e CPy', function() {

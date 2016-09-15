@@ -17,7 +17,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 	});
 
 
-	it('Phrase test ' + strings.length + ' linhas', function() {
+	it('Parse test ' + strings.length + ' linhas', function() {
 
 		for (var i = 0; i < strings.length; i++) {
 			rawTest.pushData(strings[i]);
@@ -32,23 +32,22 @@ describe('Testes da classe Data com dados REAIS', function() {
 		}
 
 	});
-
-	it('Calcula Fx12,Fx34,Fx14,Fx23', function() {
-		rawTest.calcFx();
-		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.FxTRL[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxBLR[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxTBR[i].should.be.Number().and.not.be.NaN();
-			rawTest.FxTBL[i].should.be.Number().and.not.be.NaN();
-		}
-	});
-
+    
+    
 	it('Calcula CPx e CPy', function() {
 		rawTest.calcCOP();
 		for (var i = 0; i < rawTest.TR.length; i++) {
 			rawTest.CPx[i].should.be.Number().and.not.be.NaN();
 			rawTest.CPy[i].should.be.Number().and.not.be.NaN();
 		}
+	});
+    
+    it('Calcula CPx e CPy em tempo real', function() {
+		
+		
+			rawTest.RTCOP("0;26.06017187;29.53458686;29.34599382;25.38331361").x.should.be.Number().and.not.be.NaN();
+			rawTest.RTCOP("0;26.06017187;29.53458686;29.34599382;25.38331361").y.should.be.Number().and.not.be.NaN();
+		
 	});
 
 	it('Calcula Deslocamento da oscilação total, DOT', function() {
