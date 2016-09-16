@@ -4,8 +4,8 @@
   "description": "plataforma de força.",
   "main": "index.html",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
-    "watch": "./node_modules/.bin/mocha --reporter spec --watch",
+    "test": "./node_modules/.bin/mocha --reporter spec -s 0",
+    "watch": "./node_modules/.bin/mocha --reporter nyan --watch",
     "start": "nw .",
     "docs" : "docco js/*.js"
   },
