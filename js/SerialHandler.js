@@ -58,7 +58,7 @@ function reset() {
 function connect(name) {
     port = new SerialPort(name, {
         baudrate: 9600,
-        praser: readline('\r')
+        praser: readline('\n')
     }, true, function () {
         console.log("Conectado");
         console.log(port);
