@@ -43,7 +43,7 @@ function reset() {
         ports.forEach(function (port) {
             if (port.manufacturer.indexOf("Arduino") !== -1) {
                 if (!find) {
-                    console.log("achei");
+                    document.getElementById("status").innerHTML = port.comName;
                     connect(port.comName);
                 }
                 find = true;
@@ -70,5 +70,11 @@ function register() {
     console.log("registrando")
     port.on("data", function (data) {
         document.getElementById("data").innerHTML = data;
+    });
+    port.on("close", function (data) {
+        document.getElementById("status").innerHTML = "Desconectada";
+    });
+    port.on("err", function (data) {
+        document.getElementById("status").innerHTML = "ERR";
     });
 }

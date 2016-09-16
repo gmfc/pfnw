@@ -95,7 +95,14 @@
     </div>
 
     <div class="ui main container">
-        <h3>Console debug <button class="btn" onclick="reset()">reset</button></h3>
+        <h3>Console debug
+        <div class="ui labeled button" tabindex="0" onclick="reset()">
+            <div class="ui green button">
+                <i class="connectdevelop icon"></i> Connect
+            </div>
+            <a class="ui basic green left pointing label" id="status"> none </a>
+        </div>
+        </h3>
         <hr>
         <p id="data"></p>
 
