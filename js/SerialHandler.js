@@ -1,6 +1,7 @@
 // biblioteca de acesso serial
 var serialLib = require("browser-serialport");
 var SerialPort = serialLib.SerialPort;
+var port;
 
 // Praser delimitador de linhas
 // Serve de buffer para dados do Arduino
@@ -29,35 +30,45 @@ function readline(delimiter, encoding) {
     };
 }
 
-// Lista as portas conectadas
-serialLib.list(function (err, ports) {
-    ports.forEach(function (port) {
-        console.log(port.comName);
-        console.log(port.pnpId);
-        console.log(port.manufacturer);
-    });
-});
 
-// Porta conectada com a placa
-// TODO: Enderecamento dinamico
-var port;// = new SerialPort("COM6", {
- //   baudrate: 9600,
- //   praser: readline('\n')
-//}, true);
 
-// Exemplo de listener de eventos
-//port.on("data", function (data) {
- //   document.getElementById("data").innerHTML += data;
-//});
+
 
 function reset() {
     document.getElementById("data").innerHTML = "";
-    port = new SerialPort("COM6", {
+    // Lista as portas conectadas
+    var find = false;
+    serialLib.list(function (err, ports) {
+
+        ports.forEach(function (port) {
+            if (port.manufacturer.indexOf("Arduino") !== -1) {
+                if (!find) {
+                    console.log("achei");
+                    connect(port.comName);
+                }
+                find = true;
+            }
+            //            console.log(port.comName);
+            //            console.log(port.pnpId);
+            //            console.log(port.manufacturer);
+        });
+    });
+}
+
+function connect(name) {
+    port = new SerialPort(name, {
         baudrate: 9600,
         praser: readline('\n')
-    }, true);
-    port.on("data", function (data) {
-    document.getElementById("data").innerHTML += data;
-});
+    }, true, function () {
+        console.log("Conectado");
+        console.log(port);
+        register();
+    });
+}
 
+function register() {
+    console.log("registrando")
+    port.on("data", function (data) {
+        document.getElementById("data").innerHTML = data;
+    });
 }
