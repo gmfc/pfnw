@@ -25,7 +25,7 @@ function readline(delimiter, encoding) {
         data = parts.pop();
         // Emite evento para cada linha coletada
         parts.forEach(function (part) {
-            emitter.emit('data', part);
+            emitter.emit("data", part);
         });
     };
 }
@@ -58,7 +58,7 @@ function reset() {
 function connect(name) {
     port = new SerialPort(name, {
         baudrate: 9600,
-        praser: readline('\n')
+        praser: readline("\n")
     }, true, function () {
         console.log("Conectado");
         console.log(port);
