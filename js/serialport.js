@@ -46,7 +46,11 @@ function convertOptions(options){
 }
 
 function SerialPort(path, options, openImmediately, callback) {
-
+  
+  // VER ISSO AQUI!
+  if(options.praser){
+    this.options.dataCallback = options.parser.bind(this, this);
+  }
   EE.call(this);
 
   var self = this;
