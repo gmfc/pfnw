@@ -1,7 +1,9 @@
 // biblioteca de acesso serial
 var serialLib = require("browser-serialport");
+var data = require("./Data.js");
 var SerialPort = serialLib.SerialPort;
 var port;
+var calc = new data(20,20,0);
 var acc = '';
 
 
@@ -45,7 +47,9 @@ function coleta(dados) {
     acc = linhas.pop();
     
     linhas.forEach(function (part) {
-        document.getElementById("data").innerHTML = part + "<br>";
+        //document.getElementById("data").innerHTML = part + "<br>";
+        // browserify ./js/SerialHandler.js -o bundle.js
+        document.getElementById("data").innerHTML = "X: " + calc.RTCOP(part).x + " <br>" + "Y: " + calc.RTCOP(part).y;
     });
 
 }
@@ -64,3 +68,7 @@ function register() {
         document.getElementById("status").innerHTML = "ERR";
     });
 }
+
+var button = document.getElementById('bt');
+button.addEventListener('click', reset);
+

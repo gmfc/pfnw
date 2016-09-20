@@ -2,25 +2,11 @@
 var sm = require('simple-statistics');
 //  Classe responsavel por administrar e receber os dados da plataforma
 //  Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
-function PlatData(a, b, az0) {
+function PlatData(pa, pb, paz0) {
     // Deslocamento vertical da plataforma
-    if (az0) {
-        this.az0 = az0;
-    } else {
-        this.az0 = 0;
-    }
-    //Medida centro -> lteral
-    if (a) {
-        this.a = a;
-    } else {
-        this.a = 1;
-    }
-    //Medida centro -> topo
-    if (b) {
-        this.b = b;
-    } else {
-        this.b = 1;
-    }
+    this.a = pa;
+    this.b = pb;
+    this.az0 = paz0;
     //Medida centro -> topo
     this.b = 1;
 
@@ -72,9 +58,9 @@ PlatData.prototype.calcCOP = function () {
         var FxBLR = this.BL[i] + this.BR[i];
         var FxTBR = this.TR[i] + this.BR[i];
         var FxTBL = this.TL[i] + this.BL[i];
-
-        this.CPx[i] = fax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i], this.az0, FxTRL, FxBLR);
-        this.CPy[i] = fay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i], this.az0, FxTBR, FxTBL);
+        
+        this.CPx[i] = Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
+        this.CPy[i] = Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
     }
 };
 
@@ -94,9 +80,11 @@ PlatData.prototype.RTCOP = function (data) {
     var FxBLR = BL + BR;
     var FxTBR = TR + BR;
     var FxTBL = TL + BL;
+    
     var result = {};
-    result.x = fax(this.a, TR, TL, BL, BR, this.az0, FxTRL, FxBLR);
-    result.y = fay(this.b, TR, TL, BL, BR, this.az0, FxTBR, FxTBL);
+    
+    result.x = Efax(this.a, TR, TL, BL, BR);
+    result.y = Efay(this.b, TR, TL, BL, BR);
     return result;
 }
 
@@ -206,6 +194,23 @@ function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
     var t3 = fz1 + fz2 + fz3 + fz4;
     var t2 = az0 * (fy14 + fy23);
     return (t1 + t2) / t3;
+}
+
+// experimentais
+// Funcao usada no calculo do COP
+// Calcula forca horizontal em X da placa
+//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+function Efax(a, fz1, fz2, fz3, fz4) {
+    var X = a * (fz1 - fz2 - fz3 + fz4)/(fz1+fz2+fz3+fz4);
+    return X;
+}
+
+// Funcao usada no calculo do COP
+// Calcula forca horizontal em Y da placa
+//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+function Efay(b, fz1, fz2, fz3, fz4) {
+    var Y = b * (fz1 + fz2 - fz3 - fz4)/(fz1+fz2+fz3+fz4);
+    return Y;
 }
 
 // Exporta a classe
