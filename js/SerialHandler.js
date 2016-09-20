@@ -66,10 +66,29 @@ function connect(name) {
     });
 }
 
+var acc = '';
+
+function coleta(dados) {
+
+    acc += dados.toString('utf8');
+
+    var linhas = acc.split('#');
+
+    acc = linhas.pop();
+    
+    linhas.forEach(function (part) {
+        //console.log(part);
+        document.getElementById("data").innerHTML = part + "<br>";
+    });
+
+}
+
+
 function register() {
     console.log("registrando")
     port.on("data", function (data) {
-        document.getElementById("data").innerHTML += data + "<br>";
+        coleta(data);
+        //document.getElementById("data").innerHTML = data + "<br>";
     });
     port.on("close", function (data) {
         document.getElementById("status").innerHTML = "Desconectada";
