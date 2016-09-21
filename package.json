@@ -8,7 +8,7 @@
     "watch": "./node_modules/.bin/mocha --reporter nyan --watch",
     "start": "nw .",
     "docs": "gulp docs",
-    "compile": "gulp build"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
