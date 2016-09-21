@@ -1,5 +1,5 @@
 var should = require('should');
-var PlatData = require('../js/Data.js');
+var PlatData = require('../src/Data.js');
 
 
 describe('Testes da classe Data com dados aleatorios', function () {
