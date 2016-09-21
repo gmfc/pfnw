@@ -1,5 +1,5 @@
 // biblioteca de estatistica
-var sm = require('simple-statistics');
+var sm = require("simple-statistics");
 //  Classe responsavel por administrar e receber os dados da plataforma
 //  Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
 function PlatData(pa, pb) {
@@ -27,7 +27,7 @@ function PlatData(pa, pb) {
 }
 
 // Adiciona dados recebidos como String e adiciona a Arrays
-// Split em ';'
+// Split em ";"
 // Inicializa TI, TR, TL, BR e BL
 PlatData.prototype.pushData = function (data) {
     var arr = data.split(";").map(function (val) {
@@ -40,6 +40,21 @@ PlatData.prototype.pushData = function (data) {
     this.BL.push(arr[4]);
 };
 
+// Funcao usada no calculo do COP
+// Calcula forca horizontal em X da placa
+//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+function Efax(a, fz1, fz2, fz3, fz4) {
+    var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
+    return X;
+}
+
+// Funcao usada no calculo do COP
+// Calcula forca horizontal em Y da placa
+//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+function Efay(b, fz1, fz2, fz3, fz4) {
+    var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
+    return Y;
+}
 
 // Calcula Centro de pressao (COP) para cada entrada
 // Inicializa CPx e CPy. chama calcFx previamente
@@ -67,7 +82,7 @@ PlatData.prototype.RTCOP = function (data) {
     result.x = Efax(this.a, TR, TL, BL, BR);
     result.y = Efay(this.b, TR, TL, BL, BR);
     return result;
-}
+};
 
 // Calcula o deslocamento da oscilacao total
 // DEPENDE DE calcCOP
@@ -76,21 +91,21 @@ PlatData.prototype.calcDOT = function () {
     for (var i = 0; i < this.CPx.length; i++) {
         this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
     }
-}
+};
 
 // Calcula desvio padrao
 // DEPENDE DE calcCOP
 PlatData.prototype.calcDEV = function () {
     this.DevAP = sm.standardDeviation(this.CPy);
     this.DevML = sm.standardDeviation(this.CPx);
-}
+};
 
 // Calcula a raiz do valor quadratico medio
 // DEPENDE DE calcCOP
 PlatData.prototype.calcRMS = function () {
     this.rmsAP = sm.rootMeanSquare(this.CPy);
     this.rmsML = sm.rootMeanSquare(this.CPx);
-}
+};
 
 // Calcula a frequencia da medicao
 // PRECISA DOS DADOS EM TI[]
@@ -100,7 +115,7 @@ PlatData.prototype.calcFREQ = function () {
         deltas.push(this.TI[i] - this.TI[i - 1]);
     }
     this.avgFrq = 1000 / sm.mean(deltas);
-}
+};
 
 // Calcula a velocidade media de deslocacao em AP e ML
 // chama calcFREQ previamente
@@ -116,14 +131,14 @@ PlatData.prototype.calcVEL = function () {
     }
     this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
     this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
-}
+};
 
 // Calcula a amplitude de deslocamento em AP e ML
 // DEPENDE DE calcCOP
 PlatData.prototype.calcAMPL = function () {
     this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
     this.ampML = sm.max(this.CPx) - sm.min(this.CPx);
-}
+};
 
 // Calcula a velocidade de deslocamento
 // media total do COP
@@ -138,7 +153,7 @@ PlatData.prototype.calcVELTotal = function () {
         )
     }
     this.VMT = sum * this.avgFrq / this.CPy.length;
-}
+};
 
 // Calcula a area preenchida pelo deslocamento do COP
 // Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
@@ -155,25 +170,7 @@ PlatData.prototype.calcAREA = function () {
     var deltaAP = (deltaAPmin + deltaAPmax) / 2;
     var deltaML = (deltaMLmin + deltaMLmax) / 2;
     this.area = Math.PI * deltaAP * deltaML;
-}
-
-// # HELPERS
-
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em X da placa
-//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
-function Efax(a, fz1, fz2, fz3, fz4) {
-    var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
-    return X;
-}
-
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em Y da placa
-//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
-function Efay(b, fz1, fz2, fz3, fz4) {
-    var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
-    return Y;
-}
+};
 
 // ## funcoes antigas nao mais usadas
 
@@ -184,7 +181,7 @@ function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
     var t3 = fz1 + fz2 + fz3 + fz4;
     var t2 = az0 * (fx12 + fx34);
     return (-t1 - t2) / t3;
-}
+};
 
 // Funcao usada no calculo do COP
 // Calcula forca horizontal em Y da placa
@@ -193,7 +190,7 @@ function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
     var t3 = fz1 + fz2 + fz3 + fz4;
     var t2 = az0 * (fy14 + fy23);
     return (t1 + t2) / t3;
-}
+};
 
 // Exporta a classe
 module.exports = PlatData;
