@@ -2,13 +2,13 @@
   "name": "pfnwj5",
   "version": "0.0.1",
   "description": "plataforma de força.",
-  "main": "index.html",
+  "main": "./ui/index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec -s 0",
     "watch": "./node_modules/.bin/mocha --reporter nyan --watch",
     "start": "nw .",
-    "docs" : "docco js/*.js",
-    "compile" : "browserify ./js/SerialHandler.js -o bundle.js"
+    "docs": "docco js/*.js",
+    "compile": "browserify ./js/SerialHandler.js -o bundle.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,12 @@
     "simple-statistics": "^2.1.0"
   },
   "devDependencies": {
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^2.0.0",
     "mocha": "^2.4.5",
-    "should": "^10.0.0"
+    "should": "^10.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
