@@ -9,8 +9,8 @@ var acc = '';
 
 var targetX = 0,
     targetY = 0,
-    x = 10,
-    y = 10,
+    x = 150,
+    y = 150,
     velX = 0,
     velY = 0,
     speed = 5;
@@ -89,7 +89,12 @@ function update(){
         y += velY
             
         
-        //ctx.globalAlpha=0.2;
+        // fade effect
+		ctx.globalAlpha=0.5;
+		ctx.fillStyle='#f4f4f4';
+		ctx.fillRect(0,0,500, 500);
+		ctx.globalAlpha=1;
+        ctx.fillStyle='#000000';
         //ctx.clearRect(0,0,500,500);
         ctx.beginPath();
         ctx.arc(x,y,5,0,Math.PI*2);
