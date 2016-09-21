@@ -31,7 +31,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> sm = <span class="hljs-built_in">require</span>(<span class="hljs-string">'simple-statistics'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> sm = <span class="hljs-built_in">require</span>(<span class="hljs-string">"simple-statistics"</span>);</pre></div></div>
             
         </li>
         
@@ -182,7 +182,7 @@ top right</p>
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>Adiciona dados recebidos como String e adiciona a Arrays
-Split em ‘;’
+Split em “;”
 Inicializa TI, TR, TL, BR e BL</p>
 
             </div>
@@ -207,6 +207,46 @@ Inicializa TI, TR, TL, BR e BL</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
+              <p>Funcao usada no calculo do COP
+Calcula forca horizontal em X da placa
+fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Efax</span>(<span class="hljs-params">a, fz1, fz2, fz3, fz4</span>) </span>{
+    <span class="hljs-keyword">var</span> X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
+    <span class="hljs-keyword">return</span> X;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Funcao usada no calculo do COP
+Calcula forca horizontal em Y da placa
+fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Efay</span>(<span class="hljs-params">b, fz1, fz2, fz3, fz4</span>) </span>{
+    <span class="hljs-keyword">var</span> Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
+    <span class="hljs-keyword">return</span> Y;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
               <p>Calcula Centro de pressao (COP) para cada entrada
 Inicializa CPx e CPy. chama calcFx previamente</p>
 
@@ -222,11 +262,11 @@ Inicializa CPx e CPy. chama calcFx previamente</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Calcula o COP para dada String recebida
 Usado para exibir o COP em tempo real</p>
@@ -247,16 +287,16 @@ Usado para exibir o COP em tempo real</p>
     result.x = Efax(<span class="hljs-keyword">this</span>.a, TR, TL, BL, BR);
     result.y = Efay(<span class="hljs-keyword">this</span>.b, TR, TL, BL, BR);
     <span class="hljs-keyword">return</span> result;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-14">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>Calcula o deslocamento da oscilacao total
 DEPENDE DE calcCOP</p>
@@ -268,45 +308,7 @@ DEPENDE DE calcCOP</p>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.CPx.length; i++) {
         <span class="hljs-keyword">this</span>.DOT += <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.CPx[i], <span class="hljs-number">2</span>) + <span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.CPy[i], <span class="hljs-number">2</span>));
     }
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <p>Calcula desvio padrao
-DEPENDE DE calcCOP</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>PlatData.prototype.calcDEV = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">this</span>.DevAP = sm.standardDeviation(<span class="hljs-keyword">this</span>.CPy);
-    <span class="hljs-keyword">this</span>.DevML = sm.standardDeviation(<span class="hljs-keyword">this</span>.CPx);
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-16">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
-              </div>
-              <p>Calcula a raiz do valor quadratico medio
-DEPENDE DE calcCOP</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>PlatData.prototype.calcRMS = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">this</span>.rmsAP = sm.rootMeanSquare(<span class="hljs-keyword">this</span>.CPy);
-    <span class="hljs-keyword">this</span>.rmsML = sm.rootMeanSquare(<span class="hljs-keyword">this</span>.CPx);
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
@@ -316,6 +318,44 @@ DEPENDE DE calcCOP</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Calcula desvio padrao
+DEPENDE DE calcCOP</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>PlatData.prototype.calcDEV = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.DevAP = sm.standardDeviation(<span class="hljs-keyword">this</span>.CPy);
+    <span class="hljs-keyword">this</span>.DevML = sm.standardDeviation(<span class="hljs-keyword">this</span>.CPx);
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Calcula a raiz do valor quadratico medio
+DEPENDE DE calcCOP</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>PlatData.prototype.calcRMS = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.rmsAP = sm.rootMeanSquare(<span class="hljs-keyword">this</span>.CPy);
+    <span class="hljs-keyword">this</span>.rmsML = sm.rootMeanSquare(<span class="hljs-keyword">this</span>.CPx);
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Calcula a frequencia da medicao
 PRECISA DOS DADOS EM TI[]</p>
@@ -328,16 +368,16 @@ PRECISA DOS DADOS EM TI[]</p>
         deltas.push(<span class="hljs-keyword">this</span>.TI[i] - <span class="hljs-keyword">this</span>.TI[i - <span class="hljs-number">1</span>]);
     }
     <span class="hljs-keyword">this</span>.avgFrq = <span class="hljs-number">1000</span> / sm.mean(deltas);
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-18">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>Calcula a velocidade media de deslocacao em AP e ML
 chama calcFREQ previamente</p>
@@ -356,16 +396,16 @@ chama calcFREQ previamente</p>
     }
     <span class="hljs-keyword">this</span>.VMap = (ApDeslocSum * <span class="hljs-keyword">this</span>.avgFrq) / <span class="hljs-keyword">this</span>.CPy.length;
     <span class="hljs-keyword">this</span>.VMml = (MlDeslocSum * <span class="hljs-keyword">this</span>.avgFrq) / <span class="hljs-keyword">this</span>.CPx.length;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-19">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>Calcula a amplitude de deslocamento em AP e ML
 DEPENDE DE calcCOP</p>
@@ -375,16 +415,16 @@ DEPENDE DE calcCOP</p>
             <div class="content"><div class='highlight'><pre>PlatData.prototype.calcAMPL = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.ampAP = sm.max(<span class="hljs-keyword">this</span>.CPy) - sm.min(<span class="hljs-keyword">this</span>.CPy);
     <span class="hljs-keyword">this</span>.ampML = sm.max(<span class="hljs-keyword">this</span>.CPx) - sm.min(<span class="hljs-keyword">this</span>.CPx);
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-20">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Calcula a velocidade de deslocamento
 media total do COP
@@ -402,16 +442,16 @@ chama calcFREQ previamente</p>
         )
     }
     <span class="hljs-keyword">this</span>.VMT = sum * <span class="hljs-keyword">this</span>.avgFrq / <span class="hljs-keyword">this</span>.CPy.length;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-21">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Calcula a area preenchida pelo deslocamento do COP
 Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
@@ -430,40 +470,7 @@ DEPENDE DE calcCOP</p>
     <span class="hljs-keyword">var</span> deltaAP = (deltaAPmin + deltaAPmax) / <span class="hljs-number">2</span>;
     <span class="hljs-keyword">var</span> deltaML = (deltaMLmin + deltaMLmax) / <span class="hljs-number">2</span>;
     <span class="hljs-keyword">this</span>.area = <span class="hljs-built_in">Math</span>.PI * deltaAP * deltaML;
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-22">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
-              </div>
-              <h1 id="helpers">HELPERS</h1>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-23">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
-              </div>
-              <p>Funcao usada no calculo do COP
-Calcula forca horizontal em X da placa
-fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Efax</span>(<span class="hljs-params">a, fz1, fz2, fz3, fz4</span>) </span>{
-    <span class="hljs-keyword">var</span> X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
-    <span class="hljs-keyword">return</span> X;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
@@ -474,16 +481,9 @@ fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>Funcao usada no calculo do COP
-Calcula forca horizontal em Y da placa
-fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
+              <h2 id="funcoes-antigas-nao-mais-usadas">funcoes antigas nao mais usadas</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Efay</span>(<span class="hljs-params">b, fz1, fz2, fz3, fz4</span>) </span>{
-    <span class="hljs-keyword">var</span> Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
-    <span class="hljs-keyword">return</span> Y;
-}</pre></div></div>
             
         </li>
         
@@ -493,19 +493,6 @@ fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-25">&#182;</a>
-              </div>
-              <h2 id="funcoes-antigas-nao-mais-usadas">funcoes antigas nao mais usadas</h2>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-26">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Funcao usada no calculo do COP
 Calcula forca horizontal em X da placa</p>
@@ -517,16 +504,16 @@ Calcula forca horizontal em X da placa</p>
     <span class="hljs-keyword">var</span> t3 = fz1 + fz2 + fz3 + fz4;
     <span class="hljs-keyword">var</span> t2 = az0 * (fx12 + fx34);
     <span class="hljs-keyword">return</span> (-t1 - t2) / t3;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-27">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Funcao usada no calculo do COP
 Calcula forca horizontal em Y da placa</p>
@@ -538,16 +525,16 @@ Calcula forca horizontal em Y da placa</p>
     <span class="hljs-keyword">var</span> t3 = fz1 + fz2 + fz3 + fz4;
     <span class="hljs-keyword">var</span> t2 = az0 * (fy14 + fy23);
     <span class="hljs-keyword">return</span> (t1 + t2) / t3;
-}</pre></div></div>
+};</pre></div></div>
             
         </li>
         
         
-        <li id="section-28">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Exporta a classe</p>
 

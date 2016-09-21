@@ -5,6 +5,7 @@ var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
 var rename = require("gulp-rename");
 var docco = require("gulp-docco");
+var del = require('del');
 
 gulp.task("controladorCOP", function () {
     return browserify("./src/SerialHandler.js")
@@ -24,11 +25,19 @@ gulp.task("controladorIndex", function () {
         .pipe(gulp.dest("./ui/js"));
 });
 
-gulp.task("docs", function () {
+gulp.task("docs",["clean:docs"], function () {
     gulp.src("./src/*.js")
         .pipe(docco())
         .pipe(gulp.dest("./docs"));
+});
 
+gulp.task("clean:docs", function () {
+  return del([
+    // here we use a globbing pattern to match everything inside the `mobile` folder
+    "docs/**/*",
+    // we don't want to clean this file though so we negate the pattern
+    "!docs/Documentacao.mdj"
+  ]);
 });
 
 gulp.task("build", ["controladorCOP", "controladorIndex"]);
