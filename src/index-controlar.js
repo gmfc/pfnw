@@ -1,6 +1,3 @@
- // Interface grafica
-
-
 // # Metodos de controle da GUI
 
 function playbtn() {

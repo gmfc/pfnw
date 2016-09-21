@@ -7,8 +7,8 @@
     "test": "./node_modules/.bin/mocha --reporter spec -s 0",
     "watch": "./node_modules/.bin/mocha --reporter nyan --watch",
     "start": "nw .",
-    "docs": "docco js/*.js",
-    "compile": "browserify ./js/SerialHandler.js -o bundle.js"
+    "docs": "gulp docs",
+    "compile": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -26,11 +26,14 @@
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
     "browser-serialport": "^2.0.3",
+    "gulp-rename": "^1.2.2",
+    "jquery-node-browserify": "^1.7.2",
     "simple-statistics": "^2.1.0"
   },
   "devDependencies": {
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
+    "gulp-docco": "0.0.4",
     "gulp-uglify": "^2.0.0",
     "mocha": "^2.4.5",
     "should": "^10.0.0",
