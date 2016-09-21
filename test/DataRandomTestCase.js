@@ -1,5 +1,5 @@
 var should = require('should');
-var PlatData = require('../js/Data.js');
+var PlatData = require('../src/Data.js');
 
 
 describe('Testes da classe Data com dados aleatorios', function () {
@@ -7,7 +7,7 @@ describe('Testes da classe Data com dados aleatorios', function () {
     var numbers = [];
     var nDeLinhas = 2000;
     this.timeout(20000);
-    var rawTest = new PlatData();
+    var rawTest = new PlatData(24.76,15.24,0);
 
     before('populando linhas...', function () {
         for (var i = 0; i < nDeLinhas; i++) {

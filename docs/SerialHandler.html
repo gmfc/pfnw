@@ -11,34 +11,6 @@
   <div id="container">
     <div id="background"></div>
     
-      <ul id="jump_to">
-        <li>
-          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
-          <a class="small" href="javascript:void(0);">+</a>
-          <div id="jump_wrapper">
-          <div id="jump_page_wrapper">
-            <div id="jump_page">
-              
-                
-                <a class="source" href="Data.html">
-                  Data.js
-                </a>
-              
-                
-                <a class="source" href="SerialHandler.html">
-                  SerialHandler.js
-                </a>
-              
-                
-                <a class="source" href="index-controlar.html">
-                  index-controlar.js
-                </a>
-              
-            </div>
-          </div>
-        </li>
-      </ul>
-    
     <ul class="sections">
         
           <li id="title">
@@ -60,7 +32,16 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> serialLib = <span class="hljs-built_in">require</span>(<span class="hljs-string">"browser-serialport"</span>);
-<span class="hljs-keyword">var</span> SerialPort = serialLib.SerialPort;</pre></div></div>
+<span class="hljs-keyword">var</span> data = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./Data.js"</span>);
+<span class="hljs-keyword">var</span> SerialPort = serialLib.SerialPort;
+<span class="hljs-keyword">var</span> port;
+<span class="hljs-keyword">var</span> calc = <span class="hljs-keyword">new</span> data(<span class="hljs-number">20</span>,<span class="hljs-number">20</span>,<span class="hljs-number">0</span>);
+<span class="hljs-keyword">var</span> acc = <span class="hljs-string">''</span>;
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reset</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"data"</span>).innerHTML = <span class="hljs-string">""</span>;</pre></div></div>
             
         </li>
         
@@ -71,12 +52,46 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Praser delimitador de linhas
-Serve de buffer para dados do Arduino</p>
+              <p>Lista as portas conectadas</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readline</span>(<span class="hljs-params">delimiter, encoding</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> find = <span class="hljs-literal">false</span>;
+    serialLib.list(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, ports</span>) </span>{
+
+        ports.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">port</span>) </span>{
+            <span class="hljs-keyword">if</span> (port.manufacturer.indexOf(<span class="hljs-string">"Arduino"</span>) !== <span class="hljs-number">-1</span>) {
+                <span class="hljs-keyword">if</span> (!find) {
+                    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"status"</span>).innerHTML = port.comName;
+                    connect(port.comName);
+                }
+                find = <span class="hljs-literal">true</span>;
+            }
+        });
+    });
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">connect</span>(<span class="hljs-params">name</span>) </span>{
+    port = <span class="hljs-keyword">new</span> SerialPort(name, {
+        <span class="hljs-attr">baudrate</span>: <span class="hljs-number">9600</span>
+    }, <span class="hljs-literal">true</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Conectado"</span>);
+        <span class="hljs-built_in">console</span>.log(port);
+        register();
+    });
+}
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">coleta</span>(<span class="hljs-params">dados</span>) </span>{
+
+    acc += dados.toString(<span class="hljs-string">'utf8'</span>);
+
+    <span class="hljs-keyword">var</span> linhas = acc.split(<span class="hljs-string">'#'</span>);
+
+    acc = linhas.pop();
+    
+    linhas.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">part</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -87,167 +102,33 @@ Serve de buffer para dados do Arduino</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>checa delimitador usado, padrao ‘\n’</p>
+              <p>document.getElementById(“data”).innerHTML = part + “<br>“;
+browserify ./js/SerialHandler.js -o bundle.js</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> delimiter === <span class="hljs-string">'undefined'</span> || delimiter === <span class="hljs-literal">null</span>) {
-    delimiter = <span class="hljs-string">'\n'</span>
-  }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>checa codificacao usada, padrao utf8</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> encoding === <span class="hljs-string">'undefined'</span> || encoding === <span class="hljs-literal">null</span>) {
-    encoding = <span class="hljs-string">'utf8'</span>
-  }</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
-              </div>
-              <p>Buffer delimitador salvo em escopo externo</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> data = <span class="hljs-string">''</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">emitter, buffer</span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-6">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
-              </div>
-              <p>Coleta dados</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    data += buffer.toString(encoding);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
-              </div>
-              <p>Split com delimitador le linha (delimiter)</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> parts = data.split(delimiter);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-8">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
-              </div>
-              <p>Recupera linha coletada</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    data = parts.pop();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-9">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <p>Emite evento para cada linha coletada</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    parts.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">part</span>) </span>{
-      emitter.emit(<span class="hljs-string">'data'</span>, part);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"data"</span>).innerHTML = <span class="hljs-string">"X: "</span> + calc.RTCOP(part).x + <span class="hljs-string">" &lt;br&gt;"</span> + <span class="hljs-string">"Y: "</span> + calc.RTCOP(part).y;
     });
-  };
-}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-10">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
-              </div>
-              <p>Lista as portas conectadas</p>
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>serialLib.list(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, ports</span>) </span>{
-  ports.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">port</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(port.comName);
-    <span class="hljs-built_in">console</span>.log(port.pnpId);
-    <span class="hljs-built_in">console</span>.log(port.manufacturer);
-  });
-});</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
-              <p>Porta conectada com a placa
-TODO: Enderecamento dinamico</p>
+}
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> port = <span class="hljs-keyword">new</span> SerialPort(<span class="hljs-string">"COM6"</span>, {
-  baudrate: <span class="hljs-number">9600</span>,
-  praser: readline(<span class="hljs-string">'\n'</span>)
-}, <span class="hljs-literal">true</span>);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>Exemplo de listener de eventos</p>
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>port.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"data"</span>).innerHTML = data;
-});</pre></div></div>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">register</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"registrando"</span>)
+    port.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+        coleta(data);
+    });
+    port.on(<span class="hljs-string">"close"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"status"</span>).innerHTML = <span class="hljs-string">"Desconectada"</span>;
+        port = <span class="hljs-literal">null</span>;
+    });
+    port.on(<span class="hljs-string">"err"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"status"</span>).innerHTML = <span class="hljs-string">"ERR"</span>;
+    });
+}
+
+<span class="hljs-keyword">var</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'bt'</span>);
+button.addEventListener(<span class="hljs-string">'click'</span>, reset);</pre></div></div>
             
         </li>
         
