@@ -11,6 +11,7 @@ var dataActive = 0;
 
 function reset() {
     // Lista as portas conectadas
+    dataActive = Date.now();
     connectFlag = false;
     dataActive = false;
     port = null;
@@ -111,6 +112,8 @@ function btDisconnect(data){
     $("#label").addClass("yellow");
     $("#status").addClass("yellow");
     $("#labeltxt").text("Conectar");
+    $("#statustxt").text("off");
+    //port = null;
 }
 
 function btERR(data){
@@ -127,13 +130,16 @@ function btERR(data){
     $("#labeltxt").text("Reset");
     $("#statustxt").text(data);
 }
-
+var errFlag = false;
 function statusCheck(){
-    console.log(dataActive);
     if(connectFlag&&(Date.now()-dataActive)>5000){
-        btERR("erro");
+        btERR("Reconectar Plataforma");
+        errFlag = true;
+    } else if(errFlag&&connectFlag){
+        errFlag = false;
+        btConect();
     }
-    setTimeout(statusCheck, 5000);
+    setTimeout(statusCheck, 200);
 }
 statusCheck();
 $("#bt").click(reset);
@@ -142,3 +148,4 @@ $(window).bind('beforeunload', function () {
         port.close();
     }
 });
+btDisconnect();
