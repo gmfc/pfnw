@@ -12,7 +12,7 @@ gulp.task("rtcontrol", function () {
         .bundle()
         .pipe(source("rtcontrol.js")) // gives streaming vinyl file object
         .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-        .pipe(uglify()) // now gulp-uglify works 
+        //.pipe(uglify()) // now gulp-uglify works 
         .pipe(gulp.dest("./ui/js"));
 });
 

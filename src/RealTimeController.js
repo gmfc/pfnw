@@ -4,112 +4,141 @@ var serialLib = require("browser-serialport");
 var data = require("./Data.js");
 var SerialPort = serialLib.SerialPort;
 var port;
-var calc = new data(150,150,0);
+var calc = new data(325, 250, 0);
 var acc = '';
-
-var targetX = 150,
-    targetY = 150,
-    x = 151,
-    y = 151,
-    velX = 0,
-    velY = 0,
-    speed = 5;
+var connectFlag = false;
+var dataActive = 0;
 
 function reset() {
-    document.getElementById("data").innerHTML = "";
     // Lista as portas conectadas
+    connectFlag = false;
+    dataActive = false;
+    port = null;
     update();
     var find = false;
     serialLib.list(function (err, ports) {
         ports.forEach(function (port) {
             if (port.manufacturer.indexOf("Arduino") !== -1) {
                 if (!find) {
-                    document.getElementById("status").innerHTML = port.comName;
+                    //document.getElementById("status").innerHTML = port.comName;
                     connect(port.comName);
                 }
                 find = true;
             }
         });
     });
+    
 }
 
 function connect(name) {
     port = new SerialPort(name, {
         baudrate: 9600
     }, true, function () {
-        console.log("Conectado");
-        console.log(port);
         register();
+        connectFlag = true;
+        btConect();
     });
-    port.open();
 }
 
 
+function update(tgx, tgy) {
+    // fade effect
+    ctx.globalAlpha = 0.1;
+    ctx.fillStyle = '#f4f4f4';
+    ctx.fillRect(0, 0, 650, 500);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(tgx, tgy, 2, 0, Math.PI * 2);
+    ctx.fill();
+}
 
 function coleta(dados) {
+    dataActive = Date.now();
     acc += dados.toString('utf8');
     var linhas = acc.split('#');
     acc = linhas.pop();
     linhas.forEach(function (part) {
-        document.getElementById("data").innerHTML ="Placa: " + part + "<br>X: " + calc.RTCOP(part).x + " <br>" + "Y: " + calc.RTCOP(part).y;
-        
-        //targetX = calc.RTCOP(part).x + 150;
-        //targetY = ;
-            //update(calc.RTCOP(part).x + 150,calc.RTCOP(part).y + 150);
-        console.log(calc.RTCOP(part).x + " : " +calc.RTCOP(part).y);
+        var result = calc.RTCOP(part);
+        $("#statustxt").text(result.t + "ms");
+        update(result.x+325, result.y+250);
     });
-
 }
 
 
 function register() {
-    console.log("registrando");
     port.on("data", function (data) {
         coleta(data);
     });
     port.on("close", function (data) {
-        document.getElementById("status").innerHTML = "Desconectada";
+        btDisconnect(data);
         port = null;
     });
     port.on("err", function (data) {
-        document.getElementById("status").innerHTML = "ERR";
+        btERR(data);
     });
 }
-var canvas=document.getElementById("canvas"),
+var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
 
 
-function update(tgx,tgy){
-    var tx = tgx - x,
-        ty = tgy - y,
-        dist = Math.sqrt(tx*tx+ty*ty),
-        rad = Math.atan2(ty,tx),
-        angle = rad/Math.PI * 180;
-    console.log(tgx + ":" + tgy);
-        velX = (tx/dist)*speed,
-        velY = (ty/dist)*speed;
+///////////////////////////////////
+
+function btConect(){
+    console.log("conectado!");
     
-        x += velX
-        y += velY
-            
-        
-        // fade effect
-		ctx.globalAlpha=0.5;
-		ctx.fillStyle='#f4f4f4';
-		ctx.fillRect(0,0,500, 500);
-		ctx.globalAlpha=1;
-        ctx.fillStyle='#000000';
-        //ctx.clearRect(0,0,500,500);
-        ctx.beginPath();
-        ctx.arc(x,y,5,0,Math.PI*2);
-        ctx.fill();
+    $("#label").removeClass("yellow");
+    $("#status").removeClass("yellow");
+    
+    $("#label").removeClass("red");
+    $("#status").removeClass("red");
     
     
-    setTimeout(update,20);
+    $("#label").addClass("green");
+    $("#status").addClass("green");
+    $("#labeltxt").text("Conectado");
 }
+
+function btDisconnect(data){
+    console.log("desconectado!" + data);
+    
+    $("#label").removeClass("green");
+    $("#status").removeClass("green");
+    
+    $("#label").removeClass("red");
+    $("#status").removeClass("red");
+    
+    $("#label").addClass("yellow");
+    $("#status").addClass("yellow");
+    $("#labeltxt").text("Conectar");
+}
+
+function btERR(data){
+    console.log("ERR!" + data);
+    
+    $("#label").removeClass("green");
+    $("#status").removeClass("green");
+    
+    $("#label").removeClass("yellow");
+    $("#status").removeClass("yellow");
+    
+    $("#label").addClass("red");
+    $("#status").addClass("red");
+    $("#labeltxt").text("Reset");
+    $("#statustxt").text(data);
+}
+
+function statusCheck(){
+    console.log(dataActive);
+    if(connectFlag&&(Date.now()-dataActive)>5000){
+        btERR("erro");
+    }
+    setTimeout(statusCheck, 5000);
+}
+statusCheck();
 $("#bt").click(reset);
-$(window).bind('beforeunload', function(){
-  if(port){
-    port.close();
-  }
+$(window).bind('beforeunload', function () {
+    if (port) {
+        port.close();
+    }
 });

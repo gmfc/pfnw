@@ -32,7 +32,7 @@
             <a href="./index.html" class="header item">
                 <i class="big block layout icon"></i> Menu
             </a>
-           <div class="ui simple dropdown item">
+            <div class="ui simple dropdown item">
                 Medições <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
@@ -47,17 +47,19 @@
     </div>
 
     <div class="ui main container">
-        <h3>Console debug
-        <div class="ui labeled button" tabindex="0" id="bt">
-            <div class="ui green button">
-                <i class="connectdevelop icon"></i> Connect
+        <div class="ui right aligned container">
+            <div class="ui labeled button" tabindex="0" id="bt">
+                <div class="ui button" id="label">
+                    <i class="usb icon" id="ico"></i>
+                    <span id="labeltxt">Conectar</span>
+                </div>
+                <a class="ui basic left pointing label" id="statustxt">off</a>
             </div>
-            <a class="ui basic green left pointing label" id="status"> none </a>
         </div>
-        </h3>
-        <hr>
-        <p id="data"></p>
-        <canvas id="canvas" width="300" height="300" style="border: 1px solid black;"></canvas>
+        <div class="ui divider"></div>
+        <div class="ui center aligned container">
+            <canvas id="canvas" width="650" height="500" style="border: 1px solid black;"></canvas>
+        </div>
 
 
     </div>

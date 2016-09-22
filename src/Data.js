@@ -23,6 +23,9 @@ function PlatData(pa, pb) {
     // COP
     this.CPx = [];
     this.CPy = [];
+    
+    // freq de medicao em tempo real
+    this.tempDeltaTime = 0;
 
 }
 
@@ -72,13 +75,15 @@ PlatData.prototype.RTCOP = function (data) {
     var arr = data.split(";").map(function (val) {
         return Number(val);
     });
+    
     var TR = arr[1],
         TL = arr[2],
         BR = arr[3],
         BL = arr[4];
 
     var result = {};
-
+    result.t = arr[0] - this.tempDeltaTime;//- this.tempDeltaTime;
+    this.tempDeltaTime = arr[0];
     result.x = Efax(this.a, TR, TL, BL, BR);
     result.y = Efay(this.b, TR, TL, BL, BR);
     return result;
