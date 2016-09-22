@@ -7,12 +7,12 @@ var rename = require("gulp-rename");
 var docco = require("gulp-docco");
 var del = require('del');
 
-gulp.task("controladorCOP", function () {
-    return browserify("./src/SerialHandler.js")
+gulp.task("rtcontrol", function () {
+    return browserify("./src/RealTimeController.js")
         .bundle()
-        .pipe(source("controladorCOP.js")) // gives streaming vinyl file object
+        .pipe(source("rtcontrol.js")) // gives streaming vinyl file object
         .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-        //.pipe(uglify()) // now gulp-uglify works 
+        .pipe(uglify()) // now gulp-uglify works 
         .pipe(gulp.dest("./ui/js"));
 });
 
@@ -40,4 +40,11 @@ gulp.task("clean:docs", function () {
   ]);
 });
 
-gulp.task("build", ["controladorCOP", "controladorIndex"]);
+gulp.task("clean:js", function () {
+  return del([
+    // here we use a globbing pattern to match everything inside the `mobile` folder
+    "./ui/js/**/*"
+  ]);
+});
+
+gulp.task("build", ["clean:js", "rtcontrol", "controladorIndex"]);

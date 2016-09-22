@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
-    
+
     <style type="text/css">
         .ui.menu .item i.icon {
             margin-right: 1.5em;
@@ -24,71 +24,25 @@
             padding-bottom: 0;
         }
     </style>
-
-    <style>
-        .chart {}
-        
-        .main text {
-            font: 10px sans-serif;
-        }
-        
-        .axis line,
-        .axis path {
-            shape-rendering: crispEdges;
-            stroke: black;
-            fill: none;
-        }
-        
-        circle {
-            fill: steelblue;
-        }
-    </style>
-
-    <style type="text/css">
-        path {
-            stroke: steelblue;
-            stroke-width: 2;
-            fill: none;
-        }
-        
-        line {
-            stroke: black;
-        }
-        
-        text {
-            font-family: Arial;
-            font-size: 9pt;
-        }
-    </style>
 </head>
 
 <body>
-
-    <div class="ui inverted menu">
+    <div class="ui fixed inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
-                <i class="big block layout icon"></i> Iniciar teste
+                <i class="big block layout icon"></i> Menu
             </a>
-            <a href="#" class="item disabled"><i class="file outline icon"></i>Carregar teste</a>
-            <a href="#" class="item disabled"><i class="save icon"></i>Salvar teste</a>
-            <a href="./tester.html" class="item"><i class="save icon"></i>Serial Debug</a>
-            <!--            <div class="ui simple dropdown item">
-                Dropdown <i class="dropdown icon"></i>
+           <div class="ui simple dropdown item">
+                Medições <i class="dropdown icon"></i>
                 <div class="menu">
-                    <a class="item" href="#">Link Item</a>
-                    <a class="item" href="#">Link Item</a>
+                    <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
+                    <a class="item" href="./medicao.html"><i class="doctor icon"></i>Medição completa</a>
                     <div class="divider"></div>
-                    <div class="header">Header Item</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i> Sub Menu
-                        <div class="menu">
-                            <a class="item" href="#">Link Item</a>
-                            <a class="item" href="#">Link Item</a>
-                        </div>
-                    </div>
-                    <a class="item" href="#">Link Item</a>
+                    <div class="header">Plataforma</div>
+                    <a class="item" href="#"><i class="usb icon"></i>Teste de conexão</a>
                 </div>
-            </div>-->
+            </div>
+            <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
         </div>
     </div>
 
@@ -107,7 +61,7 @@
 
 
     </div>
-    <script src="./js/controladorCOP.js"></script>
+    <script src="./js/rtcontrol.js"></script>
 </body>
 
 </html>
