@@ -28,7 +28,7 @@ function reset() {
             }
         });
     });
-    
+
 }
 
 function connect(name) {
@@ -61,8 +61,8 @@ function coleta(dados) {
     acc = linhas.pop();
     linhas.forEach(function (part) {
         var result = calc.RTCOP(part);
-        $("#statustxt").text(result.t + "ms");
-        update(result.x+325, result.y+250);
+        $("#statustxt").text(Math.floor(1/(result.t/1000)) + " Hz");
+        update(result.x + 325, result.y + 250);
     });
 }
 
@@ -85,30 +85,30 @@ var canvas = document.getElementById("canvas"),
 
 ///////////////////////////////////
 
-function btConect(){
+function btConect() {
     console.log("conectado!");
-    
+
     $("#label").removeClass("yellow");
     $("#status").removeClass("yellow");
-    
+
     $("#label").removeClass("red");
     $("#status").removeClass("red");
-    
-    
+
+
     $("#label").addClass("green");
     $("#status").addClass("green");
     $("#labeltxt").text("Conectado");
 }
 
-function btDisconnect(data){
+function btDisconnect(data) {
     console.log("desconectado!" + data);
-    
+
     $("#label").removeClass("green");
     $("#status").removeClass("green");
-    
+
     $("#label").removeClass("red");
     $("#status").removeClass("red");
-    
+
     $("#label").addClass("yellow");
     $("#status").addClass("yellow");
     $("#labeltxt").text("Conectar");
@@ -116,26 +116,27 @@ function btDisconnect(data){
     //port = null;
 }
 
-function btERR(data){
+function btERR(data) {
     console.log("ERR!" + data);
-    
+
     $("#label").removeClass("green");
     $("#status").removeClass("green");
-    
+
     $("#label").removeClass("yellow");
     $("#status").removeClass("yellow");
-    
+
     $("#label").addClass("red");
     $("#status").addClass("red");
     $("#labeltxt").text("Reset");
     $("#statustxt").text(data);
 }
 var errFlag = false;
-function statusCheck(){
-    if(connectFlag&&(Date.now()-dataActive)>5000){
+
+function statusCheck() {
+    if (connectFlag && (Date.now() - dataActive) > 5000) {
         btERR("Reconectar Plataforma");
         errFlag = true;
-    } else if(errFlag&&connectFlag){
+    } else if (errFlag && connectFlag) {
         errFlag = false;
         btConect();
     }
