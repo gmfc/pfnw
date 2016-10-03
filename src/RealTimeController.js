@@ -150,3 +150,31 @@ $(window).bind('beforeunload', function () {
     }
 });
 btDisconnect();
+
+
+//////////////////////////
+
+var serialPort = require("browser-serialport");
+var Port = serialPort.SerialPort;
+serialPort.list(function(err, ports) {
+    ports.forEach(function(port) {
+        console.log(port.comName);
+        console.log(port.pnpId);
+        console.log(port.manufacturer);
+    });
+});
+var sport = new Port("COM3", {
+    baudrate: 9600
+}, false);
+
+
+sport.open(function(error) {
+    if (error) {
+        console.log('failed to open: ' + error);
+    } else {
+        console.log('open');
+        sport.on('data', function(data) {
+            console.log('data received: ' + data);
+        });
+    }
+});
