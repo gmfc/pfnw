@@ -44,7 +44,7 @@ function connect(name) {
             });
             port.on("close", function(data) {
               port = null;
-                btDisconnect();
+                btDisconnected();
             });
             port.on("err", function(data) {
                 btERR(data);
@@ -76,7 +76,8 @@ function update(tgx, tgy) {
     ctx.fill();
 }
 
-findPlat();
+//findPlat();
+$("#bt").click(findPlat);
 
 
 ////////////////////////////////
@@ -98,7 +99,9 @@ function btConnecting() {
 
     $("#labeltxt").text("Conectando");
     $("#statustxt").text("...");
-    $("#bt").unbind(findPlat);
+
+    $("#bt").addClass("disabled");
+    //$("#bt").unbind(findPlat);
 }
 
 function btDisconnected() {
@@ -116,7 +119,9 @@ function btDisconnected() {
 
     $("#labeltxt").text("Conectar");
     $("#statustxt").text("desconectado");
-    $("#bt").unbind(findPlat);
+    //$("#bt").unbind(findPlat);
+
+    $("#bt").removeClass("disabled");
     $("#bt").click(findPlat);
 }
 
@@ -135,7 +140,9 @@ function btConnected() {
 
     $("#labeltxt").text("Conectado");
     $("#statustxt").text("Hz");
-    $("#bt").unbind(findPlat);
+
+    $("#bt").addClass("disabled");
+    //$("#bt").unbind(findPlat);
 }
 
 function btERR(err) {
@@ -153,6 +160,8 @@ function btERR(err) {
 
     $("#labeltxt").text("Reset");
     $("#statustxt").text(err);
-    $("#bt").unbind(findPlat);
+    //$("#bt").unbind(findPlat);
+
+    $("#bt").removeClass("disabled");
     $("#bt").click(findPlat);
 }
