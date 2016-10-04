@@ -4,4 +4,8 @@
 
 # pfnwj5
 
+## Estrutura
+
+![alt text](./UML/GUI.svg "Estrutura do Programa")
+
 ## facsoft
