@@ -1,5 +1,10 @@
 // # Metodos de controle da GUI
 
+/**
+ * @module index-controlar
+ * @deprecated desde v0.1.2
+ */
+
 function estatograph(temp) {
 
 

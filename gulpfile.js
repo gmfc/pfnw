@@ -4,7 +4,7 @@ var uglify = require("gulp-uglify");
 var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
 var rename = require("gulp-rename");
-var docco = require("gulp-docco");
+var jsdoc = require('gulp-jsdoc3');
 var del = require("del");
 
 gulp.task("rtcontrol", function() {
@@ -25,10 +25,20 @@ gulp.task("controladorIndex", function() {
         .pipe(gulp.dest("./ui/js"));
 });
 
-gulp.task("docs", ["clean:docs"], function() {
-    gulp.src("./src/*.js")
-        .pipe(docco())
-        .pipe(gulp.dest("./docs"));
+gulp.task("docs", ["clean:docs"], function(cb) {
+    var config = require('./jsdoc.json');
+    gulp.src(['README.md', './src/**/*.js'], {
+            read: false
+        })
+        .pipe(jsdoc(config, cb));
+    /*gulp.src(["./src/*.js", "README.md"])
+        .pipe(jsdoc.parser())
+        .pipe(jsdoc.generator('./docs'));*/
+    /*
+      gulp.src("./src/*.js")
+          .pipe(docco())
+          .pipe(gulp.dest("./docs"));
+    */
 });
 
 gulp.task("clean:docs", function() {
