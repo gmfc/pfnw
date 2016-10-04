@@ -4,8 +4,8 @@
 
 # pfnwj5
 
-## Estrutura
+## Progresso
 
-![alt text](./UML/GUI.svg "Estrutura do Programa")
+![alt text](./UML/progresso.svg "Estrutura do Programa")
 
 ## facsoft
