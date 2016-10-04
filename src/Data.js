@@ -82,8 +82,7 @@ function PlatData(pa, pb) {
 /**
  * Recebe dados da plataforma como String
  * extrai e trata os dados
- * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
- * @returns {null} null - retorno interno isolado. Não retorna nada.
+ * @arg {string} data - String formatada: 'TI;TR;TL;BR;BL'
  */
 PlatData.prototype.pushData = function(data) {
 	var arr = data.split(';').map(function(val) {
