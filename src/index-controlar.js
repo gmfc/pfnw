@@ -30,17 +30,17 @@ function estatograph(temp) {
         height = 400 - margin.top - margin.bottom;
 
     var x = d3.scale.linear()
-        .domain([d3.min(data, function (d) {
+        .domain([d3.min(data, function(d) {
             return d[0];
-        }), d3.max(data, function (d) {
+        }), d3.max(data, function(d) {
             return d[0];
         })])
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .domain([d3.min(data, function (d) {
+        .domain([d3.min(data, function(d) {
             return d[1];
-        }), d3.max(data, function (d) {
+        }), d3.max(data, function(d) {
             return d[1];
         })])
         .range([height, 0]);
@@ -82,10 +82,10 @@ function estatograph(temp) {
     g.selectAll("scatter-dots")
         .data(data)
         .enter().append("svg:circle")
-        .attr("cx", function (d, i) {
+        .attr("cx", function(d, i) {
             return x(d[0]);
         })
-        .attr("cy", function (d) {
+        .attr("cy", function(d) {
             return y(d[1]);
         })
         .attr("r", 3);
@@ -116,10 +116,10 @@ function estabilograph(temp) {
         .attr("transform", "translate(0, 200)");
 
     var line = d3.svg.line()
-        .x(function (d, i) {
+        .x(function(d, i) {
             return x(i);
         })
-        .y(function (d) {
+        .y(function(d) {
             return -1 * y(d);
         })
 
@@ -142,7 +142,7 @@ function estabilograph(temp) {
         .enter().append("svg:text")
         .attr("class", "xLabel")
         .text(String)
-        .attr("x", function (d) {
+        .attr("x", function(d) {
             return x(d)
         })
         .attr("y", 0)
@@ -154,7 +154,7 @@ function estabilograph(temp) {
         .attr("class", "yLabel")
         .text(String)
         .attr("x", 0)
-        .attr("y", function (d) {
+        .attr("y", function(d) {
             return -1 * y(d)
         })
         .attr("text-anchor", "right")
@@ -164,11 +164,11 @@ function estabilograph(temp) {
         .data(x.ticks(5))
         .enter().append("svg:line")
         .attr("class", "xTicks")
-        .attr("x1", function (d) {
+        .attr("x1", function(d) {
             return x(d);
         })
         .attr("y1", -1 * y(0))
-        .attr("x2", function (d) {
+        .attr("x2", function(d) {
             return x(d);
         })
         .attr("y2", -1 * y(-0.3))
@@ -177,11 +177,11 @@ function estabilograph(temp) {
         .data(y.ticks(4))
         .enter().append("svg:line")
         .attr("class", "yTicks")
-        .attr("y1", function (d) {
+        .attr("y1", function(d) {
             return -1 * y(d);
         })
         .attr("x1", x(-0.3))
-        .attr("y2", function (d) {
+        .attr("y2", function(d) {
             return -1 * y(d);
         })
         .attr("x2", x(0))
@@ -236,7 +236,7 @@ function reset() {
 }
 
 function startReading(temp) {
-    var doStep = function () {
+    var doStep = function() {
         if (count >= -2) {
             clearInterval(timer);
             timer = setTimeout(callback, 1000);
@@ -249,7 +249,7 @@ function startReading(temp) {
     var timer = null;
     var count = temp;
     //count = count + 2;
-    var callback = function () {
+    var callback = function() {
         if (count <= 0) {
             $("#status").html("Gerando relatório");
         } else {

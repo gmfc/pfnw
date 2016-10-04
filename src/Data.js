@@ -23,7 +23,7 @@ function PlatData(pa, pb) {
     // COP
     this.CPx = [];
     this.CPy = [];
-    
+
     // freq de medicao em tempo real
     this.tempDeltaTime = 0;
 
@@ -32,8 +32,8 @@ function PlatData(pa, pb) {
 // Adiciona dados recebidos como String e adiciona a Arrays
 // Split em ";"
 // Inicializa TI, TR, TL, BR e BL
-PlatData.prototype.pushData = function (data) {
-    var arr = data.split(";").map(function (val) {
+PlatData.prototype.pushData = function(data) {
+    var arr = data.split(";").map(function(val) {
         return Number(val);
     });
     this.TI.push(arr[0]);
@@ -61,7 +61,7 @@ function Efay(b, fz1, fz2, fz3, fz4) {
 
 // Calcula Centro de pressao (COP) para cada entrada
 // Inicializa CPx e CPy. chama calcFx previamente
-PlatData.prototype.calcCOP = function () {
+PlatData.prototype.calcCOP = function() {
     for (var i = 0; i < this.BR.length; i++) {
         this.CPx[i] = Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
         this.CPy[i] = Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
@@ -71,18 +71,18 @@ PlatData.prototype.calcCOP = function () {
 
 // Calcula o COP para dada String recebida
 // Usado para exibir o COP em tempo real
-PlatData.prototype.RTCOP = function (data) {
-    var arr = data.split(";").map(function (val) {
+PlatData.prototype.RTCOP = function(data) {
+    var arr = data.split(";").map(function(val) {
         return Number(val);
     });
-    
+
     var TR = arr[1],
         TL = arr[2],
         BR = arr[3],
         BL = arr[4];
 
     var result = {};
-    result.t = arr[0] - this.tempDeltaTime;//- this.tempDeltaTime;
+    result.t = arr[0] - this.tempDeltaTime; //- this.tempDeltaTime;
     this.tempDeltaTime = arr[0];
     result.x = Efax(this.a, TR, TL, BL, BR);
     result.y = Efay(this.b, TR, TL, BL, BR);
@@ -91,7 +91,7 @@ PlatData.prototype.RTCOP = function (data) {
 
 // Calcula o deslocamento da oscilacao total
 // DEPENDE DE calcCOP
-PlatData.prototype.calcDOT = function () {
+PlatData.prototype.calcDOT = function() {
     this.DOT = 0;
     for (var i = 0; i < this.CPx.length; i++) {
         this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
@@ -100,21 +100,21 @@ PlatData.prototype.calcDOT = function () {
 
 // Calcula desvio padrao
 // DEPENDE DE calcCOP
-PlatData.prototype.calcDEV = function () {
+PlatData.prototype.calcDEV = function() {
     this.DevAP = sm.standardDeviation(this.CPy);
     this.DevML = sm.standardDeviation(this.CPx);
 };
 
 // Calcula a raiz do valor quadratico medio
 // DEPENDE DE calcCOP
-PlatData.prototype.calcRMS = function () {
+PlatData.prototype.calcRMS = function() {
     this.rmsAP = sm.rootMeanSquare(this.CPy);
     this.rmsML = sm.rootMeanSquare(this.CPx);
 };
 
 // Calcula a frequencia da medicao
 // PRECISA DOS DADOS EM TI[]
-PlatData.prototype.calcFREQ = function () {
+PlatData.prototype.calcFREQ = function() {
     var deltas = [];
     for (var i = 1; i < this.TI.length; i++) {
         deltas.push(this.TI[i] - this.TI[i - 1]);
@@ -124,7 +124,7 @@ PlatData.prototype.calcFREQ = function () {
 
 // Calcula a velocidade media de deslocacao em AP e ML
 // chama calcFREQ previamente
-PlatData.prototype.calcVEL = function () {
+PlatData.prototype.calcVEL = function() {
     this.calcFREQ();
     var ApDeslocSum = 0;
     for (var i = 1; i < this.CPy.length; i++) {
@@ -140,7 +140,7 @@ PlatData.prototype.calcVEL = function () {
 
 // Calcula a amplitude de deslocamento em AP e ML
 // DEPENDE DE calcCOP
-PlatData.prototype.calcAMPL = function () {
+PlatData.prototype.calcAMPL = function() {
     this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
     this.ampML = sm.max(this.CPx) - sm.min(this.CPx);
 };
@@ -148,7 +148,7 @@ PlatData.prototype.calcAMPL = function () {
 // Calcula a velocidade de deslocamento
 // media total do COP
 // chama calcFREQ previamente
-PlatData.prototype.calcVELTotal = function () {
+PlatData.prototype.calcVELTotal = function() {
     this.calcFREQ();
     var sum = 0;
     for (var i = 1; i < this.CPx.length; i++) {
@@ -165,7 +165,7 @@ PlatData.prototype.calcVELTotal = function () {
 // DEPENDE DE calcCOP
 // 
 // Pode ser alterado para tracar um poligono com as coordenadas perifiricas
-PlatData.prototype.calcAREA = function () {
+PlatData.prototype.calcAREA = function() {
     var medianAP = sm.median(this.CPy);
     var medianML = sm.median(this.CPx);
     var deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));

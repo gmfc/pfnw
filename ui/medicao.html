@@ -2,79 +2,79 @@
 <html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Plataforma de força</title>
-  <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Plataforma de força</title>
+    <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
-  <script src="css/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <script src="css/semantic.min.js"></script>
 
 
 
-  <!--    <script type="text/javascript" src="main.js"></script>-->
-  <script type="text/javascript" src="./libs/d3.min.js"></script>
+    <!--    <script type="text/javascript" src="main.js"></script>-->
+    <script type="text/javascript" src="./libs/d3.min.js"></script>
 
-  <style type="text/css">
-    .ui.menu .item i.icon {
-      margin-right: 1.5em;
-    }
-    
-    .main.container {
-      margin-top: 7em;
-    }
-    
-    .ui.menu .item {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  </style>
+    <style type="text/css">
+        .ui.menu .item i.icon {
+            margin-right: 1.5em;
+        }
+        
+        .main.container {
+            margin-top: 7em;
+        }
+        
+        .ui.menu .item {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    </style>
 
-  <style>
-    .chart {}
-    
-    .main text {
-      font: 10px sans-serif;
-    }
-    
-    .axis line,
-    .axis path {
-      shape-rendering: crispEdges;
-      stroke: black;
-      fill: none;
-    }
-    
-    circle {
-      fill: steelblue;
-    }
-  </style>
+    <style>
+        .chart {}
+        
+        .main text {
+            font: 10px sans-serif;
+        }
+        
+        .axis line,
+        .axis path {
+            shape-rendering: crispEdges;
+            stroke: black;
+            fill: none;
+        }
+        
+        circle {
+            fill: steelblue;
+        }
+    </style>
 
-  <style type="text/css">
-    path {
-      stroke: steelblue;
-      stroke-width: 2;
-      fill: none;
-    }
-    
-    line {
-      stroke: black;
-    }
-    
-    text {
-      font-family: Arial;
-      font-size: 9pt;
-    }
-  </style>
+    <style type="text/css">
+        path {
+            stroke: steelblue;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        line {
+            stroke: black;
+        }
+        
+        text {
+            font-family: Arial;
+            font-size: 9pt;
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="ui fixed inverted menu">
+    <div class="ui fixed inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
                 <i class="big block layout icon"></i> Menu
             </a>
-           <div class="ui simple dropdown item">
+            <div class="ui simple dropdown item">
                 Medições <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
@@ -88,87 +88,87 @@
         </div>
     </div>
 
-  <div class="ui main container">
+    <div class="ui main container">
 
-    <div class="ui container">
-      <div class="ui steps">
-        <div class="active step" id="stepduracao">
-          <i class="options icon"></i>
-          <div class="content">
-            <div class="title">Duração</div>
-            <div class="description">Escolha a duração da medição</div>
-          </div>
-        </div>
-        <div class="disabled step" id="stepexec">
-          <i class="treatment icon"></i>
-          <div class="content">
-            <div class="title">Medição</div>
-            <div class="description">Execução da medição</div>
-          </div>
-        </div>
-        <div class="disabled step" id="steprelatorio">
-          <i class="file outline icon"></i>
-          <div class="content">
-            <div class="title">Relatório</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ui divider"></div>
-
-
-    <div id="tempoSelect">
-      <div class="ui action right labeled input big">
-        <input id="tempo" type="number" placeholder="Duração da medição" oninput="playbtn()">
-        <div class="ui basic label">
-          sec
-        </div>
-        <button class="ui icon button disabled" id="play" onclick="medir();">
-                    <i class="play icon"></i>
-                </button>
-      </div>
-    </div>
-
-    <div id="execute" style="display: none;">
-      <div class="ui indicating progress" id="progress">
-        <div class="bar">
-          <div class="progress"></div>
-        </div>
-        <div class="label" onclick="" id="status">Medindo</div>
-      </div>
-      <div class="ui" id="data">
-        Serial data...
-      </div>
-
-    </div>
-
-
-    <div id="relatorio" style="display: none;">
-
-      <div class="ui grid">
-        <div class="two column row">
-          <div class="column">
-            <h2>Estatocinesiograma</h2>
-            <div id="graph1"></div>
-          </div>
-          <div class="column">
-            <h2>Estabilograma</h2>
-            <div id="graph2"></div>
-          </div>
+        <div class="ui container">
+            <div class="ui steps">
+                <div class="active step" id="stepduracao">
+                    <i class="options icon"></i>
+                    <div class="content">
+                        <div class="title">Duração</div>
+                        <div class="description">Escolha a duração da medição</div>
+                    </div>
+                </div>
+                <div class="disabled step" id="stepexec">
+                    <i class="treatment icon"></i>
+                    <div class="content">
+                        <div class="title">Medição</div>
+                        <div class="description">Execução da medição</div>
+                    </div>
+                </div>
+                <div class="disabled step" id="steprelatorio">
+                    <i class="file outline icon"></i>
+                    <div class="content">
+                        <div class="title">Relatório</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="ui divider"></div>
-        <div class="two column row">
+
+
+        <div id="tempoSelect">
+            <div class="ui action right labeled input big">
+                <input id="tempo" type="number" placeholder="Duração da medição" oninput="playbtn()">
+                <div class="ui basic label">
+                    sec
+                </div>
+                <button class="ui icon button disabled" id="play" onclick="medir();">
+                    <i class="play icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="execute" style="display: none;">
+            <div class="ui indicating progress" id="progress">
+                <div class="bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="label" onclick="" id="status">Medindo</div>
+            </div>
+            <div class="ui" id="data">
+                Serial data...
+            </div>
 
         </div>
-      </div>
+
+
+        <div id="relatorio" style="display: none;">
+
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="column">
+                        <h2>Estatocinesiograma</h2>
+                        <div id="graph1"></div>
+                    </div>
+                    <div class="column">
+                        <h2>Estabilograma</h2>
+                        <div id="graph2"></div>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <div class="two column row">
+
+                </div>
+            </div>
+
+
+        </div>
 
 
     </div>
 
-
-  </div>
-
-  <script src="./js/controladorIndex.js"></script>
+    <script src="./js/controladorIndex.js"></script>
 </body>
 
 </html>

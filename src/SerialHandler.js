@@ -7,8 +7,8 @@ var acc = '';
 function reset() {
     // Lista as portas conectadas
     var find = false;
-    serialLib.list(function (err, ports) {
-        ports.forEach(function (port) {
+    serialLib.list(function(err, ports) {
+        ports.forEach(function(port) {
             if (port.manufacturer.indexOf("Arduino") !== -1) {
                 if (!find) {
                     document.getElementById("status").innerHTML = port.comName;
@@ -23,7 +23,7 @@ function reset() {
 function connect(name) {
     port = new SerialPort(name, {
         baudrate: 9600
-    }, true, function () {
+    }, true, function() {
         console.log("Conectado");
         console.log(port);
         register();
@@ -36,7 +36,7 @@ function coleta(dados) {
     acc += dados.toString('utf8');
     var linhas = acc.split('#');
     acc = linhas.pop();
-    linhas.forEach(function (part) {
+    linhas.forEach(function(part) {
         processa(data);
     });
 
@@ -49,13 +49,13 @@ function processa(dados) {
 
 function register() {
     console.log("registrando");
-    port.on("data", function (data) {
+    port.on("data", function(data) {
         coleta(data);
     });
-    port.on("close", function (data) {
+    port.on("close", function(data) {
         port = null;
     });
-    port.on("err", function (data) {
+    port.on("err", function(data) {
         console.log("erro " + data);
     });
 }
