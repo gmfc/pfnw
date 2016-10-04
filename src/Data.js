@@ -1,5 +1,5 @@
 /** @external  simple-statistics */
-var sm = require("simple-statistics");
+var sm = require('simple-statistics');
 
 /** @module PlatData */
 
@@ -71,8 +71,6 @@ function PlatData(pa, pb) {
 	 */
 	this.CPy = [];
 
-	//
-
 	/**
 	 * Frequencia de medição em tempo real
 	 * @type {number}
@@ -84,10 +82,10 @@ function PlatData(pa, pb) {
 /**
  * Recebe dados da plataforma como String
  * extrai e trata os dados
- * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ * @arg {string} data - String formatada: 'TI;TR;TL;BR;BL'
  */
 PlatData.prototype.pushData = function(data) {
-	var arr = data.split(";").map(function(val) {
+	var arr = data.split(';').map(function(val) {
 		return Number(val);
 	});
 	this.TI.push(arr[0]);
@@ -96,10 +94,6 @@ PlatData.prototype.pushData = function(data) {
 	this.BR.push(arr[3]);
 	this.BL.push(arr[4]);
 };
-
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em X da placa
-//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
 
 /**
  * Funcao usada no calculo do COP
@@ -131,9 +125,6 @@ function Efay(b, fz1, fz2, fz3, fz4) {
 	return Y;
 }
 
-//
-//
-
 /**
  * Calcula Centro de pressao (COP) para cada entrada
  * Inicializa CPx e CPy. chama Efax e Efay
@@ -148,12 +139,12 @@ PlatData.prototype.calcCOP = function() {
 /**
  * Calcula o COP para dada String recebida
  * Usado para calcular o COP em tempo real
- * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
  * @return {Object} result - objeto com atributos x,y para coordenadas
  * e t para timestamp
  */
 PlatData.prototype.RTCOP = function(data) {
-	var arr = data.split(";").map(function(val) {
+	var arr = data.split(';').map(function(val) {
 		return Number(val);
 	});
 
@@ -163,7 +154,7 @@ PlatData.prototype.RTCOP = function(data) {
 		BL = arr[4];
 
 	var result = {};
-	result.t = arr[0] - this.tempDeltaTime; //- this.tempDeltaTime;
+	result.t = arr[0] - this.tempDeltaTime;
 	this.tempDeltaTime = arr[0];
 	result.x = Efax(this.a, TR, TL, BL, BR);
 	result.y = Efay(this.b, TR, TL, BL, BR);
