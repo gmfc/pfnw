@@ -71,8 +71,6 @@ function PlatData(pa, pb) {
 	 */
 	this.CPy = [];
 
-	//
-
 	/**
 	 * Frequencia de medição em tempo real
 	 * @type {number}
@@ -97,10 +95,6 @@ PlatData.prototype.pushData = function(data) {
 	this.BR.push(arr[3]);
 	this.BL.push(arr[4]);
 };
-
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em X da placa
-//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
 
 /**
  * Funcao usada no calculo do COP
@@ -132,9 +126,6 @@ function Efay(b, fz1, fz2, fz3, fz4) {
 	return Y;
 }
 
-//
-//
-
 /**
  * Calcula Centro de pressao (COP) para cada entrada
  * Inicializa CPx e CPy. chama Efax e Efay
@@ -164,7 +155,7 @@ PlatData.prototype.RTCOP = function(data) {
 		BL = arr[4];
 
 	var result = {};
-	result.t = arr[0] - this.tempDeltaTime; //- this.tempDeltaTime;
+	result.t = arr[0] - this.tempDeltaTime;
 	this.tempDeltaTime = arr[0];
 	result.x = Efax(this.a, TR, TL, BL, BR);
 	result.y = Efay(this.b, TR, TL, BL, BR);
