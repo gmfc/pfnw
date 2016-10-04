@@ -36,7 +36,8 @@ gulp.task('docs', ['clean:docs'], function(cb) {
 gulp.task('clean:docs', function() {
 	return del([
 		'docs/**/*',
-		'!docs/Documentacao.mdj'
+		'!docs/Documentacao.mdj',
+		'!docs/UML/**'
 	]);
 });
 

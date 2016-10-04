@@ -1,4 +1,9 @@
-/** @module RealTimeController */
+/**
+ * @module RealTimeController
+ * @see
+ * ![alt text](./UML/RealTimeController.svg "Funcionamento")
+ *
+ */
 
 /** JQuery */
 global.$ = $;
@@ -140,7 +145,7 @@ function coleta(dados) {
  * @param {string} name - come da porta serial em que a Plataforma se encontra
  */
 function connect(name) {
-	btConnected();
+
 	port = new SerialPort(name, {
 		baudrate: 9600
 	}, false);
@@ -148,6 +153,7 @@ function connect(name) {
 		if (error) {
 			btERR(error);
 		} else {
+			btConnected();
 			port.on('data', function(data) {
 				coleta(data);
 				//console.log('data received: ' + data);
