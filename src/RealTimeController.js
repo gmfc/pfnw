@@ -10,20 +10,24 @@ var acc = "";
 var ctx = $("#canvas")[0].getContext("2d");
 
 function findPlat() {
-  port = null;
+    console.log("batata1 findPlat()");
+    port = null;
     btConnecting();
     var found = false;
     browserserialport.list(function(err, ports) {
         var counter = 0;
+        console.log("batata list");
         ports.forEach(function(port) {
             counter++;
+            console.log("batata c++ forEach");
             if (port.manufacturer.indexOf("Arduino") !== -1 && !found) {
+                console.log("batata achou e con" + port.comName);
                 connect(port.comName);
                 console.log(port.comName);
                 found = true;
             }
             if (counter === ports.length && !found) {
-                btERR("Porta não encontrada");
+                btERR("Porta não encontrada!");
             }
         });
     });
@@ -40,10 +44,10 @@ function connect(name) {
         } else {
             port.on('data', function(data) {
                 coleta(data);
-                console.log('data received: ' + data);
+                //console.log('data received: ' + data);
             });
             port.on("close", function(data) {
-              port = null;
+                port = null;
                 btDisconnected();
             });
             port.on("err", function(data) {
@@ -85,7 +89,7 @@ $("#bt").click(findPlat);
 ///////////////////////////////
 
 function btConnecting() {
-    console.log("Conectando!");
+    console.log("Conectando...");
 
     $("#label").addClass("blue");
     $("#status").addClass("blue");
@@ -101,7 +105,6 @@ function btConnecting() {
     $("#statustxt").text("...");
 
     $("#bt").addClass("disabled");
-    //$("#bt").unbind(findPlat);
 }
 
 function btDisconnected() {
@@ -119,10 +122,8 @@ function btDisconnected() {
 
     $("#labeltxt").text("Conectar");
     $("#statustxt").text("desconectado");
-    //$("#bt").unbind(findPlat);
 
     $("#bt").removeClass("disabled");
-    $("#bt").click(findPlat);
 }
 
 function btConnected() {
@@ -142,11 +143,10 @@ function btConnected() {
     $("#statustxt").text("Hz");
 
     $("#bt").addClass("disabled");
-    //$("#bt").unbind(findPlat);
 }
 
 function btERR(err) {
-    console.log("Conectado!");
+    console.log("ERRO! " + err);
 
     $("#label").addClass("red");
     $("#status").addClass("red");
@@ -163,5 +163,5 @@ function btERR(err) {
     //$("#bt").unbind(findPlat);
 
     $("#bt").removeClass("disabled");
-    $("#bt").click(findPlat);
+
 }
