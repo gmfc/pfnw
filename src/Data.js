@@ -1,5 +1,5 @@
 /** @external  simple-statistics */
-var sm = require("simple-statistics");
+var sm = require('simple-statistics');
 
 /** @module PlatData */
 
@@ -84,10 +84,11 @@ function PlatData(pa, pb) {
 /**
  * Recebe dados da plataforma como String
  * extrai e trata os dados
- * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
+ * @returns {null} null - retorno interno isolado. Não retorna nada.
  */
 PlatData.prototype.pushData = function(data) {
-	var arr = data.split(";").map(function(val) {
+	var arr = data.split(';').map(function(val) {
 		return Number(val);
 	});
 	this.TI.push(arr[0]);
@@ -148,12 +149,12 @@ PlatData.prototype.calcCOP = function() {
 /**
  * Calcula o COP para dada String recebida
  * Usado para calcular o COP em tempo real
- * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
  * @return {Object} result - objeto com atributos x,y para coordenadas
  * e t para timestamp
  */
 PlatData.prototype.RTCOP = function(data) {
-	var arr = data.split(";").map(function(val) {
+	var arr = data.split(';').map(function(val) {
 		return Number(val);
 	});
 
