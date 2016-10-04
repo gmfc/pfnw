@@ -1,52 +1,78 @@
 global.$ = $;
-// biblioteca de acesso serial
-var serialLib = require("browser-serialport");
-var data = require("./Data.js");
-var SerialPort = serialLib.SerialPort;
-var port;
-var calc = new data(325, 250, 0);
-var acc = '';
-var connectFlag = false;
-var dataActive = 0;
+var browserserialport = require("browser-serialport");
+var SerialPort = browserserialport.SerialPort;
+var Plataforma = require("./Data.js");
 
-function reset() {
-    // Lista as portas conectadas
-    dataActive = Date.now();
-    connectFlag = false;
-    dataActive = false;
+var calc = new Plataforma(369, 334);
+var port;
+var acc = "";
+
+var ctx = $("#canvas")[0].getContext("2d");
+
+function findPlat() {
+    console.log("batata1 findPlat()");
     port = null;
-    update();
-    var find = false;
-    serialLib.list(function (err, ports) {
-        ports.forEach(function (port) {
-            if (port.manufacturer.indexOf("Arduino") !== -1) {
-                if (!find) {
-                    //document.getElementById("status").innerHTML = port.comName;
-                    connect(port.comName);
-                }
-                find = true;
+    btConnecting();
+    var found = false;
+    browserserialport.list(function(err, ports) {
+        var counter = 0;
+        console.log("batata list");
+        ports.forEach(function(port) {
+            counter++;
+            console.log("batata c++ forEach");
+            if (port.manufacturer.indexOf("Arduino") !== -1 && !found) {
+                console.log("batata achou e con" + port.comName);
+                connect(port.comName);
+                console.log(port.comName);
+                found = true;
+            }
+            if (counter === ports.length && !found) {
+                btERR("Porta não encontrada!");
             }
         });
     });
-
 }
 
 function connect(name) {
+    btConnected();
     port = new SerialPort(name, {
         baudrate: 9600
-    }, true, function () {
-        register();
-        connectFlag = true;
-        btConect();
+    }, false);
+    port.open(function(error) {
+        if (error) {
+            btERR(error);
+        } else {
+            port.on('data', function(data) {
+                coleta(data);
+                //console.log('data received: ' + data);
+            });
+            port.on("close", function(data) {
+                port = null;
+                btDisconnected();
+            });
+            port.on("err", function(data) {
+                btERR(data);
+            });
+        }
     });
 }
 
+function coleta(dados) {
+    acc += dados.toString('utf8');
+    var linhas = acc.split('#');
+    acc = linhas.pop();
+    linhas.forEach(function(part) {
+        var result = calc.RTCOP(part);
+        $("#statustxt").text(Math.floor(1 / (result.t / 1000)) + " Hz");
+        update(result.x + 369, result.y + 334);
+    });
+}
 
 function update(tgx, tgy) {
     // fade effect
     ctx.globalAlpha = 0.1;
     ctx.fillStyle = '#f4f4f4';
-    ctx.fillRect(0, 0, 650, 500);
+    ctx.fillRect(0, 0, 738, 668);
     ctx.globalAlpha = 1;
     ctx.fillStyle = '#000000';
     ctx.beginPath();
@@ -54,99 +80,88 @@ function update(tgx, tgy) {
     ctx.fill();
 }
 
-function coleta(dados) {
-    dataActive = Date.now();
-    acc += dados.toString('utf8');
-    var linhas = acc.split('#');
-    acc = linhas.pop();
-    linhas.forEach(function (part) {
-        var result = calc.RTCOP(part);
-        $("#statustxt").text(Math.floor(1/(result.t/1000)) + " Hz");
-        update(result.x + 325, result.y + 250);
-    });
-}
+//findPlat();
+$("#bt").click(findPlat);
 
 
-function register() {
-    port.on("data", function (data) {
-        coleta(data);
-    });
-    port.on("close", function (data) {
-        btDisconnect(data);
-        port = null;
-    });
-    port.on("err", function (data) {
-        btERR(data);
-    });
-}
-var canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d");
+////////////////////////////////
+/// UI
+///////////////////////////////
 
+function btConnecting() {
+    console.log("Conectando...");
 
-///////////////////////////////////
-
-function btConect() {
-    console.log("conectado!");
+    $("#label").addClass("blue");
+    $("#status").addClass("blue");
 
     $("#label").removeClass("yellow");
     $("#status").removeClass("yellow");
-
-    $("#label").removeClass("red");
-    $("#status").removeClass("red");
-
-
-    $("#label").addClass("green");
-    $("#status").addClass("green");
-    $("#labeltxt").text("Conectado");
-}
-
-function btDisconnect(data) {
-    console.log("desconectado!" + data);
-
     $("#label").removeClass("green");
     $("#status").removeClass("green");
-
     $("#label").removeClass("red");
     $("#status").removeClass("red");
+
+    $("#labeltxt").text("Conectando");
+    $("#statustxt").text("...");
+
+    $("#bt").addClass("disabled");
+}
+
+function btDisconnected() {
+    console.log("desconectado!");
 
     $("#label").addClass("yellow");
     $("#status").addClass("yellow");
-    $("#labeltxt").text("Conectar");
-    $("#statustxt").text("off");
-    //port = null;
-}
 
-function btERR(data) {
-    console.log("ERR!" + data);
-
+    $("#label").removeClass("blue");
+    $("#status").removeClass("blue");
     $("#label").removeClass("green");
     $("#status").removeClass("green");
+    $("#label").removeClass("red");
+    $("#status").removeClass("red");
 
+    $("#labeltxt").text("Conectar");
+    $("#statustxt").text("desconectado");
+
+    $("#bt").removeClass("disabled");
+}
+
+function btConnected() {
+    console.log("Conectado!");
+
+    $("#label").addClass("green");
+    $("#status").addClass("green");
+
+    $("#label").removeClass("blue");
+    $("#status").removeClass("blue");
     $("#label").removeClass("yellow");
     $("#status").removeClass("yellow");
+    $("#label").removeClass("red");
+    $("#status").removeClass("red");
+
+    $("#labeltxt").text("Conectado");
+    $("#statustxt").text("Hz");
+
+    $("#bt").addClass("disabled");
+}
+
+function btERR(err) {
+    console.log("ERRO! " + err);
 
     $("#label").addClass("red");
     $("#status").addClass("red");
-    $("#labeltxt").text("Reset");
-    $("#statustxt").text(data);
-}
-var errFlag = false;
 
-function statusCheck() {
-    if (connectFlag && (Date.now() - dataActive) > 5000) {
-        btERR("Reconectar Plataforma");
-        errFlag = true;
-    } else if (errFlag && connectFlag) {
-        errFlag = false;
-        btConect();
-    }
-    setTimeout(statusCheck, 200);
+    $("#label").removeClass("blue");
+    $("#status").removeClass("blue");
+    $("#label").removeClass("yellow");
+    $("#status").removeClass("yellow");
+    $("#label").removeClass("green");
+    $("#status").removeClass("green");
+
+    $("#labeltxt").text("Reset");
+    $("#statustxt").text(err);
+    //$("#bt").unbind(findPlat);
+
+    $("#bt").removeClass("disabled");
+
 }
-statusCheck();
-$("#bt").click(reset);
-$(window).bind('beforeunload', function () {
-    if (port) {
-        port.close();
-    }
-});
-btDisconnect();

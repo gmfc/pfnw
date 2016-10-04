@@ -12,7 +12,7 @@ gulp.task("rtcontrol", function () {
         .bundle()
         .pipe(source("rtcontrol.js")) // gives streaming vinyl file object
         .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-        //.pipe(uglify()) // now gulp-uglify works 
+        //.pipe(uglify()) // now gulp-uglify works
         .pipe(gulp.dest("./ui/js"));
 });
 
@@ -45,6 +45,10 @@ gulp.task("clean:js", function () {
     // here we use a globbing pattern to match everything inside the `mobile` folder
     "./ui/js/**/*"
   ]);
+});
+
+gulp.task('stream', function () {
+    gulp.watch('./src/**/*.js', ['build']);
 });
 
 gulp.task("build", ["clean:js", "rtcontrol", "controladorIndex"]);
