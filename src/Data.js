@@ -1,201 +1,303 @@
-// biblioteca de estatistica
+/** @external  simple-statistics */
 var sm = require("simple-statistics");
-//  Classe responsavel por administrar e receber os dados da plataforma
-//  Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
+
+/** @module PlatData */
+
+/**
+ * Classe responsavel por administrar e receber os dados da plataforma.
+ * Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
+ * @param {string} pa - Medida entre o centro e a lateral da plataforma.
+ * @param {string} pb - Medida entre o centro e o topo da plataforma.
+ * @class
+ */
 function PlatData(pa, pb) {
-    // Deslocamento vertical da plataforma
-    this.a = pa;
-    this.b = pb;
-    //Medida centro -> topo
+	/**
+	 * Medida centro e a lateral
+	 * @type {number}
+	 */
+	this.a = pa;
 
-    // timestamps
-    this.TI = [];
-    // arrays de cada sensor
-    // top right
-    this.TR = [];
-    // top left
-    this.TL = [];
-    // bottom right
-    this.BR = [];
-    // bottom left
-    this.BL = [];
+	/**
+	 * Medida centro e a topo
+	 * @type {number}
+	 */
+	this.b = pb;
 
-    // COP
-    this.CPx = [];
-    this.CPy = [];
+	/**
+	 * Timestamps das leituras
+	 * @type {number[]}
+	 */
+	this.TI = [];
 
-    // freq de medicao em tempo real
-    this.tempDeltaTime = 0;
+	/**
+	 * Leituras do sensor
+	 * Top Right
+	 * @type {number[]}
+	 */
+	this.TR = [];
+
+	/**
+	 * Leituras do sensor
+	 * Top Left
+	 * @type {number[]}
+	 */
+	this.TL = [];
+
+	/**
+	 * Leituras do sensor
+	 * Bottom Right
+	 * @type {number[]}
+	 */
+	this.BR = [];
+
+	/**
+	 * Leituras do sensor
+	 * Bottom Left
+	 * @type {number[]}
+	 */
+	this.BL = [];
+
+	/**
+	 * Coordenadas X calculadas de cada COP
+	 * Bottom Right
+	 * @type {number[]}
+	 */
+	this.CPx = [];
+
+	/**
+	 * Coordenadas Y calculadas de cada COP
+	 * Bottom Right
+	 * @type {number[]}
+	 */
+	this.CPy = [];
+
+	//
+
+	/**
+	 * Frequencia de medição em tempo real
+	 * @type {number}
+	 */
+	this.tempDeltaTime = 0;
 
 }
 
-// Adiciona dados recebidos como String e adiciona a Arrays
-// Split em ";"
-// Inicializa TI, TR, TL, BR e BL
+/**
+ * Recebe dados da plataforma como String
+ * extrai e trata os dados
+ * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ */
 PlatData.prototype.pushData = function(data) {
-    var arr = data.split(";").map(function(val) {
-        return Number(val);
-    });
-    this.TI.push(arr[0]);
-    this.TR.push(arr[1]);
-    this.TL.push(arr[2]);
-    this.BR.push(arr[3]);
-    this.BL.push(arr[4]);
+	var arr = data.split(";").map(function(val) {
+		return Number(val);
+	});
+	this.TI.push(arr[0]);
+	this.TR.push(arr[1]);
+	this.TL.push(arr[2]);
+	this.BR.push(arr[3]);
+	this.BL.push(arr[4]);
 };
 
 // Funcao usada no calculo do COP
 // Calcula forca horizontal em X da placa
 //fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+
+/**
+ * Funcao usada no calculo do COP
+ * Calcula forca horizontal em X da placa
+ * @param {number} a - Distancia centro lateral da plataforma
+ * @param {number} fz1 - Leitura do sensor TR
+ * @param {number} fz2 - Leitura do sensor TL
+ * @param {number} fz3 - Leitura do sensor BL
+ * @param {number} fz4 - Leitura do sensor BR
+ * @return {number} X - Coordenada X do COP
+ */
 function Efax(a, fz1, fz2, fz3, fz4) {
-    var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
-    return X;
+	var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
+	return X;
 }
 
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em Y da placa
-//fz1 = TR, fz2 = TL, fz3 = BL, fz4 = BR
+/**
+ * Funcao usada no calculo do COP
+ * Calcula forca horizontal em Y da placa
+ * @param {number} b - Distancia centro topo da plataforma
+ * @param {number} fz1 - Leitura do sensor TR
+ * @param {number} fz2 - Leitura do sensor TL
+ * @param {number} fz3 - Leitura do sensor BL
+ * @param {number} fz4 - Leitura do sensor BR
+ * @return {number} Y - Coordenada Y do COP
+ */
 function Efay(b, fz1, fz2, fz3, fz4) {
-    var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
-    return Y;
+	var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
+	return Y;
 }
 
-// Calcula Centro de pressao (COP) para cada entrada
-// Inicializa CPx e CPy. chama calcFx previamente
+//
+//
+
+/**
+ * Calcula Centro de pressao (COP) para cada entrada
+ * Inicializa CPx e CPy. chama Efax e Efay
+ */
 PlatData.prototype.calcCOP = function() {
-    for (var i = 0; i < this.BR.length; i++) {
-        this.CPx[i] = Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
-        this.CPy[i] = Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
-    }
+	for (var i = 0; i < this.BR.length; i++) {
+		this.CPx[i] = Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
+		this.CPy[i] = Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
+	}
 };
 
-
-// Calcula o COP para dada String recebida
-// Usado para exibir o COP em tempo real
+/**
+ * Calcula o COP para dada String recebida
+ * Usado para calcular o COP em tempo real
+ * @param {string} data - String formatada: "TI;TR;TL;BR;BL"
+ * @return {Object} result - objeto com atributos x,y para coordenadas
+ * e t para timestamp
+ */
 PlatData.prototype.RTCOP = function(data) {
-    var arr = data.split(";").map(function(val) {
-        return Number(val);
-    });
+	var arr = data.split(";").map(function(val) {
+		return Number(val);
+	});
 
-    var TR = arr[1],
-        TL = arr[2],
-        BR = arr[3],
-        BL = arr[4];
+	var TR = arr[1],
+		TL = arr[2],
+		BR = arr[3],
+		BL = arr[4];
 
-    var result = {};
-    result.t = arr[0] - this.tempDeltaTime; //- this.tempDeltaTime;
-    this.tempDeltaTime = arr[0];
-    result.x = Efax(this.a, TR, TL, BL, BR);
-    result.y = Efay(this.b, TR, TL, BL, BR);
-    return result;
+	var result = {};
+	result.t = arr[0] - this.tempDeltaTime; //- this.tempDeltaTime;
+	this.tempDeltaTime = arr[0];
+	result.x = Efax(this.a, TR, TL, BL, BR);
+	result.y = Efay(this.b, TR, TL, BL, BR);
+	return result;
 };
 
-// Calcula o deslocamento da oscilacao total
-// DEPENDE DE calcCOP
+/**
+ * Calcula o deslocamento da oscilacao total
+ * DEPENDE DE calcCOP
+ */
 PlatData.prototype.calcDOT = function() {
-    this.DOT = 0;
-    for (var i = 0; i < this.CPx.length; i++) {
-        this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
-    }
+	this.DOT = 0;
+	for (var i = 0; i < this.CPx.length; i++) {
+		this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
+	}
 };
 
-// Calcula desvio padrao
-// DEPENDE DE calcCOP
+/**
+ * Calcula desvio padrao
+ * DEPENDE DE calcCOP
+ */
 PlatData.prototype.calcDEV = function() {
-    this.DevAP = sm.standardDeviation(this.CPy);
-    this.DevML = sm.standardDeviation(this.CPx);
+	this.DevAP = sm.standardDeviation(this.CPy);
+	this.DevML = sm.standardDeviation(this.CPx);
 };
 
-// Calcula a raiz do valor quadratico medio
-// DEPENDE DE calcCOP
+/**
+ * Calcula a raiz do valor quadratico medio
+ * DEPENDE DE calcCOP
+ */
 PlatData.prototype.calcRMS = function() {
-    this.rmsAP = sm.rootMeanSquare(this.CPy);
-    this.rmsML = sm.rootMeanSquare(this.CPx);
+	this.rmsAP = sm.rootMeanSquare(this.CPy);
+	this.rmsML = sm.rootMeanSquare(this.CPx);
 };
 
-// Calcula a frequencia da medicao
-// PRECISA DOS DADOS EM TI[]
+/**
+ * Calcula a frequencia da medicao
+ * PRECISA DOS DADOS EM TI[]
+ */
 PlatData.prototype.calcFREQ = function() {
-    var deltas = [];
-    for (var i = 1; i < this.TI.length; i++) {
-        deltas.push(this.TI[i] - this.TI[i - 1]);
-    }
-    this.avgFrq = 1000 / sm.mean(deltas);
+	var deltas = [];
+	for (var i = 1; i < this.TI.length; i++) {
+		deltas.push(this.TI[i] - this.TI[i - 1]);
+	}
+	this.avgFrq = 1000 / sm.mean(deltas);
 };
 
-// Calcula a velocidade media de deslocacao em AP e ML
-// chama calcFREQ previamente
+/**
+ * Calcula a velocidade media de deslocacao em AP e ML
+ * chama calcFREQ previamente
+ */
 PlatData.prototype.calcVEL = function() {
-    this.calcFREQ();
-    var ApDeslocSum = 0;
-    for (var i = 1; i < this.CPy.length; i++) {
-        ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1])
-    }
-    var MlDeslocSum = 0;
-    for (var i = 1; i < this.CPx.length; i++) {
-        MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
-    }
-    this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
-    this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
+	this.calcFREQ();
+	var ApDeslocSum = 0;
+	for (var i = 1; i < this.CPy.length; i++) {
+		ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1])
+	}
+	var MlDeslocSum = 0;
+	for (var i = 1; i < this.CPx.length; i++) {
+		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
+	}
+	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
+	this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
 };
 
-// Calcula a amplitude de deslocamento em AP e ML
-// DEPENDE DE calcCOP
+/**
+ * Calcula a amplitude de deslocamento em AP e ML
+ * DEPENDE DE calcCOP
+ */
 PlatData.prototype.calcAMPL = function() {
-    this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
-    this.ampML = sm.max(this.CPx) - sm.min(this.CPx);
+	this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
+	this.ampML = sm.max(this.CPx) - sm.min(this.CPx);
 };
 
-// Calcula a velocidade de deslocamento
-// media total do COP
-// chama calcFREQ previamente
+/**
+ * Calcula a velocidade de deslocamento
+ * media total do COP
+ * chama calcFREQ previamente
+ */
 PlatData.prototype.calcVELTotal = function() {
-    this.calcFREQ();
-    var sum = 0;
-    for (var i = 1; i < this.CPx.length; i++) {
-        sum += Math.sqrt(
-            Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
-            Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
-        )
-    }
-    this.VMT = sum * this.avgFrq / this.CPy.length;
+	this.calcFREQ();
+	var sum = 0;
+	for (var i = 1; i < this.CPx.length; i++) {
+		sum += Math.sqrt(
+			Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
+			Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
+		)
+	}
+	this.VMT = sum * this.avgFrq / this.CPy.length;
 };
 
-// Calcula a area preenchida pelo deslocamento do COP
-// Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
-// DEPENDE DE calcCOP
-// 
-// Pode ser alterado para tracar um poligono com as coordenadas perifiricas
+/**
+ * Calcula a area preenchida pelo deslocamento do COP
+ * Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
+ * @todo Pode ser alterado para tracar um poligono com as coordenadas perifiricas
+ * DEPENDE DE calcCOP
+ */
 PlatData.prototype.calcAREA = function() {
-    var medianAP = sm.median(this.CPy);
-    var medianML = sm.median(this.CPx);
-    var deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
-    var deltaAPmax = Math.abs(sm.max(this.CPy) - medianAP);
-    var deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
-    var deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
-    var deltaAP = (deltaAPmin + deltaAPmax) / 2;
-    var deltaML = (deltaMLmin + deltaMLmax) / 2;
-    this.area = Math.PI * deltaAP * deltaML;
+	var medianAP = sm.median(this.CPy);
+	var medianML = sm.median(this.CPx);
+	var deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
+	var deltaAPmax = Math.abs(sm.max(this.CPy) - medianAP);
+	var deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
+	var deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
+	var deltaAP = (deltaAPmin + deltaAPmax) / 2;
+	var deltaML = (deltaMLmin + deltaMLmax) / 2;
+	this.area = Math.PI * deltaAP * deltaML;
 };
 
 // ## funcoes antigas nao mais usadas
 
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em X da placa
+/**
+ * Funcao usada no calculo do COP
+ * Calcula forca horizontal em X da placa
+ * @deprecated desde v0.1.2
+ */
 function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
-    var t1 = a * (-fz1 + fz2 + fz3 - fz4);
-    var t3 = fz1 + fz2 + fz3 + fz4;
-    var t2 = az0 * (fx12 + fx34);
-    return (-t1 - t2) / t3;
+	var t1 = a * (-fz1 + fz2 + fz3 - fz4);
+	var t3 = fz1 + fz2 + fz3 + fz4;
+	var t2 = az0 * (fx12 + fx34);
+	return (-t1 - t2) / t3;
 };
 
-// Funcao usada no calculo do COP
-// Calcula forca horizontal em Y da placa
+/**
+ * Funcao usada no calculo do COP
+ * Calcula forca horizontal em Y da placa
+ * @deprecated desde v0.1.2
+ */
 function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
-    var t1 = b * (fz1 + fz2 - fz3 - fz4);
-    var t3 = fz1 + fz2 + fz3 + fz4;
-    var t2 = az0 * (fy14 + fy23);
-    return (t1 + t2) / t3;
+	var t1 = b * (fz1 + fz2 - fz3 - fz4);
+	var t3 = fz1 + fz2 + fz3 + fz4;
+	var t2 = az0 * (fy14 + fy23);
+	return (t1 + t2) / t3;
 };
 
-// Exporta a classe
-module.exports = PlatData;
+
+module.exports = PlatData;;
