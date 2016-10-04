@@ -2,14 +2,14 @@ var should = require("should");
 var PlatData = require("../src/Data.js");
 
 
-describe("Testes da classe Data com dados aleatorios", function () {
+describe("Testes da classe Data com dados aleatorios", function() {
     var strings = [];
     var numbers = [];
     var nDeLinhas = 2000;
     this.timeout(20000);
-    var rawTest = new PlatData(24.76,15.24,0);
+    var rawTest = new PlatData(24.76, 15.24, 0);
 
-    before("populando linhas...", function () {
+    before("populando linhas...", function() {
         for (var i = 0; i < nDeLinhas; i++) {
             var TI = Math.floor(Math.random() * 8) + 5,
                 TR = Math.random() * 100,
@@ -22,7 +22,7 @@ describe("Testes da classe Data com dados aleatorios", function () {
     });
 
 
-    it("Parse test " + nDeLinhas + " linhas", function () {
+    it("Parse test " + nDeLinhas + " linhas", function() {
 
         for (var i = 0; i < nDeLinhas; i++) {
             rawTest.pushData(strings[i]);
@@ -39,7 +39,7 @@ describe("Testes da classe Data com dados aleatorios", function () {
 
     });
 
-    it("Calcula CPx e CPy", function () {
+    it("Calcula CPx e CPy", function() {
         rawTest.calcCOP();
         for (var i = 0; i < rawTest.TR.length; i++) {
             rawTest.CPx[i].should.be.Number().and.not.be.NaN();
@@ -47,7 +47,7 @@ describe("Testes da classe Data com dados aleatorios", function () {
         }
     });
 
-    it("Calcula CPx e CPy em tempo real", function () {
+    it("Calcula CPx e CPy em tempo real", function() {
         for (var i = 0; i < nDeLinhas; i++) {
             var result = rawTest.RTCOP(strings[i]);
             result.x.should.be.Number().and.not.be.NaN();
@@ -55,49 +55,49 @@ describe("Testes da classe Data com dados aleatorios", function () {
         }
     });
 
-    it("Calcula Deslocamento da oscilação total, DOT", function () {
+    it("Calcula Deslocamento da oscilação total, DOT", function() {
         rawTest.calcDOT();
         rawTest.DOT.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Desvio padrão (AP e ML)", function () {
+    it("Calcula Desvio padrão (AP e ML)", function() {
         rawTest.calcDEV();
         rawTest.DevAP.should.be.Number().and.not.be.NaN().and.be.above(0);
         rawTest.DevML.should.be.Number().and.not.be.NaN().and.be.above(0);
     });
 
-    it("Calcula RMS (Root Mean Square) AP e ML", function () {
+    it("Calcula RMS (Root Mean Square) AP e ML", function() {
         rawTest.calcRMS();
         rawTest.rmsAP.should.be.Number().and.not.be.NaN();
         rawTest.rmsML.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Frequencia", function () {
+    it("Calcula Frequencia", function() {
         rawTest.calcFREQ();
         rawTest.avgFrq.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Velocidade média (VM)", function () {
+    it("Calcula Velocidade média (VM)", function() {
         rawTest.calcVEL();
         rawTest.VMap.should.be.Number().and.not.be.NaN();
         rawTest.VMml.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Amplitude de deslocamento do CP", function () {
+    it("Calcula Amplitude de deslocamento do CP", function() {
         rawTest.calcAMPL();
         rawTest.ampAP.should.be.Number().and.not.be.NaN();
         rawTest.ampML.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Velocidade média total (VMT)", function () {
+    it("Calcula Velocidade média total (VMT)", function() {
         rawTest.calcVELTotal();
         rawTest.VMT.should.be.Number().and.not.be.NaN();
     });
 
-    it("Calcula Área", function () {
+    it("Calcula Área", function() {
         rawTest.calcAREA();
         rawTest.area.should.be.Number().and.not.be.NaN();
     });
 
-    
+
 });

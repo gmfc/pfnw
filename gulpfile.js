@@ -5,9 +5,9 @@ var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
 var rename = require("gulp-rename");
 var docco = require("gulp-docco");
-var del = require('del');
+var del = require("del");
 
-gulp.task("rtcontrol", function () {
+gulp.task("rtcontrol", function() {
     return browserify("./src/RealTimeController.js")
         .bundle()
         .pipe(source("rtcontrol.js")) // gives streaming vinyl file object
@@ -16,38 +16,38 @@ gulp.task("rtcontrol", function () {
         .pipe(gulp.dest("./ui/js"));
 });
 
-gulp.task("controladorIndex", function () {
+gulp.task("controladorIndex", function() {
     gulp.src("./src/index-controlar.js")
-        .pipe(uglify().on("error", function (e) {
-            console.log(e);
+        .pipe(uglify().on("error", function(e) {
+            console.error(e);
         }))
         .pipe(rename("controladorIndex.js"))
         .pipe(gulp.dest("./ui/js"));
 });
 
-gulp.task("docs",["clean:docs"], function () {
+gulp.task("docs", ["clean:docs"], function() {
     gulp.src("./src/*.js")
         .pipe(docco())
         .pipe(gulp.dest("./docs"));
 });
 
-gulp.task("clean:docs", function () {
-  return del([
-    // here we use a globbing pattern to match everything inside the `mobile` folder
-    "docs/**/*",
-    // we don't want to clean this file though so we negate the pattern
-    "!docs/Documentacao.mdj"
-  ]);
+gulp.task("clean:docs", function() {
+    return del([
+        // here we use a globbing pattern to match everything inside the `mobile` folder
+        "docs/**/*",
+        // we don't want to clean this file though so we negate the pattern
+        "!docs/Documentacao.mdj"
+    ]);
 });
 
-gulp.task("clean:js", function () {
-  return del([
-    // here we use a globbing pattern to match everything inside the `mobile` folder
-    "./ui/js/**/*"
-  ]);
+gulp.task("clean:js", function() {
+    return del([
+        // here we use a globbing pattern to match everything inside the `mobile` folder
+        "./ui/js/**/*"
+    ]);
 });
 
-gulp.task('stream', function () {
+gulp.task('stream', function() {
     gulp.watch('./src/**/*.js', ['build']);
 });
 
