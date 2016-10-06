@@ -8,13 +8,6 @@ describe('Testes da classe Data com dados REAIS', function() {
 	this.timeout(20000);
 	var rawTest = new PlatData(24.76, 15.24);
 
-	before('populando linhas...', function() {
-		describe('seta tamanho padrao', function() {
-			rawTest.a = 24.76;
-			rawTest.b = 15.24;
-		});
-	});
-
 
 	it('Parse test ' + strings.length + ' linhas', function() {
 
@@ -91,8 +84,5 @@ describe('Testes da classe Data com dados REAIS', function() {
 		rawTest.calcAREA();
 		rawTest.area.should.be.equal(69.9139732425667).and.not.be.NaN();
 	});
-
-
-
 
 });

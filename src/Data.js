@@ -264,6 +264,25 @@ PlatData.prototype.calcAREA = function() {
 	this.area = Math.PI * deltaAP * deltaML;
 };
 
+
+
+/**
+ * Calcula e gera relatorio completo com base nas medições
+ * coletadas previamente
+ */
+PlatData.prototype.fullReport = function() {
+	this.calcCOP();
+	this.calcDOT();
+	this.calcDEV();
+	this.calcRMS();
+	this.calcFREQ();
+	this.calcVEL();
+	this.calcAMPL();
+	this.calcVELTotal();
+	this.calcAREA();
+	return this;
+};
+
 // ## funcoes antigas nao mais usadas
 
 /**
