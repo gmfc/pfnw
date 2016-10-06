@@ -31,9 +31,10 @@ describe('Testes de geração de relatório da classe Data com dados aleatórios
 		tam: 1000
 	}, {
 		tam: 10000
-	}, ];
+	}, {
+		tam: 100000
+	}];
 
-	// TODO: ISSO AQUI
 	tests.forEach(function(test) {
 		var data = populate(test.tam);
 		var rawTest = new PlatData(100, 100);
