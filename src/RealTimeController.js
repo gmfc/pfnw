@@ -68,8 +68,8 @@ function btDisconnected() {
 	$('#bt').removeClass('disabled');
 }
 
-function btConnected() {
-	console.log('Conectado!');
+function btConnected(freq) {
+	$('#statustxt').text(freq);
 
 	$('#label').addClass('green');
 	$('#status').addClass('green');
@@ -82,7 +82,7 @@ function btConnected() {
 	$('#status').removeClass('red');
 
 	$('#labeltxt').text('Conectado');
-	$('#statustxt').text('Hz');
+	//$('#statustxt').text('Hz');
 
 	$('#bt').addClass('disabled');
 }
@@ -121,7 +121,7 @@ function update(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc(tgx, tgy, 2, 0, Math.PI * 2);
+	ctx.arc(tgx, tgy, 4, 0, Math.PI * 2);
 	ctx.fill();
 }
 
@@ -135,7 +135,7 @@ function coleta(dados) {
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
 		var result = calc.RTCOP(part);
-		$('#statustxt').text(Math.floor(1 / (result.t / 1000)) + ' Hz');
+		btConnected(Math.floor(1 / (result.t / 1000)) + ' Hz');
 		update(result.x + 369, result.y + 334);
 	});
 }
@@ -147,13 +147,12 @@ function coleta(dados) {
 function connect(name) {
 
 	port = new SerialPort(name, {
-		baudrate: 9600
+		baudrate: 57600
 	}, false);
 	port.open(function(error) {
 		if (error) {
 			btERR(error);
 		} else {
-			btConnected();
 			port.on('data', function(data) {
 				coleta(data);
 				//console.log('data received: ' + data);
