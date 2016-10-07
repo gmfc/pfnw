@@ -31,7 +31,7 @@ HX711 BR_scale(DOUT_BR, PD_SCK_BR);
 HX711 BL_scale(DOUT_BL, PD_SCK_BL);
 
 void setup() {
-  Serial.begin(250000);
+  Serial.begin(57600);
 
   TR_scale.set_scale(2280.f);
   TR_scale.tare();
