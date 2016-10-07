@@ -6,6 +6,8 @@
 
 ## Progresso
 
-![alt text](./UML/progresso.svg "Estrutura do Programa")
+![Progresso](https://raw.githubusercontent.com/gmfc/pfnwj5/master/docs/UML/progresso.svg "Progresso")
+
+*
 
 ## facsoft
