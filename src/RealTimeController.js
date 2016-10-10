@@ -196,3 +196,6 @@ function findPlat() {
 }
 
 $('#bt').click(findPlat);
+$(window).unload(function() {
+	port.close();
+});
