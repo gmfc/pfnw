@@ -6,13 +6,15 @@ var buffer = require('vinyl-buffer');
 var rename = require('gulp-rename');
 var jsdoc = require('gulp-jsdoc3');
 var del = require('del');
+var NwBuilder = require('nw-builder');
+var pack = require('./package.json');
 
 gulp.task('rtcontrol', function() {
 	return browserify('./src/RealTimeController.js')
 		.bundle()
 		.pipe(source('rtcontrol.js'))
 		.pipe(buffer())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('./ui/js'));
 });
 
@@ -49,6 +51,24 @@ gulp.task('clean:js', function() {
 
 gulp.task('stream', function() {
 	gulp.watch('./src/**/*.js', ['build']);
+});
+
+gulp.task('dist:win', ['build'], function() {
+	var nw = new NwBuilder({
+		files: ['./ui/**/**'],
+		platforms: ['win32'],
+		appVersion: pack.version,
+		flavor: 'normal',
+		appName: 'Plataforma de Força',
+		buildType: 'versioned',
+		winIco: './assets/icon.ico'
+	});
+	nw.on('log', console.log);
+	nw.build().then(function() {
+		console.log('all done!');
+	}).catch(function(error) {
+		console.error(error);
+	});
 });
 
 gulp.task('build', ['clean:js', 'rtcontrol', 'controladorIndex']);

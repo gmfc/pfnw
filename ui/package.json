@@ -1,0 +1,17 @@
+{
+  "name": "pfnwj5",
+  "version": "0.0.1",
+  "description": "plataforma de força.",
+  "main": "./index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gmfc/pfnw5.git"
+  },
+  "author": "gmfc",
+  "window": {
+    "toolbar": false,
+    "width": 950,
+    "height": 800
+  },
+  "homepage": "https://github.com/gmfc/pfnw5"
+}
