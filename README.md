@@ -6,7 +6,7 @@
 
 ## Progresso
 
-![Progresso](https://raw.githubusercontent.com/gmfc/pfnwj5/master/docs/UML/progresso.svg "Progresso")
+![Progresso](https://cdn.rawgit.com/gmfc/pfnwj5/master/docs/UML/progresso.svg "Progresso")
 
 *
 
