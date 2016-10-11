@@ -14,7 +14,7 @@ gulp.task('rtcontrol', function() {
 		.bundle()
 		.pipe(source('rtcontrol.js'))
 		.pipe(buffer())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('./ui/js'));
 });
 
@@ -55,7 +55,7 @@ gulp.task('stream', function() {
 
 gulp.task('dist:win', ['build'], function() {
 	var nw = new NwBuilder({
-		files: ['./ui/**/**'], // use the glob format
+		files: ['./ui/**/**'],
 		platforms: ['win32'],
 		appVersion: pack.version,
 		flavor: 'normal',
