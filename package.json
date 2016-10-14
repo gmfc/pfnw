@@ -27,21 +27,19 @@
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
     "browser-serialport": "^2.0.3",
-    "gulp-rename": "^1.2.2",
-    "jquery-node-browserify": "^1.7.2",
     "simple-statistics": "^2.1.0"
   },
   "devDependencies": {
     "browserify": "^13.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-jsdoc": "^0.1.5",
     "gulp-jsdoc3": "^1.0.0",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.10",
-    "mocha": "^2.4.5",
+    "mocha": "^3.1.2",
     "nw-builder": "^3.1.2",
-    "should": "^10.0.0",
+    "should": "^11.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
