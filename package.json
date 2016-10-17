@@ -10,7 +10,7 @@
     "start": "nw .",
     "docs": "gulp docs",
     "build": "gulp build",
-    "dist": "gilp dist"
+    "dist": "gulp dist"
   },
   "repository": {
     "type": "git",
