@@ -57,14 +57,13 @@ gulp.task('dist:win', ['build'], function() {
 	var nw = new NwBuilder({
 		files: ['./ui/**/**'],
 		platforms: ['win32'],
-		version: "0.17.6",
+		version: '0.17.6',
 		appVersion: pack.version,
 		winIco: './assets/logo.ico',
 		flavor: 'normal',
 		appName: 'Plataforma',
 		buildType: 'versioned',
 		forceDownload: false
-			//zip: false
 	});
 	nw.on('log', console.log);
 	nw.build().then(function() {
