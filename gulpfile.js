@@ -59,11 +59,12 @@ gulp.task('dist:win', ['build'], function() {
 		platforms: ['win32'],
 		version: "0.17.6",
 		appVersion: pack.version,
+		winIco: './assets/logo.ico',
 		flavor: 'normal',
-		appName: 'Plataforma de Força',
+		appName: 'Plataforma',
 		buildType: 'versioned',
-		forceDownload: false,
-		zip: false
+		forceDownload: false
+			//zip: false
 	});
 	nw.on('log', console.log);
 	nw.build().then(function() {
