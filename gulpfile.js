@@ -57,11 +57,13 @@ gulp.task('dist:win', ['build'], function() {
 	var nw = new NwBuilder({
 		files: ['./ui/**/**'],
 		platforms: ['win32'],
+		version: '0.17.6',
 		appVersion: pack.version,
+		winIco: './assets/logo.ico',
 		flavor: 'normal',
-		appName: 'Plataforma de Força',
+		appName: 'Plataforma',
 		buildType: 'versioned',
-		winIco: './assets/icon.ico'
+		forceDownload: false
 	});
 	nw.on('log', console.log);
 	nw.build().then(function() {
@@ -72,3 +74,4 @@ gulp.task('dist:win', ['build'], function() {
 });
 
 gulp.task('build', ['clean:js', 'rtcontrol', 'controladorIndex']);
+gulp.task('dist', ['dist:win']);

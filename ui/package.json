@@ -11,7 +11,8 @@
   "window": {
     "toolbar": false,
     "width": 950,
-    "height": 800
+    "height": 800,
+    "icon": "./img/favicon-32x32.png"
   },
   "homepage": "https://github.com/gmfc/pfnw5"
 }
