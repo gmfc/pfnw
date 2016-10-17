@@ -57,11 +57,13 @@ gulp.task('dist:win', ['build'], function() {
 	var nw = new NwBuilder({
 		files: ['./ui/**/**'],
 		platforms: ['win32'],
+		version: "0.17.6",
 		appVersion: pack.version,
 		flavor: 'normal',
 		appName: 'Plataforma de Força',
-		buildType: 'versioned',
-		winIco: './assets/icon.ico'
+		buildType: 'timestamped',
+		forceDownload: true,
+		zip: true
 	});
 	nw.on('log', console.log);
 	nw.build().then(function() {
