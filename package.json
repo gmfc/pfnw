@@ -5,11 +5,12 @@
   "main": "./ui/index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec -s 0",
-    "watch": "./node_modules/.bin/mocha --reporter nyan --watch",
-    "auto": "gulp stream",
+    "watch:test": "./node_modules/.bin/mocha --reporter nyan --watch",
+    "watch:build": "gulp stream",
     "start": "nw .",
     "docs": "gulp docs",
-    "build": "gulp build"
+    "build": "gulp build",
+    "dist": "gilp dist"
   },
   "repository": {
     "type": "git",

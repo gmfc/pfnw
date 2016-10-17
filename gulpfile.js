@@ -61,9 +61,9 @@ gulp.task('dist:win', ['build'], function() {
 		appVersion: pack.version,
 		flavor: 'normal',
 		appName: 'Plataforma de Força',
-		buildType: 'timestamped',
-		forceDownload: true,
-		zip: true
+		buildType: 'versioned',
+		forceDownload: false,
+		zip: false
 	});
 	nw.on('log', console.log);
 	nw.build().then(function() {
@@ -74,3 +74,4 @@ gulp.task('dist:win', ['build'], function() {
 });
 
 gulp.task('build', ['clean:js', 'rtcontrol', 'controladorIndex']);
+gulp.task('dist', ['dist:win']);
