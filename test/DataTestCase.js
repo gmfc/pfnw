@@ -27,11 +27,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 
 
 	it('Calcula CPx e CPy', function() {
-		rawTest.calcCOP();
-		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.CPx[i].should.be.Number().and.not.be.NaN();
-			rawTest.CPy[i].should.be.Number().and.not.be.NaN();
-		}
+		should(rawTest.calcCOP()).not.throw();
 	});
 
 	it('Calcula CPx e CPy em tempo real', function() {
