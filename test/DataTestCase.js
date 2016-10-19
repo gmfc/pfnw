@@ -92,14 +92,6 @@ describe('Testes da classe Data com dados REAIS', function() {
 			rawTest.pushData(strings[i]);
 		}
 
-		for (var i = 0; i < numbers.length; i++) {
-			rawTest.TI[i].should.be.exactly(numbers[i][0]);
-			rawTest.TR[i].should.be.exactly(numbers[i][1]);
-			rawTest.TL[i].should.be.exactly(numbers[i][2]);
-			rawTest.BR[i].should.be.exactly(numbers[i][3]);
-			rawTest.BL[i].should.be.exactly(numbers[i][4]);
-		}
-
 		var report = rawTest.fullReport();
 		report.DOT.should.be.equal(126.18380999831666).and.not.be.NaN();
 		report.DevAP.should.be.equal(1.9922037290478767).and.not.be.NaN();
