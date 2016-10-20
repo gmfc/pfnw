@@ -1,42 +1,55 @@
 var should = require('should');
 var PlatData = require('../src/Data.js');
 
+function populate(tam, periodo) {
+	var numbers = [];
+	var strings = [];
+	var oldTI = 0;
+	var maxReading = 100000;
+	for (var i = 0; i < tam; i++) {
+		var TI = Math.floor(oldTI += Math.random() * (periodo * 2)),
+			TR = Math.random() * maxReading,
+			TL = Math.random() * maxReading,
+			BR = Math.random() * maxReading,
+			BL = Math.random() * maxReading;
+		numbers[i] = [TI, TR, TL, BR, BL];
+		strings[i] = TI + ';' + TR + ';' + TL + ';' + BR + ';' + BL;
+	}
+	var result = {};
+	result.strings = strings;
+	result.numbers = numbers;
+	return result;
+}
+
 
 describe('Testes da classe Data com dados aleatorios', function() {
 	var strings = [];
 	var numbers = [];
-	var nDeLinhas = 2000;
+	var copXResult = [];
+	var copYResult = [];
+	var nDeLinhas = 20000;
+	var periodo = 12.5;
 	this.timeout(20000);
 	var rawTest = new PlatData(24.76, 15.24, 0);
 
 	before('populando linhas...', function() {
-		for (var i = 0; i < nDeLinhas; i++) {
-			var TI = Math.floor(Math.random() * 8) + 5,
-				TR = Math.random() * 100,
-				TL = Math.random() * 100,
-				BR = Math.random() * 100,
-				BL = Math.random() * 100;
-			numbers[i] = [TI, TR, TL, BR, BL];
-			strings[i] = TI + ';' + TR + ';' + TL + ';' + BR + ';' + BL;
-		}
+		var result = populate(nDeLinhas, periodo);
+		strings = result.strings;
+		numbers = result.numbers;
 	});
 
 
 	it('Parse test ' + nDeLinhas + ' linhas', function() {
-
 		for (var i = 0; i < nDeLinhas; i++) {
 			rawTest.pushData(strings[i]);
 		}
-
 		for (var i = 0; i < nDeLinhas; i++) {
 			rawTest.TI[i].should.be.exactly(numbers[i][0]).and.not.be.NaN();
 			rawTest.TR[i].should.be.exactly(numbers[i][1]).and.not.be.NaN();
 			rawTest.TL[i].should.be.exactly(numbers[i][2]).and.not.be.NaN();
 			rawTest.BR[i].should.be.exactly(numbers[i][3]).and.not.be.NaN();
 			rawTest.BL[i].should.be.exactly(numbers[i][4]).and.not.be.NaN();
-
 		}
-
 	});
 
 	it('Calcula CPx e CPy', function() {
@@ -44,14 +57,17 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		for (var i = 0; i < rawTest.TR.length; i++) {
 			rawTest.CPx[i].should.be.Number().and.not.be.NaN();
 			rawTest.CPy[i].should.be.Number().and.not.be.NaN();
+			copXResult.push(rawTest.CPx[i]);
+			copYResult.push(rawTest.CPy[i]);
 		}
 	});
 
 	it('Calcula CPx e CPy em tempo real', function() {
 		for (var i = 0; i < nDeLinhas; i++) {
 			var result = rawTest.RTCOP(strings[i]);
-			result.x.should.be.Number().and.not.be.NaN();
-			result.y.should.be.Number().and.not.be.NaN();
+			result.x.should.be.Number().and.not.be.NaN().and.be.exactly(copXResult[i]);
+			result.y.should.be.Number().and.not.be.NaN().and.be.exactly(copYResult[i]);
+			result.t.should.be.Number().and.not.be.NaN();
 		}
 	});
 
@@ -74,7 +90,7 @@ describe('Testes da classe Data com dados aleatorios', function() {
 
 	it('Calcula Frequencia', function() {
 		rawTest.calcFREQ();
-		rawTest.avgFrq.should.be.Number().and.not.be.NaN();
+		rawTest.avgFrq.should.be.Number().and.not.be.NaN().and.be.approximately(80, 1);
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
@@ -98,6 +114,52 @@ describe('Testes da classe Data com dados aleatorios', function() {
 		rawTest.calcAREA();
 		rawTest.area.should.be.Number().and.not.be.NaN();
 	});
+});
 
+describe('(stress test) Testes de geração de relatório com dados aleatórios', function() {
 
+	var tests = [{
+		tam: 20
+	}, {
+		tam: 200
+	}, {
+		tam: 2000
+	}, {
+		tam: 20000
+	}];
+	var periodo = 12.5;
+
+	tests.forEach(function(test) {
+		var data = populate(test.tam, periodo);
+		var rawTest = new PlatData(100, 100);
+		it('Report test ' + test.tam + ' linhas duração maxima: ' + (periodo * test.tam) + 'ms', function(done) {
+			this.timeout(17 * test.tam);
+			for (var i = 0; i < test.tam; i++) {
+				rawTest.pushData(data.strings[i]);
+			}
+			for (var i = 0; i < test.tam; i++) {
+				rawTest.TI[i].should.be.exactly(data.numbers[i][0]).and.not.be.NaN();
+				rawTest.TR[i].should.be.exactly(data.numbers[i][1]).and.not.be.NaN();
+				rawTest.TL[i].should.be.exactly(data.numbers[i][2]).and.not.be.NaN();
+				rawTest.BR[i].should.be.exactly(data.numbers[i][3]).and.not.be.NaN();
+				rawTest.BL[i].should.be.exactly(data.numbers[i][4]).and.not.be.NaN();
+			}
+			var report = rawTest.fullReport();
+			report.should.have.property('CPx').with.lengthOf(test.tam);
+			report.should.have.property('CPy').with.lengthOf(test.tam);
+			report.DOT.should.be.Number().and.not.be.NaN();
+			report.DevAP.should.be.Number().and.not.be.NaN().and.be.above(0);
+			report.DevML.should.be.Number().and.not.be.NaN().and.be.above(0);
+			report.rmsAP.should.be.Number().and.not.be.NaN();
+			report.rmsML.should.be.Number().and.not.be.NaN();
+			report.avgFrq.should.be.Number().and.not.be.NaN();
+			report.VMap.should.be.Number().and.not.be.NaN();
+			report.VMml.should.be.Number().and.not.be.NaN();
+			report.ampAP.should.be.Number().and.not.be.NaN();
+			report.ampML.should.be.Number().and.not.be.NaN();
+			report.VMT.should.be.Number().and.not.be.NaN();
+			report.area.should.be.Number().and.not.be.NaN();
+			done();
+		});
+	});
 });

@@ -32,16 +32,8 @@ var ctx = $('#canvas')[0].getContext('2d');
 
 function btConnecting() {
 	console.log('Conectando...');
-
-	$('#label').addClass('blue');
-	$('#status').addClass('blue');
-
-	$('#label').removeClass('yellow');
-	$('#status').removeClass('yellow');
-	$('#label').removeClass('green');
-	$('#status').removeClass('green');
-	$('#label').removeClass('red');
-	$('#status').removeClass('red');
+	$('#label').switchClass('yellow green red', 'blue');
+	$('#status').switchClass('yellow green red', 'blue');
 
 	$('#labeltxt').text('Conectando');
 	$('#statustxt').text('...');
@@ -51,16 +43,8 @@ function btConnecting() {
 
 function btDisconnected() {
 	console.log('desconectado!');
-
-	$('#label').addClass('yellow');
-	$('#status').addClass('yellow');
-
-	$('#label').removeClass('blue');
-	$('#status').removeClass('blue');
-	$('#label').removeClass('green');
-	$('#status').removeClass('green');
-	$('#label').removeClass('red');
-	$('#status').removeClass('red');
+	$('#label').switchClass('blue green red', 'yellow');
+	$('#status').switchClass('blue green red', 'yellow');
 
 	$('#labeltxt').text('Conectar');
 	$('#statustxt').text('desconectado');
@@ -69,17 +53,9 @@ function btDisconnected() {
 }
 
 function btConnected(freq) {
-	$('#statustxt').text(freq);
-
-	$('#label').addClass('green');
-	$('#status').addClass('green');
-
-	$('#label').removeClass('blue');
-	$('#status').removeClass('blue');
-	$('#label').removeClass('yellow');
-	$('#status').removeClass('yellow');
-	$('#label').removeClass('red');
-	$('#status').removeClass('red');
+	$('#statustxt').text(freq);	
+	$('#label').switchClass('blue yellow red', 'green');
+	$('#status').switchClass('blue yellow red', 'green');
 
 	$('#labeltxt').text('Conectado');
 	//$('#statustxt').text('Hz');
@@ -88,17 +64,9 @@ function btConnected(freq) {
 }
 
 function btERR(err) {
-	console.log('ERRO! ' + err);
-
-	$('#label').addClass('red');
-	$('#status').addClass('red');
-
-	$('#label').removeClass('blue');
-	$('#status').removeClass('blue');
-	$('#label').removeClass('yellow');
-	$('#status').removeClass('yellow');
-	$('#label').removeClass('green');
-	$('#status').removeClass('green');
+	console.log('ERRO! ' + err);	
+	$('#label').switchClass('blue yellow green', 'red');
+	$('#status').switchClass('blue yellow green', 'red');
 
 	$('#labeltxt').text('Reset');
 	$('#statustxt').text(err);
@@ -112,6 +80,7 @@ function btERR(err) {
  * Plota um ponto na tela representando uma leitura do COP
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
+ * @return {null}
  */
 function update(tgx, tgy) {
 	// fade effect

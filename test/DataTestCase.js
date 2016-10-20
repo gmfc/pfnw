@@ -27,11 +27,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 
 
 	it('Calcula CPx e CPy', function() {
-		rawTest.calcCOP();
-		for (var i = 0; i < rawTest.TR.length; i++) {
-			rawTest.CPx[i].should.be.Number().and.not.be.NaN();
-			rawTest.CPy[i].should.be.Number().and.not.be.NaN();
-		}
+		should(rawTest.calcCOP()).not.throw();
 	});
 
 	it('Calcula CPx e CPy em tempo real', function() {
@@ -83,6 +79,28 @@ describe('Testes da classe Data com dados REAIS', function() {
 	it('Calcula Área', function() {
 		rawTest.calcAREA();
 		rawTest.area.should.be.equal(69.9139732425667).and.not.be.NaN();
+	});
+	
+	it('Report test ' + strings.length + ' linhas', function() {
+		rawTest = new PlatData(24.76, 15.24);
+
+		for (var i = 0; i < strings.length; i++) {
+			rawTest.pushData(strings[i]);
+		}
+
+		var report = rawTest.fullReport();
+		report.DOT.should.be.equal(126.18380999831666).and.not.be.NaN();
+		report.DevAP.should.be.equal(1.9922037290478767).and.not.be.NaN();
+		report.DevML.should.be.equal(2.1934201029090516).and.not.be.NaN();
+		report.rmsAP.should.be.equal(2.421545965694047).and.not.be.NaN();
+		report.rmsML.should.be.equal(2.50425636752085).and.not.be.NaN();
+		report.avgFrq.should.be.equal(2).and.not.be.NaN();
+		report.VMap.should.be.equal(4.925516889469856).and.not.be.NaN();
+		report.VMml.should.be.equal(4.69599427181104).and.not.be.NaN();
+		report.ampAP.should.be.equal(8.79596010661087).and.not.be.NaN();
+		report.ampML.should.be.equal(10.120240926864637).and.not.be.NaN();
+		report.VMT.should.be.equal(7.429399583141942).and.not.be.NaN();
+		report.area.should.be.equal(69.9139732425667).and.not.be.NaN();
 	});
 
 });
