@@ -90,7 +90,7 @@ describe('Testes da classe Data com dados aleatorios', function() {
 
 	it('Calcula Frequencia', function() {
 		rawTest.calcFREQ();
-		rawTest.avgFrq.should.be.Number().and.not.be.NaN().and.be.approximately(80, 0.4);;
+		rawTest.avgFrq.should.be.Number().and.not.be.NaN().and.be.approximately(80, 1);;
 	});
 
 	it('Calcula Velocidade média (VM)', function() {
