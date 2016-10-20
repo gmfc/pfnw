@@ -83,6 +83,7 @@ function PlatData(pa, pb) {
  * Recebe dados da plataforma como String
  * extrai e trata os dados
  * @arg {string} data - String formatada: 'TI;TR;TL;BR;BL'
+ * @returns {null}
  */
 PlatData.prototype.pushData = function(data) {
 	var arr = data.split(';').map(function(val) {
@@ -210,11 +211,11 @@ PlatData.prototype.calcVEL = function() {
 	this.calcFREQ();
 	var ApDeslocSum = 0;
 	for (var i = 1; i < this.CPy.length; i++) {
-		ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1])
+		ApDeslocSum += Math.abs(this.CPy[i] - this.CPy[i - 1]);
 	}
 	var MlDeslocSum = 0;
 	for (var i = 1; i < this.CPx.length; i++) {
-		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1])
+		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1]);
 	}
 	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
 	this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
@@ -241,7 +242,7 @@ PlatData.prototype.calcVELTotal = function() {
 		sum += Math.sqrt(
 			Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
 			Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
-		)
+		);
 	}
 	this.VMT = sum * this.avgFrq / this.CPy.length;
 };
@@ -295,7 +296,7 @@ function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fx12 + fx34);
 	return (-t1 - t2) / t3;
-};
+}
 
 /**
  * Funcao usada no calculo do COP
@@ -307,7 +308,7 @@ function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fy14 + fy23);
 	return (t1 + t2) / t3;
-};
+}
 
 
-module.exports = PlatData;;
+module.exports = PlatData;
