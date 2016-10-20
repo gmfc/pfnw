@@ -12,11 +12,6 @@
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
 
-
-
-    <!--    <script type="text/javascript" src="main.js"></script>-->
-    <script type="text/javascript" src="./libs/d3.min.js"></script>
-
     <style type="text/css">
         .ui.menu .item i.icon {
             margin-right: 1.5em;
@@ -29,42 +24,6 @@
         .ui.menu .item {
             padding-top: 0;
             padding-bottom: 0;
-        }
-    </style>
-
-    <style>
-        .chart {}
-
-        .main text {
-            font: 10px sans-serif;
-        }
-
-        .axis line,
-        .axis path {
-            shape-rendering: crispEdges;
-            stroke: black;
-            fill: none;
-        }
-
-        circle {
-            fill: steelblue;
-        }
-    </style>
-
-    <style type="text/css">
-        path {
-            stroke: steelblue;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        line {
-            stroke: black;
-        }
-
-        text {
-            font-family: Arial;
-            font-size: 9pt;
         }
     </style>
 </head>
@@ -116,8 +75,8 @@
                 </div>
             </div>
         </div>
-        <div class="ui divider"></div>
 
+        <div class="ui divider"></div>
 
         <div id="tempoSelect">
             <div class="ui action right labeled input big">
@@ -141,35 +100,23 @@
             <div class="ui" id="data">
                 Serial data...
             </div>
-
         </div>
 
-
         <div id="relatorio" style="display: none;">
-
             <div class="ui grid">
-                <div class="two column row">
+
+                <div class="one column row">
                     <div class="column">
-                        <h2>Estatocinesiograma</h2>
-                        <div id="graph1"></div>
-                    </div>
-                    <div class="column">
-                        <h2>Estabilograma</h2>
-                        <div id="graph2"></div>
+                      <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
                     </div>
                 </div>
                 <div class="ui divider"></div>
                 <div class="two column row">
-
                 </div>
             </div>
-
-
         </div>
 
-
     </div>
-
     <script src="./js/controladorIndex.js"></script>
 </body>
 
