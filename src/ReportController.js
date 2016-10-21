@@ -107,7 +107,6 @@ function coleta(dados) {
  * @param {string} name - come da porta serial em que a Plataforma se encontra
  */
 function connect(name) {
-
 	port = new SerialPort(name, {
 		baudrate: 57600
 	}, false);
@@ -157,8 +156,85 @@ function findPlat() {
 	});
 }
 
-$('#bt').click(findPlat);
-
 $(window).unload(function() {
 	port.close();
 });
+
+function playbtn() {
+	if ($('#tempo').val() >= 1) {
+		$('#play').addClass('green').removeClass('disabled');
+	} else {
+		$('#play').removeClass('green').addClass('disabled');
+	}
+}
+
+function medir() {
+	$('#stepduracao').addClass('completed').removeClass('active');
+	$('#stepexec').addClass('active').removeClass('disabled');
+	$('#tempoSelect').hide();
+	$('#execute').show();
+	$('#progress')
+		.progress({
+			total: $('#tempo').val()
+		});
+	startReading($('#tempo').val());
+}
+
+function genReport(temp) {
+	$('#stepduracao').addClass('completed').removeClass('active');
+	$('#stepexec').addClass('completed').removeClass('active');
+	$('#steprelatorio').addClass('active').removeClass('disabled');
+	$('#tempoSelect').hide();
+	$('#execute').hide();
+	$('#relatorio').show();
+
+	estatograph(temp);
+	estabilograph(temp);
+
+}
+
+function reset() {
+	$('#progress').progress('reset');
+	$('#stepduracao').addClass('active').removeClass('completed');
+	$('#stepexec').addClass('disabled').removeClass('completed').removeClass('active');
+	$('#steprelatorio').addClass('disabled').removeClass('completed').removeClass('active');
+	$('#tempoSelect').show();
+	$('#execute').hide();
+	$('#relatorio').hide();
+	$('#graph1').html('');
+	$('#graph2').html('');
+}
+
+function startReading(temp) {
+	var doStep = function() {
+		if (count >= -2) {
+			clearInterval(timer);
+			timer = setTimeout(callback, 1000);
+		} else {
+			console.log('ACABOU!');
+			genReport(temp);
+		}
+	};
+	console.log(temp);
+	var timer = null;
+	var count = temp;
+	//count = count + 2;
+	var callback = function() {
+		if (count <= 0) {
+			$('#status').html('Gerando relatório');
+		} else {
+			$('#status').html('Medindo');
+		}
+		console.log(count + ' of ' + temp);
+		$('#progress').progress('increment');
+		clearInterval(timer);
+		timer = null;
+		count--;
+		doStep();
+	};
+	doStep();
+}
+
+$('#bt').click(findPlat);
+$('#bt').click(play);
+$('#tempo').on('input', playbtn);

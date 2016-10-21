@@ -200,7 +200,6 @@ function playbtn() {
 	} else {
 		$('#play').removeClass('green').addClass('disabled');
 	}
-
 }
 
 function medir() {

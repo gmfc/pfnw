@@ -50,36 +50,51 @@
     </div>
 
     <div class="ui main container">
+        <div class="ui right aligned container">
+            <div class="ui labeled button" tabindex="0" id="bt">
+                <div class="ui button" id="label">
+                    <i class="usb icon" id="ico"></i>
+                    <span id="labeltxt">Conectar</span>
+                </div>
+                <a class="ui basic left pointing label" id="statustxt">off</a>
+            </div>
+        </div>
 
-        <div class="ui container">
-            <div class="ui steps">
-                <div class="active step" id="stepduracao">
-                    <i class="options icon"></i>
-                    <div class="content">
-                        <div class="title">Duração</div>
-                        <div class="description">Escolha a duração da medição</div>
-                    </div>
+        <div class="ui steps">
+            <div class="active step" id="connect">
+                <i class="options icon"></i>
+                <div class="content">
+                    <div class="title">Conexão</div>
+                    <div class="description">Conecte a Plataforma</div>
                 </div>
-                <div class="disabled step" id="stepexec">
-                    <i class="treatment icon"></i>
-                    <div class="content">
-                        <div class="title">Medição</div>
-                        <div class="description">Execução da medição</div>
-                    </div>
+            </div>
+            <div class="disabled step" id="stepduracao">
+                <i class="options icon"></i>
+                <div class="content">
+                    <div class="title">Duração</div>
+                    <div class="description">Escolha a duração da medição</div>
                 </div>
-                <div class="disabled step" id="steprelatorio">
-                    <i class="file outline icon"></i>
-                    <div class="content">
-                        <div class="title">Relatório</div>
-                    </div>
+            </div>
+            <div class="disabled step" id="stepexec">
+                <i class="treatment icon"></i>
+                <div class="content">
+                    <div class="title">Medição</div>
+                    <div class="description">Execução da medição</div>
+                </div>
+            </div>
+            <div class="disabled step" id="steprelatorio">
+                <i class="file outline icon"></i>
+                <div class="content">
+                    <div class="title">Relatório</div>
                 </div>
             </div>
         </div>
 
+
         <div class="ui divider"></div>
 
-        <div id="tempoSelect">
-            <div class="ui action right labeled input big">
+        <div id="tempoSelect" style="display: none;">
+            <div class="ui action left labeled input big">
                 <input id="tempo" type="number" placeholder="Duração da medição" oninput="playbtn()">
                 <div class="ui basic label">
                     sec
@@ -107,11 +122,13 @@
 
                 <div class="one column row">
                     <div class="column">
-                      <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
+                        <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
                     </div>
                 </div>
-                <div class="ui divider"></div>
                 <div class="two column row">
+                    <div class="column">
+
+                    </div>
                 </div>
             </div>
         </div>
