@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Plataforma de força: Menu</title>
+    <title>Plataforma de força</title>
     <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16" />
     <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
-    <!--    <script type="text/javascript" src="main.js"></script>-->
+
     <style type="text/css">
         .ui.menu .item i.icon {
             margin-right: 1.5em;
@@ -28,7 +29,7 @@
 </head>
 
 <body>
-
+    <!-- MENU -->
     <div class="ui fixed inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
@@ -38,7 +39,7 @@
                 Medições <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                    <a class="item" href="./menuRelatorio.html"><i class="doctor icon"></i>Medição completa</a>
+                    <a class="item" href="./medicao.html"><i class="doctor icon"></i>Medição completa</a>
                     <div class="divider"></div>
                     <div class="header">Plataforma</div>
                     <a class="item" href="#"><i class="usb icon"></i>Teste de conexão</a>
@@ -47,11 +48,26 @@
             <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
         </div>
     </div>
-
+    <!-- /MENU -->
     <div class="ui main container">
-
+        <div class="ui segment" style="text-align:center;">
+            <a href="#"><i class="huge treatment icon"></i>Efetuar nova medição</a>
+        </div>
+        <div class="ui segment" style="text-align:center;">
+            <a href="#"><i class="huge folder open icon"></i>Carregar medição salva</a>
+        </div>
 
     </div>
+    <script>
+        $(".segment").hover(
+            function() {
+                $(this).addClass("raised");
+            },
+            function() {
+                $(this).removeClass("raised");
+            }
+        );
+    </script>
 </body>
 
 </html>
