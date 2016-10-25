@@ -18,6 +18,15 @@ gulp.task('rtcontrol', function() {
 		.pipe(gulp.dest('./ui/js'));
 });
 
+gulp.task('reportController', function() {
+	return browserify('./src/ReportController.js')
+		.bundle()
+		.pipe(source('reportController.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest('./ui/js'));
+});
+
 gulp.task('controladorIndex', function() {
 	gulp.src('./src/index-controlar.js')
 		.pipe(uglify().on('error', function(e) {
@@ -73,5 +82,5 @@ gulp.task('dist:win', ['build'], function() {
 	});
 });
 
-gulp.task('build', ['clean:js', 'rtcontrol', 'controladorIndex']);
+gulp.task('build', ['clean:js', 'rtcontrol', 'reportController', 'controladorIndex']);
 gulp.task('dist', ['dist:win']);

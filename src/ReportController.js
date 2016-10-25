@@ -27,6 +27,11 @@ var ctx = $('#canvas')[0].getContext('2d');
 /**  @member {boolean}  recording, se o controlador esta gravando os dados*/
 var recording = false;
 
+/**  @member {boolean}  isConnected*/
+var isConnected = false;
+
+/**  @member {boolean}  result*/
+var result;
 
 
 ////////////////////////////////
@@ -37,10 +42,8 @@ function btConnecting() {
 	console.log('Conectando...');
 	$('#label').switchClass('yellow green red', 'blue');
 	$('#status').switchClass('yellow green red', 'blue');
-
 	$('#labeltxt').text('Conectando');
 	$('#statustxt').text('...');
-
 	$('#bt').addClass('disabled');
 }
 
@@ -48,34 +51,34 @@ function btDisconnected() {
 	console.log('desconectado!');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
-
 	$('#labeltxt').text('Conectar');
 	$('#statustxt').text('desconectado');
-
 	$('#bt').removeClass('disabled');
+	isConnected = false;
 }
 
-function btConnected(freq) {
-	$('#statustxt').text(freq);
-	$('#label').switchClass('blue yellow red', 'green');
-	$('#status').switchClass('blue yellow red', 'green');
-
-	$('#labeltxt').text('Conectado');
-
-	$('#bt').addClass('disabled');
+function btConnected() {
+	if (isConnected === false) {
+		$('#connect').switchClass('active', 'completed');
+		$('#connect').switchClass('disabled', 'active');
+		$('#tempoSelect').show();
+		$('#statustxt').text("Conectado");
+		$('#label').switchClass('blue yellow red', 'green');
+		$('#status').switchClass('blue yellow red', 'green');
+		$('#labeltxt').text('Conectado');
+		$('#bt').addClass('disabled');
+		isConnected = true;
+	}
 }
 
 function btERR(err) {
 	console.log('ERRO! ' + err);
 	$('#label').switchClass('blue yellow green', 'red');
 	$('#status').switchClass('blue yellow green', 'red');
-
 	$('#labeltxt').text('Reset');
 	$('#statustxt').text(err);
-	//$('#bt').unbind(findPlat);
-
 	$('#bt').removeClass('disabled');
-
+	isConnected = false;
 }
 
 
@@ -87,11 +90,18 @@ function addPoint(tgx, tgy) {
 	ctx.fill();
 }
 
+function drawGraph(vetX, vetY) {
+	for (var i = 0; i < vetX.length; i++) {
+		addPoint(vetX[i], vetY[i]);
+	}
+}
+
 /**
  * Coleta dados emitidos pela plataforma
  * @param {char[]} dados - stream de dados em utf8
  */
 function coleta(dados) {
+	btConnected();
 	acc += dados.toString('utf8');
 	var linhas = acc.split('#');
 	acc = linhas.pop();
@@ -116,7 +126,6 @@ function connect(name) {
 		} else {
 			port.on('data', function(data) {
 				coleta(data);
-				//console.log('data received: ' + data);
 			});
 			port.on('close', function(data) {
 				port = null;
@@ -133,20 +142,15 @@ function connect(name) {
  * Reseta, e procura pela plataforma
  */
 function findPlat() {
-	console.log('batata1 findPlat()');
 	port = null;
 	btConnecting();
 	var found = false;
 	browserserialport.list(function(err, ports) {
 		var counter = 0;
-		console.log('batata list');
 		ports.forEach(function(port) {
 			counter++;
-			console.log('batata c++ forEach');
 			if (port.manufacturer.indexOf('Arduino') !== -1 && !found) {
-				console.log('batata achou e con' + port.comName);
 				connect(port.comName);
-				console.log(port.comName);
 				found = true;
 			}
 			if (counter === ports.length && !found) {
@@ -160,17 +164,18 @@ $(window).unload(function() {
 	port.close();
 });
 
-function playbtn() {
+function ACTUpdateTime() {
 	if ($('#tempo').val() >= 1) {
-		$('#play').addClass('green').removeClass('disabled');
+		$('#play').switchClass('disabled', 'green');
 	} else {
-		$('#play').removeClass('green').addClass('disabled');
+		$('#play').switchClass('green', 'disabled');
 	}
 }
 
-function medir() {
-	$('#stepduracao').addClass('completed').removeClass('active');
-	$('#stepexec').addClass('active').removeClass('disabled');
+function ACTPlay() {
+	$('#stepduracao').switchClass('active', 'completed');
+	$('#stepexec').switchClass('disabled', 'active');
+
 	$('#tempoSelect').hide();
 	$('#execute').show();
 	$('#progress')
@@ -180,17 +185,21 @@ function medir() {
 	startReading($('#tempo').val());
 }
 
-function genReport(temp) {
+function genReport() {
 	$('#stepduracao').addClass('completed').removeClass('active');
 	$('#stepexec').addClass('completed').removeClass('active');
 	$('#steprelatorio').addClass('active').removeClass('disabled');
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
+	$('#dump').text(result);
 
-	estatograph(temp);
-	estabilograph(temp);
+}
 
+function processData() {
+	result = calc.fullReport(); //JSON.stringify(, null, 2);
+	drawGraph(result.CPx, result.CPy);
+	genReport();
 }
 
 function reset() {
@@ -206,27 +215,25 @@ function reset() {
 }
 
 function startReading(temp) {
-	var doStep = function() {
-		if (count >= -2) {
-			clearInterval(timer);
-			timer = setTimeout(callback, 1000);
-		} else {
-			console.log('ACABOU!');
-			genReport(temp);
-		}
-	};
-	console.log(temp);
+	recording = true;
 	var timer = null;
 	var count = temp;
-	//count = count + 2;
-	var callback = function() {
-		if (count <= 0) {
-			$('#status').html('Gerando relatório');
+	var doStep = function() {
+		if (count > 0) {
+			clearInterval(timer);
+			timer = setTimeout(callback, 1000);
+			$('#progress').progress('increment');
 		} else {
-			$('#status').html('Medindo');
+			console.log('ACABOU! ' + count);
+			$('#status').html('Gerando relatório');
+			recording = false;
+			processData();
+			genReport();
 		}
+	};
+	var callback = function() {
+		$('#status').html('Medindo');
 		console.log(count + ' of ' + temp);
-		$('#progress').progress('increment');
 		clearInterval(timer);
 		timer = null;
 		count--;
@@ -236,5 +243,5 @@ function startReading(temp) {
 }
 
 $('#bt').click(findPlat);
-$('#bt').click(play);
-$('#tempo').on('input', playbtn);
+$('#play').click(ACTPlay);
+$('#tempo').on('input', ACTUpdateTime);

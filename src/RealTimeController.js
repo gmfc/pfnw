@@ -24,6 +24,9 @@ var acc = '';
 /**  @member {2dContext}  ctx*/
 var ctx = $('#canvas')[0].getContext('2d');
 
+/**  @member {boolean}  isConnected*/
+var isConnected = false;
+
 
 
 ////////////////////////////////
@@ -34,10 +37,8 @@ function btConnecting() {
 	console.log('Conectando...');
 	$('#label').switchClass('yellow green red', 'blue');
 	$('#status').switchClass('yellow green red', 'blue');
-
 	$('#labeltxt').text('Conectando');
 	$('#statustxt').text('...');
-
 	$('#bt').addClass('disabled');
 }
 
@@ -45,35 +46,31 @@ function btDisconnected() {
 	console.log('desconectado!');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
-
 	$('#labeltxt').text('Conectar');
 	$('#statustxt').text('desconectado');
-
 	$('#bt').removeClass('disabled');
+	isConnected = false;
 }
 
 function btConnected(freq) {
-	$('#statustxt').text(freq);	
-	$('#label').switchClass('blue yellow red', 'green');
-	$('#status').switchClass('blue yellow red', 'green');
-
-	$('#labeltxt').text('Conectado');
-	//$('#statustxt').text('Hz');
-
-	$('#bt').addClass('disabled');
+	if (isConnected === false) {
+		$('#label').switchClass('blue yellow red', 'green');
+		$('#status').switchClass('blue yellow red', 'green');
+		$('#labeltxt').text('Conectado');
+		$('#bt').addClass('disabled');
+		isConnected = true;
+	}
+	$('#statustxt').text(freq);
 }
 
 function btERR(err) {
-	console.log('ERRO! ' + err);	
+	console.log('ERRO! ' + err);
 	$('#label').switchClass('blue yellow green', 'red');
 	$('#status').switchClass('blue yellow green', 'red');
-
 	$('#labeltxt').text('Reset');
 	$('#statustxt').text(err);
-	//$('#bt').unbind(findPlat);
-
 	$('#bt').removeClass('disabled');
-
+	isConnected = false;
 }
 
 /**

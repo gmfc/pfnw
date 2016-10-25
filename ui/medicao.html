@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16" />
     <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-ui.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
@@ -16,17 +17,20 @@
         .ui.menu .item i.icon {
             margin-right: 1.5em;
         }
+
         .main.container {
             margin-top: 7em;
         }
+
         .ui.menu .item {
             padding-top: 0;
             padding-bottom: 0;
         }
     </style>
 </head>
+
 <body>
-  <!-- MENU -->
+    <!-- MENU -->
     <div class="ui fixed inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
@@ -91,11 +95,11 @@
         <!-- tempoSelect -->
         <div id="tempoSelect" style="display: none;">
             <div class="ui action left labeled input big">
-                <input id="tempo" type="number" placeholder="Duração da medição" oninput="playbtn()">
+                <input id="tempo" type="number" placeholder="Duração da medição">
                 <div class="ui basic label">
                     sec
                 </div>
-                <button class="ui icon button disabled" id="play" onclick="medir();">
+                <button class="ui icon button disabled" id="play">
                     <i class="play icon"></i>
                 </button>
             </div>
@@ -113,23 +117,39 @@
             </div>
         </div>
         <!-- relatorio -->
-        <div id="relatorio" style="display: none;">
+        <div id="relatorio" style="display: show;">
             <div class="ui grid">
-                <div class="one column row">
-                    <div class="column">
-                        <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
-                    </div>
+                <div class="eleven wide column">
+                  <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
                 </div>
-                <div class="two column row">
-                    <div class="column">
+                <div class="four wide column">
+                  <h4>Deslocamento da oscilação total</h4>
+                  <p id="dot">000.000</p>
+                  <h4>Desvio padrão</h4>
+                  <p id="desAP">000.000</p>
+                  <p id="desML">000.000</p>
+                  <h4>RMS (Root Mean Square)</h4>
+                  <p id="rmsAP">000.000</p>
+                  <p id="rmsML">000.000</p>
+                  <h4>Frequencia</h4>
+                  <p id="freq">000.000</p>
+                  <h4>Velocidade média</h4>
+                  <p id="velAP">000.000</p>
+                  <p id="velML">000.000</p>
+                  <h4>Velocidade média total</h4>
+                  <p id="veltot">000.000</p>
+                  <h4>Amplitude de deslocamento</h4>
+                  <p id="amp">000.000</p>
+                  <h4>Área</h4>
+                  <p id="area">000.000</p>
 
-                    </div>
                 </div>
             </div>
+            <div class="ui divider"></div>
         </div>
-        
+
     </div>
-    <script src="./js/controladorIndex.js"></script>
+    <script src="./js/reportController.js"></script>
 </body>
 
 </html>
