@@ -13,7 +13,7 @@ var SerialPort = browserserialport.SerialPort;
 var Plataforma = require('./Data.js');
 
 /**  @member {SerialPort}  Plataforma*/
-var calc = new Plataforma(369, 334);
+var calc = new Plataforma(184.5, 167);
 
 /**  @member {calc}  port*/
 var port;
@@ -86,7 +86,7 @@ function addPoint(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc(tgx + 369, tgy + 334, 4, 0, Math.PI * 2);
+	ctx.arc((tgx * 2) + 369, (tgy * 2) + 334, 4, 0, Math.PI * 2);
 	ctx.fill();
 }
 
@@ -192,8 +192,19 @@ function genReport() {
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-	$('#dump').text(result);
 
+	$('#dot').text(calc.DOT);
+	$('#desAP').text(calc.DevAP);
+	$('#desML').text(calc.DevML);
+	$('#rmsAP').text(calc.rmsAP);
+	$('#rmsML').text(calc.rmsML);
+	$('#freq').text(calc.avgFrq);
+	$('#velAP').text(calc.VMap);
+	$('#velML').text(calc.VMml);
+	$('#veltot').text(calc.VMT);
+	$('#ampAP').text(calc.ampAP);
+	$('#ampML').text(calc.ampML);
+	$('#area').text(calc.area);
 }
 
 function processData() {
