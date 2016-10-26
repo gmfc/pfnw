@@ -96,7 +96,7 @@ function addPoint(tgx, tgy) {
 	ctx.fill();
 }
 
-/**.
+/**
  * Plota um gráfico a partir de vetores x e y
  * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
  * @arg {Number[]} vetY - Vetor de Coordenadas Y do COP
