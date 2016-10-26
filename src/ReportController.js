@@ -62,7 +62,7 @@ function btConnected() {
 		$('#connect').switchClass('active', 'completed');
 		$('#stepduracao').switchClass('disabled', 'active');
 		$('#tempoSelect').show();
-		$('#statustxt').text("Conectado");
+		$('#statustxt').text('Conectado');
 		$('#label').switchClass('blue yellow red', 'green');
 		$('#status').switchClass('blue yellow red', 'green');
 		$('#labeltxt').text('Conectado');
@@ -173,42 +173,28 @@ function ACTUpdateTime() {
 	}
 }
 
-function ACTPlay() {
-	$('#stepduracao').switchClass('active', 'completed');
-	$('#stepexec').switchClass('disabled', 'active');
-	$('#tempoSelect').hide();
-	$('#execute').show();
-	$('#progress')
-		.progress({
-			total: $('#tempo').val()
-		});
-	startReading($('#tempo').val());
+function convertNum(num) {
+	return Math.round(num * 10) / 100;
 }
 
 function genReport() {
 	$('#stepexec').switchClass('active', 'completed');
 	$('#steprelatorio').switchClass('disabled', 'active');
-
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-
-	$('#dot').text(convertNum(calc.DOT) + " cm");
-	$('#desAP').text("Ântero-posterior: " + convertNum(calc.DevAP) + " cm");
-	$('#desML').text("Médio-lateral: " + convertNum(calc.DevML) + " cm");
-	$('#rmsAP').text("Ântero-posterior: " + convertNum(calc.rmsAP) + " cm");
-	$('#rmsML').text("Médio-lateral: " + convertNum(calc.rmsML) + " cm");
-	$('#freq').text(convertNum(calc.avgFrq) + "Hz");
-	$('#velAP').text("Ântero-posterior: " + convertNum(calc.VMap) + " cm/s");
-	$('#velML').text("Médio-lateral: " + convertNum(calc.VMml) + " cm/s");
-	$('#veltot').text(convertNum(calc.VMT) + " cm/s");
-	$('#ampAP').text("Ântero-posterior: " + convertNum(calc.ampAP) + " cm");
-	$('#ampML').text("Médio-lateral: " + convertNum(calc.ampML) + " cm");
-	$('#area').text(convertNum(calc.area) + " cm²");
-}
-
-function convertNum(num) {
-	return Math.round(num * 10) / 100;
+	$('#dot').text(convertNum(calc.DOT) + ' cm');
+	$('#desAP').text('Ântero-posterior: ' + convertNum(calc.DevAP) + ' cm');
+	$('#desML').text('Médio-lateral: ' + convertNum(calc.DevML) + ' cm');
+	$('#rmsAP').text('Ântero-posterior: ' + convertNum(calc.rmsAP) + ' cm');
+	$('#rmsML').text('Médio-lateral: ' + convertNum(calc.rmsML) + ' cm');
+	$('#freq').text(convertNum(calc.avgFrq) + 'Hz');
+	$('#velAP').text('Ântero-posterior: ' + convertNum(calc.VMap) + ' cm/s');
+	$('#velML').text('Médio-lateral: ' + convertNum(calc.VMml) + ' cm/s');
+	$('#veltot').text(convertNum(calc.VMT) + ' cm/s');
+	$('#ampAP').text('Ântero-posterior: ' + convertNum(calc.ampAP) + ' cm');
+	$('#ampML').text('Médio-lateral: ' + convertNum(calc.ampML) + ' cm');
+	$('#area').text(convertNum(calc.area) + ' cm²');
 }
 
 function processData() {
@@ -243,6 +229,18 @@ function startReading(temp) {
 		doStep();
 	};
 	doStep();
+}
+
+function ACTPlay() {
+	$('#stepduracao').switchClass('active', 'completed');
+	$('#stepexec').switchClass('disabled', 'active');
+	$('#tempoSelect').hide();
+	$('#execute').show();
+	$('#progress')
+		.progress({
+			total: $('#tempo').val()
+		});
+	startReading($('#tempo').val());
 }
 
 $('#bt').click(findPlat);
