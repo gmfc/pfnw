@@ -1,7 +1,7 @@
 /**
- * @module RealTimeController
+ * @module ReportController
  * @see
- * ![alt text](./UML/RealTimeController.svg "Funcionamento")
+ * ![alt text](./UML/ReportController.svg "Funcionamento")
  *
  */
 
@@ -81,7 +81,13 @@ function btERR(err) {
 	isConnected = false;
 }
 
-
+/**
+ * Usado por drawGraph.
+ * Plota um ponto persitente no grafico
+ * @arg {Number} tgx - Coordenada X do COP
+ * @arg {Number} tgy - Coordenada Y do COP
+ * @returns {null}
+ */
 function addPoint(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
@@ -90,6 +96,12 @@ function addPoint(tgx, tgy) {
 	ctx.fill();
 }
 
+/**
+ * Plota um gráfico a partir de vetores x e y
+ * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
+ * @arg {Number[]} vetY - Vetor de Coordenadas Y do COP
+ * @returns {null}
+ */
 function drawGraph(vetX, vetY) {
 	for (var i = 0; i < vetX.length; i++) {
 		addPoint(vetX[i], vetY[i]);
@@ -97,7 +109,7 @@ function drawGraph(vetX, vetY) {
 }
 
 /**
- * Coleta dados emitidos pela plataforma
+ * Coleta dados emitidos pela plataforma e os adiciona em Data
  * @param {char[]} dados - stream de dados em utf8
  */
 function coleta(dados) {
@@ -114,7 +126,7 @@ function coleta(dados) {
 }
 
 /**
- * Connecta com a plataforma
+ * Connecta com a plataforma e registra eventos
  * @param {string} name - come da porta serial em que a Plataforma se encontra
  */
 function connect(name) {
@@ -165,6 +177,9 @@ $(window).unload(function() {
 	port.close();
 });
 
+/**
+ * Atuactualiza e valida input do temporizador.
+ */
 function ACTUpdateTime() {
 	if ($('#tempo').val() >= 1) {
 		$('#play').switchClass('disabled', 'green');
@@ -173,10 +188,17 @@ function ACTUpdateTime() {
 	}
 }
 
+/**
+ * Converte e arredonda números de mm para cm
+ * @arg {Number} num - numero a ser tratado
+ */
 function convertNum(num) {
 	return Math.round(num * 10) / 100;
 }
 
+/**
+ * Gera relatório
+ */
 function genReport() {
 	$('#stepexec').switchClass('active', 'completed');
 	$('#steprelatorio').switchClass('disabled', 'active');
@@ -197,12 +219,19 @@ function genReport() {
 	$('#area').text(convertNum(calc.area) + ' cm²');
 }
 
+/**
+ * Processa dados colhidos pela plataforma
+ */
 function processData() {
 	result = calc.fullReport(); //JSON.stringify(, null, 2);
 	drawGraph(result.CPx, result.CPy);
 	genReport();
 }
 
+/**
+ * Inicia a leitura e gravação dos dados
+ * @arg {Number} temp - tempo de leitura
+ */
 function startReading(temp) {
 	recording = true;
 	var timer = null;

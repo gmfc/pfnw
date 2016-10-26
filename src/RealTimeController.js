@@ -77,7 +77,7 @@ function btERR(err) {
  * Plota um ponto na tela representando uma leitura do COP
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
- * @return {null}
+ * @returns {null}
  */
 function update(tgx, tgy) {
 	// fade effect
