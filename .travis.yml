@@ -3,5 +3,5 @@ node_js:
   - "4.1"
 notifications:
   email:
-    - ana.rossi@gmail.com
-    - gabrielmf.correia@gmail.com
+    - ${email1}
+    - ${email2}
