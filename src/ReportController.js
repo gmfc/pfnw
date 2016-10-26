@@ -188,7 +188,7 @@ function genReport() {
 	$('#desML').text('Médio-lateral: ' + convertNum(calc.DevML) + ' cm');
 	$('#rmsAP').text('Ântero-posterior: ' + convertNum(calc.rmsAP) + ' cm');
 	$('#rmsML').text('Médio-lateral: ' + convertNum(calc.rmsML) + ' cm');
-	$('#freq').text(convertNum(calc.avgFrq) + 'Hz');
+	$('#freq').text(convertNum(calc.avgFrq * 10) + 'Hz'); // FIXME: POG
 	$('#velAP').text('Ântero-posterior: ' + convertNum(calc.VMap) + ' cm/s');
 	$('#velML').text('Médio-lateral: ' + convertNum(calc.VMml) + ' cm/s');
 	$('#veltot').text(convertNum(calc.VMT) + ' cm/s');
