@@ -29,7 +29,7 @@
 
 <body>
 
-    <div class="ui fixed inverted menu">
+    <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
                 <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
@@ -38,7 +38,14 @@
                 Medições <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                    <a class="item" href="./menuRelatorio.html"><i class="doctor icon"></i>Medição completa</a>
+                    <div class="ui simple dropdown item">
+                        <i class="doctor icon"></i>Relatório
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="./medicao.html"><i class="treatment icon"></i> Gerar Relatório</a>
+                            <a class="item disabled" href="#"><i class="folder open icon"></i> Carregar relatório</a>
+                        </div>
+                    </div>
                     <div class="divider"></div>
                     <div class="header">Plataforma</div>
                     <a class="item" href="#"><i class="usb icon"></i>Teste de conexão</a>

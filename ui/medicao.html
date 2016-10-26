@@ -31,7 +31,7 @@
 
 <body>
     <!-- MENU -->
-    <div class="ui fixed inverted menu">
+    <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
                 <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
@@ -40,7 +40,14 @@
                 Medições <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                    <a class="item" href="./medicao.html"><i class="doctor icon"></i>Medição completa</a>
+                    <div class="ui simple dropdown item">
+                        <i class="doctor icon"></i>Relatório
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="./medicao.html"><i class="treatment icon"></i> Gerar Relatório</a>
+                            <a class="item disabled" href="#"><i class="folder open icon"></i> Carregar relatório</a>
+                        </div>
+                    </div>
                     <div class="divider"></div>
                     <div class="header">Plataforma</div>
                     <a class="item" href="#"><i class="usb icon"></i>Teste de conexão</a>
@@ -50,7 +57,7 @@
         </div>
     </div>
     <!-- /MENU -->
-    <div class="ui main container">
+    <div class="ui main container" style="margin-top: 20px;">
         <!-- BTN -->
         <div class="ui right aligned container">
             <div class="ui labeled button" tabindex="0" id="bt">
@@ -112,7 +119,7 @@
                 </div>
                 <div class="label" onclick="" id="status">Medindo</div>
             </div>
-            <div class="ui" id="data">
+            <div class="ui centered" id="data">
                 Serial data...
             </div>
         </div>
@@ -131,7 +138,7 @@
                   <h4>RMS (Root Mean Square)</h4>
                   <p id="rmsAP">000.000</p>
                   <p id="rmsML">000.000</p>
-                  <h4>Frequencia</h4>
+                  <h4>Frequência</h4>
                   <p id="freq">000.000</p>
                   <h4>Velocidade média</h4>
                   <p id="velAP">000.000</p>
