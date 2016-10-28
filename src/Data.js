@@ -274,7 +274,6 @@ PlatData.prototype.calcAREA_lowFreq = function() {
 PlatData.prototype.calcAREA = function() {
 	var rAP = (sm.max(this.CPy) - sm.min(this.CPy)) / 2;
 	var rML = (sm.max(this.CPx) - sm.min(this.CPx)) / 2;
-	console.log(rAP + ':AP--ML:' + rML);
 	this.area = Math.PI * rAP * rML;
 };
 
