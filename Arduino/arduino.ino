@@ -1,20 +1,21 @@
+
 #include "HX711.h"
 
 // TR
-#define DOUT_TR A0
-#define PD_SCK_TR A1
+#define DOUT_TR A7 //A0
+#define PD_SCK_TR A8 //A1
 
 // TL
-#define DOUT_TL A2
-#define PD_SCK_TL A3
+#define DOUT_TL A9 //A2
+#define PD_SCK_TL A10 //A3
 
 // BR
-#define DOUT_BR A7
-#define PD_SCK_BR A8
+#define DOUT_BR A0 //A7
+#define PD_SCK_BR A1 //A8
 
 // BL
-#define DOUT_BL A9
-#define PD_SCK_BL A10
+#define DOUT_BL A2 //A9
+#define PD_SCK_BL A3 //A10
 
 // Sensores
 HX711 TR_scale(DOUT_TR, PD_SCK_TR);
@@ -45,12 +46,12 @@ void setup() {
 void loop() {
   Serial.print(millis());
   Serial.print(";");
-  Serial.print(TR_scale.get_units());
+  Serial.print(abs(TR_scale.get_units()));
   Serial.print(";");
-  Serial.print(TL_scale.get_units());
+  Serial.print(abs(TL_scale.get_units()));
   Serial.print(";");
-  Serial.print(BR_scale.get_units());
+  Serial.print(abs(BR_scale.get_units()));
   Serial.print(";");
-  Serial.print(BL_scale.get_units());
+  Serial.print(abs(BL_scale.get_units()));
   Serial.print("#");
 }
