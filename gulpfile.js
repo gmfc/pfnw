@@ -18,6 +18,15 @@ gulp.task('rtcontrol', function() {
 		.pipe(gulp.dest('./ui/js'));
 });
 
+gulp.task('debugcontrol', function() {
+	return browserify('./src/DebugController.js')
+		.bundle()
+		.pipe(source('debugcontrol.js'))
+		.pipe(buffer())
+		.pipe(uglify())
+		.pipe(gulp.dest('./ui/js'));
+});
+
 gulp.task('reportController', function() {
 	return browserify('./src/ReportController.js')
 		.bundle()
@@ -73,5 +82,5 @@ gulp.task('dist:win', ['build'], function() {
 	});
 });
 
-gulp.task('build', ['clean:js', 'rtcontrol', 'reportController']);
+gulp.task('build', ['clean:js', 'rtcontrol', 'reportController', 'debugcontrol']);
 gulp.task('dist', ['dist:win']);

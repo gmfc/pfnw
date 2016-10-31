@@ -46,12 +46,12 @@ void setup() {
 void loop() {
   Serial.print(millis());
   Serial.print(";");
-  Serial.print(abs(TR_scale.get_units()));
+  Serial.print(TR_scale.get_units());
   Serial.print(";");
-  Serial.print(abs(TL_scale.get_units()));
+  Serial.print(TL_scale.get_units());
   Serial.print(";");
-  Serial.print(abs(BR_scale.get_units()));
+  Serial.print(BR_scale.get_units());
   Serial.print(";");
-  Serial.print(abs(BL_scale.get_units()));
+  Serial.print(BL_scale.get_units());
   Serial.print("#");
 }
