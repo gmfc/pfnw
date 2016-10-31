@@ -90,10 +90,10 @@ PlatData.prototype.pushData = function(data) {
 		return Number(val);
 	});
 	this.TI.push(arr[0]);
-	this.TR.push(arr[1]);
-	this.TL.push(arr[2]);
-	this.BR.push(arr[3]);
-	this.BL.push(arr[4]);
+	this.TR.push(Math.abs(arr[1]));
+	this.TL.push(Math.abs(arr[2]));
+	this.BR.push(Math.abs(arr[3]));
+	this.BL.push(Math.abs(arr[4]));
 };
 
 /**
@@ -149,10 +149,10 @@ PlatData.prototype.RTCOP = function(data) {
 		return Number(val);
 	});
 
-	var TR = arr[1],
-		TL = arr[2],
-		BR = arr[3],
-		BL = arr[4];
+	var TR = Math.abs(arr[1]),
+		TL = Math.abs(arr[2]),
+		BR = Math.abs(arr[3]),
+		BL = Math.abs(arr[4]);
 
 	var result = {};
 	result.t = arr[0] - this.tempDeltaTime;
