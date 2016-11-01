@@ -77,10 +77,14 @@ function btERR(err) {
  * @returns {null}
  */
 function update(tgx, tgy, part) {
-	// fade effect
+	var split = part.split(';');
 	$('#console').prepend('<p> X: ' + tgx + ' Y: ' + tgy + ' RAW:{' + part + '}');
 
-	$('#console').children().slice(25).detach();
+	$('#tr').text(split[1]);
+	$('#tl').text(split[2]);
+	$('#br').text(split[3]);
+	$('#bl').text(split[4]);
+	//$('#console').children().slice(10).detach();
 }
 
 /**

@@ -87,7 +87,7 @@ function update(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 4, 0, Math.PI * 2);
+	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 2, 0, Math.PI * 2);
 	ctx.fill();
 }
 

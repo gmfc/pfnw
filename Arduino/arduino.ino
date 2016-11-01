@@ -2,20 +2,20 @@
 #include "HX711.h"
 
 // TR
-#define DOUT_TR A7 //A0
-#define PD_SCK_TR A8 //A1
+#define DOUT_TR A0
+#define PD_SCK_TR A1
 
 // TL
-#define DOUT_TL A9 //A2
-#define PD_SCK_TL A10 //A3
+#define DOUT_TL A2
+#define PD_SCK_TL A3
 
 // BR
-#define DOUT_BR A0 //A7
-#define PD_SCK_BR A1 //A8
+#define DOUT_BR A7
+#define PD_SCK_BR A8
 
 // BL
-#define DOUT_BL A2 //A9
-#define PD_SCK_BL A3 //A10
+#define DOUT_BL A9
+#define PD_SCK_BL A10
 
 // Sensores
 HX711 TR_scale(DOUT_TR, PD_SCK_TR);
