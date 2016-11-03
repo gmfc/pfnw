@@ -3,28 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Plataforma de força: Menu</title>
+    <title>Plataforma de força</title>
     <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16" />
     <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-ui.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
-    <script type="text/javascript">
-        var ngui = require('nw.gui');
-        var nwin = ngui.Window.get();
-        onload = function() {
-            nwin.show();
-            nwin.maximize();
-        }
-    </script>
+
     <style type="text/css">
         .ui.menu .item i.icon {
             margin-right: 1.5em;
         }
 
         .main.container {
-            margin-top: 7em;
+            margin-top: 50px;
         }
 
         .ui.menu .item {
@@ -35,7 +30,6 @@
 </head>
 
 <body>
-
     <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
@@ -63,9 +57,45 @@
     </div>
 
     <div class="ui main container">
+        <div class="ui right aligned container">
+            <div class="ui labeled button" tabindex="0" id="bt">
+                <div class="ui button" id="label">
+                    <i class="usb icon" id="ico"></i>
+                    <span id="labeltxt">Conectar</span>
+                </div>
+                <a class="ui basic left pointing label" id="statustxt">off</a>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui container">
+            <table class="ui padded very compact small celled definition table fixed">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;"></th>
+                        <th>Left</th>
+                        <th>Right</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 80px;">Top</td>
+                        <td id="tl">A</td>
+                        <td id="tr">B</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px;">Bottom</td>
+                        <td id="bl">C</td>
+                        <td id="br">D</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="ports">
+            </div>
+        </div>
 
 
     </div>
+    <script src="./js/debugcontrol.js"></script>
 </body>
 
 </html>

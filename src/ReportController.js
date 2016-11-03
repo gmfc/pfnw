@@ -92,7 +92,7 @@ function addPoint(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 4, 0, Math.PI * 2);
+	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 2, 0, Math.PI * 2);
 	ctx.fill();
 }
 
@@ -119,7 +119,6 @@ function coleta(dados) {
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
 		if (recording) {
-			$('#data').text(part);
 			calc.pushData(part);
 		}
 	});
@@ -208,7 +207,7 @@ function genReport() {
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-	$('#dot').text(convertNum(calc.DOT) + ' cm');
+	$('#dot').text(convertNum(calc.DOT, 100) + ' cm');
 	$('#desAP').text('Ântero-posterior: ' + convertNum(calc.DevAP) + ' cm');
 	$('#desML').text('Médio-lateral: ' + convertNum(calc.DevML) + ' cm');
 	$('#rmsAP').text('Ântero-posterior: ' + convertNum(calc.rmsAP) + ' cm');

@@ -21,9 +21,6 @@ var port;
 /**  @member {string}  port*/
 var acc = '';
 
-/**  @member {2dContext}  ctx*/
-var ctx = $('#canvas')[0].getContext('2d');
-
 /**  @member {boolean}  isConnected*/
 var isConnected = false;
 
@@ -79,16 +76,12 @@ function btERR(err) {
  * @arg {Number} tgy - Coordenada Y do COP
  * @returns {null}
  */
-function update(tgx, tgy) {
-	// fade effect
-	ctx.globalAlpha = 0.02;
-	ctx.fillStyle = '#f4f4f4';
-	ctx.fillRect(0, 0, 738, 668);
-	ctx.globalAlpha = 1;
-	ctx.fillStyle = '#000000';
-	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 2, 0, Math.PI * 2);
-	ctx.fill();
+function update(tgx, tgy, part) {
+	var split = part.split(';');
+	$('#tr').text(split[1]);
+	$('#tl').text(split[2]);
+	$('#br').text(split[3]);
+	$('#bl').text(split[4]);
 }
 
 /**
@@ -102,7 +95,7 @@ function coleta(dados) {
 	linhas.forEach(function(part) {
 		var result = calc.RTCOP(part);
 		btConnected(Math.floor(1 / (result.t / 1000)) + ' Hz');
-		update(result.x, result.y);
+		update(result.x, result.y, part);
 	});
 }
 
@@ -138,18 +131,24 @@ function connect(name) {
  * Reseta, e procura pela plataforma
  */
 function findPlat() {
-	console.log('batata1 findPlat()');
 	port = null;
 	btConnecting();
 	var found = false;
 	browserserialport.list(function(err, ports) {
 		var counter = 0;
-		console.log('batata list');
 		ports.forEach(function(port) {
 			counter++;
-			console.log('batata c++ forEach');
+			$('#ports').append('<div class="ui divider"></div>');
+			$('#ports').append('<p>comName: ' + port.comName + ' </p>');
+			$('#ports').append('<p>manufacturer: ' + port.manufacturer + ' </p>');
+			$('#ports').append('<p>serialNumber: ' + port.serialNumber + ' </p>');
+			$('#ports').append('<p>pnpId: ' + port.pnpId + ' </p>');
+			$('#ports').append('<p>locationId: ' + port.locationId + ' </p>');
+			$('#ports').append('<p>vendorId: ' + port.vendorId + ' </p>');
+			$('#ports').append('<p>productId: ' + port.productId + ' </p>');
+
+
 			if (port.manufacturer.indexOf('Arduino') !== -1 && !found) {
-				console.log('batata achou e con' + port.comName);
 				connect(port.comName);
 				console.log(port.comName);
 				found = true;
