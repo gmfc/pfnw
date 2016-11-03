@@ -82,5 +82,25 @@ gulp.task('dist:win', ['build'], function() {
 	});
 });
 
+gulp.task('dist:osx', ['build'], function() {
+	var nw = new NwBuilder({
+		files: ['./ui/**/**'],
+		platforms: ['osx64'],
+		//version: '0.17.6',
+		appVersion: pack.version,
+		macIcns: false,
+		flavor: 'normal',
+		appName: 'Plataforma',
+		buildType: 'versioned',
+		forceDownload: false
+	});
+	nw.on('log', console.log);
+	nw.build().then(function() {
+		console.log('all done!');
+	}).catch(function(error) {
+		console.error(error);
+	});
+});
+
 gulp.task('build', ['clean:js', 'rtcontrol', 'reportController', 'debugcontrol']);
 gulp.task('dist', ['dist:win']);
