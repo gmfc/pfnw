@@ -136,6 +136,7 @@ function findPlat() {
 	var found = false;
 	browserserialport.list(function(err, ports) {
 		var counter = 0;
+		$('#ports').empty();
 		ports.forEach(function(port) {
 			counter++;
 			$('#ports').append('<div class="ui divider"></div>');
