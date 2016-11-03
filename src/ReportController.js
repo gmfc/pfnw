@@ -89,6 +89,7 @@ function btERR(err) {
  * @returns {null}
  */
 function addPoint(tgx, tgy) {
+	tgy *= -1;
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
