@@ -78,13 +78,10 @@ function btERR(err) {
  */
 function update(tgx, tgy, part) {
 	var split = part.split(';');
-	$('#console').prepend('<p> X: ' + tgx + ' Y: ' + tgy + ' RAW:{' + part + '}');
-
 	$('#tr').text(split[1]);
 	$('#tl').text(split[2]);
 	$('#br').text(split[3]);
 	$('#bl').text(split[4]);
-	//$('#console').children().slice(10).detach();
 }
 
 /**
@@ -134,18 +131,24 @@ function connect(name) {
  * Reseta, e procura pela plataforma
  */
 function findPlat() {
-	console.log('batata1 findPlat()');
 	port = null;
 	btConnecting();
 	var found = false;
 	browserserialport.list(function(err, ports) {
 		var counter = 0;
-		console.log('batata list');
 		ports.forEach(function(port) {
 			counter++;
-			console.log('batata c++ forEach');
+			$('#ports').append('<div class="ui divider"></div>');
+			$('#ports').append('<p>comName: ' + port.comName + ' </p>');
+			$('#ports').append('<p>manufacturer: ' + port.manufacturer + ' </p>');
+			$('#ports').append('<p>serialNumber: ' + port.serialNumber + ' </p>');
+			$('#ports').append('<p>pnpId: ' + port.pnpId + ' </p>');
+			$('#ports').append('<p>locationId: ' + port.locationId + ' </p>');
+			$('#ports').append('<p>vendorId: ' + port.vendorId + ' </p>');
+			$('#ports').append('<p>productId: ' + port.productId + ' </p>');
+
+
 			if (port.manufacturer.indexOf('Arduino') !== -1 && !found) {
-				console.log('batata achou e con' + port.comName);
 				connect(port.comName);
 				console.log(port.comName);
 				found = true;
