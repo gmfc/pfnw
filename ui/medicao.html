@@ -9,7 +9,6 @@
     <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
     <script type="text/javascript" src="libs/jquery-ui.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
 
@@ -50,7 +49,7 @@
                     </div>
                     <div class="divider"></div>
                     <div class="header">Plataforma</div>
-                    <a class="item" href="#"><i class="usb icon"></i>Teste de conexão</a>
+                    <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
                 </div>
             </div>
             <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
@@ -59,6 +58,7 @@
     <!-- /MENU -->
     <div class="ui main container" style="margin-top: 20px;">
         <!-- BTN -->
+
         <div class="ui right aligned container">
             <div class="ui labeled button" tabindex="0" id="bt">
                 <div class="ui button" id="label">
@@ -67,6 +67,10 @@
                 </div>
                 <a class="ui basic left pointing label" id="statustxt">off</a>
             </div>
+            <button class="ui labeled icon button disabled">
+              <i class="save icon"></i>
+              Salvar
+            </button>
         </div>
         <!-- STEPS -->
         <div class="ui steps">
@@ -120,37 +124,36 @@
                 <div class="label" onclick="" id="status">Medindo</div>
             </div>
             <div class="ui centered" id="data">
-                Serial data...
+                Coletando dados...
             </div>
         </div>
         <!-- relatorio -->
         <div id="relatorio" style="display: none;">
             <div class="ui grid">
                 <div class="eleven wide column">
-                  <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
+                    <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
                 </div>
                 <div class="four wide column">
-                  <h4>Deslocamento da oscilação total</h4>
-                  <p id="dot">000.000</p>
-                  <h4>Desvio padrão</h4>
-                  <p id="desAP">000.000</p>
-                  <p id="desML">000.000</p>
-                  <h4>RMS (Root Mean Square)</h4>
-                  <p id="rmsAP">000.000</p>
-                  <p id="rmsML">000.000</p>
-                  <h4>Frequência</h4>
-                  <p id="freq">000.000</p>
-                  <h4>Velocidade média</h4>
-                  <p id="velAP">000.000</p>
-                  <p id="velML">000.000</p>
-                  <h4>Velocidade média total</h4>
-                  <p id="veltot">000.000</p>
-                  <h4>Amplitude de deslocamento</h4>
-                  <p id="ampAP">000.000</p>
-                  <p id="ampML">000.000</p>
-                  <h4>Área</h4>
-                  <p id="area">000.000</p>
-
+                    <h4>Deslocamento da oscilação total</h4>
+                    <p id="dot">000.000</p>
+                    <h4>Desvio padrão</h4>
+                    <p id="desAP">000.000</p>
+                    <p id="desML">000.000</p>
+                    <h4>RMS (Root Mean Square)</h4>
+                    <p id="rmsAP">000.000</p>
+                    <p id="rmsML">000.000</p>
+                    <h4>Frequência</h4>
+                    <p id="freq">000.000</p>
+                    <h4>Velocidade média</h4>
+                    <p id="velAP">000.000</p>
+                    <p id="velML">000.000</p>
+                    <h4>Velocidade média total</h4>
+                    <p id="veltot">000.000</p>
+                    <h4>Amplitude de deslocamento</h4>
+                    <p id="ampAP">000.000</p>
+                    <p id="ampML">000.000</p>
+                    <h4>Área</h4>
+                    <p id="area">000.000</p>
                 </div>
             </div>
             <div class="ui divider"></div>

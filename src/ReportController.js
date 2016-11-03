@@ -119,7 +119,6 @@ function coleta(dados) {
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
 		if (recording) {
-			$('#data').text(part);
 			calc.pushData(part);
 		}
 	});
