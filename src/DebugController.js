@@ -93,6 +93,7 @@ function coleta(dados) {
 	var linhas = acc.split('#');
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
+		$('#raw').text(part);
 		var result = calc.RTCOP(part);
 		btConnected(Math.floor(1 / (result.t / 1000)) + ' Hz');
 		update(result.x, result.y, part);

@@ -81,6 +81,7 @@ function btERR(err) {
  */
 function update(tgx, tgy) {
 	// fade effect
+	tgy *= -1;
 	ctx.globalAlpha = 0.02;
 	ctx.fillStyle = '#f4f4f4';
 	ctx.fillRect(0, 0, 738, 668);
