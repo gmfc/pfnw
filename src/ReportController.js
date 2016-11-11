@@ -90,10 +90,10 @@ function btERR(err) {
  */
 function addPoint(tgx, tgy) {
 	tgy *= -1;
-	ctx.globalAlpha = 1;
+	ctx.globalAlpha = 0.25;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 2, 0, Math.PI * 2);
+	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 1, 0, Math.PI * 2);
 	ctx.fill();
 }
 

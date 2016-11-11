@@ -253,7 +253,7 @@ PlatData.prototype.calcVELTotal = function() {
  * Função desenhada para lidar com medições de baixa frequencia.
  * @deprecated desde v0.3.1
  */
-PlatData.prototype.calcAREA_lowFreq = function() {
+PlatData.prototype.calcAREA = function() {
 	var medianAP = sm.median(this.CPy);
 	var medianML = sm.median(this.CPx);
 	var deltaAPmin = Math.abs(medianAP - sm.min(this.CPy));
@@ -271,7 +271,7 @@ PlatData.prototype.calcAREA_lowFreq = function() {
  * @todo Pode ser alterado para tracar um poligono com as coordenadas perifiricas
  * DEPENDE DE calcCOP
  */
-PlatData.prototype.calcAREA = function() {
+PlatData.prototype.calcAREA_ignore = function() {
 	var rAP = (sm.max(this.CPy) - sm.min(this.CPy)) / 2;
 	var rML = (sm.max(this.CPx) - sm.min(this.CPx)) / 2;
 	this.area = Math.PI * rAP * rML;
