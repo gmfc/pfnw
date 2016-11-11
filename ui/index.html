@@ -41,31 +41,27 @@
             <a href="./index.html" class="header item">
                 <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
             </a>
-            <div class="ui simple dropdown item">
-                Medições <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                    <div class="ui simple dropdown item">
-                        <i class="doctor icon"></i>Relatório
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <a class="item" href="./medicao.html"><i class="treatment icon"></i> Gerar Relatório</a>
-                            <a class="item disabled" href="#"><i class="folder open icon"></i> Carregar relatório</a>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="header">Plataforma</div>
-                    <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
-                </div>
-            </div>
             <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
         </div>
     </div>
 
     <div class="ui main container">
-
+        <div class="ui segment">
+            <h2><a class="" href="./medicao.html"><i class="treatment icon"></i> Gerar Relatório</a></h2>
+        </div>
+        <div class="ui segment">
+            <h2><a class="" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a></h2>
+        </div>
+        <div class="ui segment">
+            <h2><a class="" href="./debug.html"><i class="usb icon"></i>Teste de conexão</a></h2>
+        </div>
 
     </div>
+    <script>
+        $(".segment").hover(function() {
+            $(this).toggleClass("raised");
+        });
+    </script>
 </body>
 
 </html>
