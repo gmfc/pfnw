@@ -15,8 +15,8 @@
             "outputSourceFiles": true
         },
         "path": "ink-docstrap",
-        "theme": "cerulean",
-        "navType": "vertical",
+        "theme": "lumen",
+        "navType": "inline",
         "linenums": true,
         "dateFormat": "MMMM Do YYYY, h:mm:ss a"
     }

@@ -1,24 +1,37 @@
 /**
- * @module RealTimeController
- * @see
- * ![alt text](./UML/RealTimeController.svg "Funcionamento")
- *
+ * @module DebugController
  */
 
 /** JQuery */
 global.$ = $;
-/** @external  browser-serialport */
+
 var browserserialport = require('browser-serialport');
-var SerialPort = browserserialport.SerialPort;
 var Plataforma = require('./Data.js');
 
-/**  @member {SerialPort}  Plataforma*/
+
+/**
+ * Teste
+ * @external  browser-serialport
+ */
+
+/**
+ * @class SerialPort
+ * @extends external:browser-serialport
+ */
+var SerialPort = browserserialport.SerialPort;
+
+/**
+ * @member {PlatData}  Plataforma
+ */
 var calc = new Plataforma(184.5, 167);
 
-/**  @member {calc}  port*/
+/**
+ * Porta usada para acessar interfaces USB
+ * @member {object}
+ */
 var port;
 
-/**  @member {string}  port*/
+/**  @member {string}  acc*/
 var acc = '';
 
 /**  @member {boolean}  isConnected*/

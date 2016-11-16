@@ -11,7 +11,7 @@
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
 
-	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+	<link type="text/css" rel="stylesheet" href="styles/site.lumen.css">
 
 </head>
 
@@ -32,22 +32,22 @@
 			
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-PlatData.html">PlatData</a></li><li><a href="module-RealTimeController.html">RealTimeController</a></li><li><a href="module-ReportController.html">ReportController</a></li><li><a href="module-SerialHandler.html">SerialHandler</a></li>
+				<ul class="dropdown-menu inline">
+					<li><a href="module-DebugController.html">DebugController</a></li><li><a href="module-RealTimeController.html">RealTimeController</a></li><li><a href="module-ReportController.html">ReportController</a></li><li><a href="module-SerialHandler.html">SerialHandler</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="module-PlatData-PlatData.html">PlatData~PlatData</a></li>
+				<ul class="dropdown-menu inline">
+					<li><a href="module-DebugController-SerialPort.html">DebugController~SerialPort</a></li><li><a href="PlatData.html">PlatData</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="external-browser-serialport.html">browser-serialport</a></li><li><a href="external-simple-statistics.html">simple-statistics</a></li>
+				<ul class="dropdown-menu inline">
+					<li><a href="external-browser-serialport.html">browser-serialport</a></li>
 				</ul>
 			</li>
 			
@@ -85,8 +85,6 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-PlatData.html">PlatData</a>~</span>
-        
         PlatData
         </h2>
         
@@ -109,7 +107,7 @@
     
     <div class="description">
         <p>Classe responsavel por administrar e receber os dados da plataforma.
-Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio</p>
+Faz todos os calculos com os dados da plataforma e gera os e o relatorio</p>
     </div>
     
 
@@ -150,7 +148,7 @@ Faz todos os calculos com os dados da plataforma e gera os valores para o relato
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
 
@@ -174,7 +172,7 @@ Faz todos os calculos com os dados da plataforma e gera os valores para o relato
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
 
@@ -276,7 +274,7 @@ Faz todos os calculos com os dados da plataforma e gera os valores para o relato
 <dd>
     
     <div class="description">
-        <p>Medida centro e a lateral</p>
+        <p>Medida centro - lateral</p>
     </div>
     
 
@@ -347,7 +345,7 @@ Faz todos os calculos com os dados da plataforma e gera os valores para o relato
 <dd>
     
     <div class="description">
-        <p>Medida centro e a topo</p>
+        <p>Medida centro - topo</p>
     </div>
     
 
@@ -562,8 +560,7 @@ Bottom Right</p>
 <dd>
     
     <div class="description">
-        <p>Coordenadas X calculadas de cada COP
-Bottom Right</p>
+        <p>Coordenadas X calculadas de cada COP</p>
     </div>
     
 
@@ -634,8 +631,7 @@ Bottom Right</p>
 <dd>
     
     <div class="description">
-        <p>Coordenadas Y calculadas de cada COP
-Bottom Right</p>
+        <p>Coordenadas Y calculadas de cada COP</p>
     </div>
     
 
@@ -1062,6 +1058,26 @@ DEPENDE DE calcCOP</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1079,7 +1095,8 @@ DEPENDE DE calcCOP</p>
     
     <div class="description">
         <p>Calcula a area preenchida pelo deslocamento do COP
-Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p>
+Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
+Função desenhada para lidar com medições de baixa frequencia.</p>
     </div>
     
 
@@ -1127,13 +1144,6 @@ Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p
 	
 
 	
-	<dt class="tag-todo method-doc-label method-doc-details-label">To Do:</dt>
-	<dd class="tag-todo">
-		<ul>
-			<li>Pode ser alterado para tracar um poligono com as coordenadas perifiricasDEPENDE DE calcCOP</li>
-			</ul>
-	</dd>
-	
 </dl>
 
 
@@ -1148,6 +1158,26 @@ Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1156,7 +1186,7 @@ Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p
             
 <hr>
 <dt>
-    <h4 class="name" id="calcAREA_lowFreq"><span class="type-signature"></span>calcAREA_lowFreq()</h4>
+    <h4 class="name" id="calcAREA_simple"><span class="type-signature"></span>calcAREA_simple()</h4>
     
     
 </dt>
@@ -1165,8 +1195,7 @@ Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p
     
     <div class="description">
         <p>Calcula a area preenchida pelo deslocamento do COP
-Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
-Função desenhada para lidar com medições de baixa frequencia.</p>
+Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP</p>
     </div>
     
 
@@ -1223,6 +1252,13 @@ Função desenhada para lidar com medições de baixa frequencia.</p>
 	
 
 	
+	<dt class="tag-todo method-doc-label method-doc-details-label">To Do:</dt>
+	<dd class="tag-todo">
+		<ul>
+			<li>Pode ser alterado para tracar um poligono com as coordenadas perifiricas</li>
+			</ul>
+	</dd>
+	
 </dl>
 
 
@@ -1237,6 +1273,26 @@ Função desenhada para lidar com medições de baixa frequencia.</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1253,8 +1309,8 @@ Função desenhada para lidar com medições de baixa frequencia.</p>
 
     
     <div class="description">
-        <p>Calcula Centro de pressao (COP) para cada entrada
-Inicializa CPx e CPy. chama Efax e Efay</p>
+        <p>Percorre dados coletados dos 4 sensores (TR, TL, BR, BL) e calcula
+as coordenadas de seus respectivos centros de pressão (COP)</p>
     </div>
     
 
@@ -1316,6 +1372,26 @@ Inicializa CPx e CPy. chama Efax e Efay</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1395,6 +1471,26 @@ DEPENDE DE calcCOP</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1474,6 +1570,26 @@ DEPENDE DE calcCOP</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1553,6 +1669,26 @@ PRECISA DOS DADOS EM TI[]</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1632,6 +1768,26 @@ DEPENDE DE calcCOP</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1711,6 +1867,26 @@ chama calcFREQ previamente</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1791,6 +1967,748 @@ chama calcFREQ previamente</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="Efax"><span class="type-signature"></span>Efax(a, fz1, fz2, fz3, fz4)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Funcao usada no calculo do COP
+Calcula forca horizontal em X da placa</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Distancia centro lateral da plataforma</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor TR</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor TL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor BL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz4</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor BR</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Coordenada X do COP</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="Efay"><span class="type-signature"></span>Efay(b, fz1, fz2, fz3, fz4)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Funcao usada no calculo do COP
+Calcula forca horizontal em Y da placa</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Distancia centro topo da plataforma</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor TR</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor TL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor BL</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fz4</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Leitura do sensor BR</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Coordenada Y do COP</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="fax"><span class="type-signature"></span>fax()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Funcao usada no calculo do COP
+Calcula forca horizontal em X da placa</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+	<dt class="important tag-deprecated method-doc-label method-doc-details-label">Deprecated:</dt>
+	
+    <dd>
+        <ul class="dummy">
+            <li>desde v0.1.2</li>
+        </ul>
+    </dd>
+    
+    
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>coordenada X do COP</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="fay"><span class="type-signature"></span>fay()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Funcao usada no calculo do COP
+Calcula forca horizontal em Y da placa</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+	<dt class="important tag-deprecated method-doc-label method-doc-details-label">Deprecated:</dt>
+	
+    <dd>
+        <ul class="dummy">
+            <li>desde v0.1.2</li>
+        </ul>
+    </dd>
+    
+    
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>coordenada Y do COP</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1870,6 +2788,26 @@ coletadas previamente</p>
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -2010,7 +2948,7 @@ extrai e trata os dados</p>
     </dt>
     <dd>
         
-<span class="param-type">null</span>
+<span class="param-type">void</span>
 
 
 
@@ -2164,7 +3102,7 @@ e t para timestamp</p>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">object</span>
 
 
 
@@ -2227,7 +3165,7 @@ e t para timestamp</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a>
 	
-		on October 28th 2016, 3:15:52 pm
+		on November 16th 2016, 3:34:56 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
