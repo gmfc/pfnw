@@ -40,14 +40,21 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="module-DebugController-SerialPort.html">DebugController~SerialPort</a></li><li><a href="PlatData.html">PlatData</a></li>
+					<li><a href="PlatData.html">PlatData</a></li><li><a href="SerialPort.html">SerialPort</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="global.html#sm">sm</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
 				<ul class="dropdown-menu inline">
-					<li><a href="external-browser-serialport.html">browser-serialport</a></li>
+					<li><a href="external-browser-serialport.html">browser-serialport</a></li><li><a href="external-jQuery.html">jQuery</a></li><li><a href="external-simple-statistics.html">simple-statistics</a></li>
 				</ul>
 			</li>
 			
@@ -91,6 +98,8 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>RealTimeController, Controlador da tela de visualisação em tempo real</p></div>
+        
 
         
 <dl class="details">
@@ -127,13 +136,6 @@
 	
 
 	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><p><img src="./UML/RealTimeController.svg" alt="alt text" title="Funcionamento"></p></li>
-			</ul>
-	</dd>
-	
 
 	
 </dl>
@@ -159,12 +161,221 @@
         <dl>
             
 <hr>
+<dt class="name" id="~$">
+    <h4 id="~$"><span class="type-signature">&lt;inner> </span>$<span class="type-signature"> :<a href="external-jQuery.html">external:jQuery</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="external-jQuery.html">external:jQuery</a></span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="~acc">
+    <h4 id="~acc"><span class="type-signature">&lt;inner> </span>acc<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Buffer de bytes recebidos via serial</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="~browserserialport">
+    <h4 id="~browserserialport"><span class="type-signature">&lt;inner> </span>browserserialport<span class="type-signature"> :<a href="external-browser-serialport.html">external:browser-serialport</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="external-browser-serialport.html">external:browser-serialport</a></span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
 <dt class="name" id="~ctx">
     <h4 id="~ctx"><span class="type-signature">&lt;inner> </span>ctx<span class="type-signature"> :2dContext</span></h4>
 
     
 </dt>
 <dd>
+    
+    <div class="description">
+        <p>Canvas 2D</p>
+    </div>
     
 
     
@@ -233,6 +444,10 @@
 </dt>
 <dd>
     
+    <div class="description">
+        <p>Flag de status da comunicacao serial</p>
+    </div>
+    
 
     
         <h5>Type:</h5>
@@ -294,11 +509,15 @@
             
 <hr>
 <dt class="name" id="~Plataforma">
-    <h4 id="~Plataforma"><span class="type-signature">&lt;inner> </span>Plataforma<span class="type-signature"> :SerialPort</span></h4>
+    <h4 id="~Plataforma"><span class="type-signature">&lt;inner> </span>Plataforma<span class="type-signature"> :<a href="PlatData.html">PlatData</a></span></h4>
 
     
 </dt>
 <dd>
+    
+    <div class="description">
+        <p>Fabrica de relatorios e biblioteca de formulas de analise de COP</p>
+    </div>
     
 
     
@@ -306,7 +525,7 @@
         <ul>
             <li>
                 
-<span class="param-type">SerialPort</span>
+<span class="param-type"><a href="PlatData.html">PlatData</a></span>
 
 
 
@@ -361,11 +580,15 @@
             
 <hr>
 <dt class="name" id="~port">
-    <h4 id="~port"><span class="type-signature">&lt;inner> </span>port<span class="type-signature"> :string</span></h4>
+    <h4 id="~port"><span class="type-signature">&lt;inner> </span>port<span class="type-signature"> :<a href="SerialPort.html">SerialPort</a></span></h4>
 
     
 </dt>
 <dd>
+    
+    <div class="description">
+        <p>Porta usada para acessar interfaces USB</p>
+    </div>
     
 
     
@@ -373,7 +596,7 @@
         <ul>
             <li>
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="SerialPort.html">SerialPort</a></span>
 
 
 
@@ -427,12 +650,16 @@
         
             
 <hr>
-<dt class="name" id="~port">
-    <h4 id="~port"><span class="type-signature">&lt;inner> </span>port<span class="type-signature"> :calc</span></h4>
+<dt class="name" id="~SerialPort">
+    <h4 id="~SerialPort"><span class="type-signature">&lt;inner> </span>SerialPort<span class="type-signature"> :external:SerialPort</span></h4>
 
     
 </dt>
 <dd>
+    
+    <div class="description">
+        <p>Referencia estatica ao contrutor SerialPort</p>
+    </div>
     
 
     
@@ -440,7 +667,7 @@
         <ul>
             <li>
                 
-<span class="param-type">calc</span>
+<span class="param-type">external:SerialPort</span>
 
 
 
@@ -621,6 +848,26 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -689,7 +936,7 @@
 
             
 
-            <td class="description last"><p>come da porta serial em que a Plataforma se encontra</p></td>
+            <td class="description last"><p>Nome da porta serial em que a Plataforma se encontra</p></td>
         </tr>
 
     
@@ -749,6 +996,26 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -827,6 +1094,26 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -990,7 +1277,7 @@
     </dt>
     <dd>
         
-<span class="param-type">null</span>
+<span class="param-type">void</span>
 
 
 
@@ -1053,7 +1340,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a>
 	
-		on November 16th 2016, 3:34:56 pm
+		on November 17th 2016, 3:43:22 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

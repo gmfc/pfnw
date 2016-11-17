@@ -1,40 +1,47 @@
 /**
+ * DebugController, Controlador da tela de debug
  * @module DebugController
  */
 
-/** JQuery */
+/**
+ * @member {external:jQuery} $
+ */
 global.$ = $;
 
+/**
+ * @member {external:browser-serialport} browserserialport
+ */
 var browserserialport = require('browser-serialport');
 var Plataforma = require('./Data.js');
 
-
 /**
- * Teste
- * @external  browser-serialport
- */
-
-/**
- * @class SerialPort
- * @extends external:browser-serialport
+ * Referencia estatica ao contrutor SerialPort
+ * @member {external:SerialPort} SerialPort
  */
 var SerialPort = browserserialport.SerialPort;
 
 /**
+ * Fabrica de relatorios e biblioteca de formulas de analise de COP
  * @member {PlatData}  Plataforma
  */
 var calc = new Plataforma(184.5, 167);
 
 /**
  * Porta usada para acessar interfaces USB
- * @member {object}
+ * @member {SerialPort} port
  */
 var port;
 
-/**  @member {string}  acc*/
+/**
+ * Buffer de bytes recebidos via serial
+ * @member {string} acc
+ */
 var acc = '';
 
-/**  @member {boolean}  isConnected*/
+/**
+ * Flag de status da comunicacao serial
+ * @member {boolean}  isConnected
+ */
 var isConnected = false;
 
 
@@ -84,10 +91,11 @@ function btERR(err) {
 }
 
 /**
- * Plota um ponto na tela representando uma leitura do COP
+ * Atualiza dados na tela de debug
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
- * @returns {null}
+ * @arg {string} part - String formatada com dados de leitura
+ * @returns {void}
  */
 function update(tgx, tgy, part) {
 	var split = part.split(';');
@@ -100,6 +108,7 @@ function update(tgx, tgy, part) {
 /**
  * Coleta dados emitidos pela plataforma
  * @param {char[]} dados - stream de dados em utf8
+ * @returns {void}
  */
 function coleta(dados) {
 	acc += dados.toString('utf8');
@@ -115,7 +124,8 @@ function coleta(dados) {
 
 /**
  * Connecta com a plataforma
- * @param {string} name - come da porta serial em que a Plataforma se encontra
+ * @param {string} name - Nome da porta serial em que a Plataforma se encontra
+ * @returns {void}
  */
 function connect(name) {
 
@@ -143,6 +153,7 @@ function connect(name) {
 
 /**
  * Reseta, e procura pela plataforma
+ * @returns {void}
  */
 function findPlat() {
 	port = null;

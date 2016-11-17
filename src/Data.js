@@ -1,3 +1,6 @@
+/**
+ * @member {external:simple-statistics} sm
+ */
 var sm = require('simple-statistics');
 
 /**
