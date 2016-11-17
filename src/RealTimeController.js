@@ -1,30 +1,53 @@
 /**
+ * RealTimeController, Controlador da tela de visualisação em tempo real
  * @module RealTimeController
- * @see
- * ![alt text](./UML/RealTimeController.svg "Funcionamento")
- *
  */
 
-/** JQuery */
+/**
+ * @member {external:jQuery} $
+ */
 global.$ = $;
-/** @external  browser-serialport */
+
+/**
+ * @member {external:browser-serialport} browserserialport
+ */
 var browserserialport = require('browser-serialport');
-var SerialPort = browserserialport.SerialPort;
 var Plataforma = require('./Data.js');
 
-/**  @member {SerialPort}  Plataforma*/
+/**
+ * Referencia estatica ao contrutor SerialPort
+ * @member {external:SerialPort} SerialPort
+ */
+var SerialPort = browserserialport.SerialPort;
+
+/**
+ * Fabrica de relatorios e biblioteca de formulas de analise de COP
+ * @member {PlatData}  Plataforma
+ */
 var calc = new Plataforma(184.5, 167);
 
-/**  @member {calc}  port*/
+/**
+ * Porta usada para acessar interfaces USB
+ * @member {SerialPort} port
+ */
 var port;
 
-/**  @member {string}  port*/
+/**
+ * Buffer de bytes recebidos via serial
+ * @member {string} acc
+ */
 var acc = '';
 
-/**  @member {2dContext}  ctx*/
+/**
+ * Canvas 2D
+ * @member {2dContext}  ctx
+ */
 var ctx = $('#canvas')[0].getContext('2d');
 
-/**  @member {boolean}  isConnected*/
+/**
+ * Flag de status da comunicacao serial
+ * @member {boolean}  isConnected
+ */
 var isConnected = false;
 
 
@@ -77,7 +100,7 @@ function btERR(err) {
  * Plota um ponto na tela representando uma leitura do COP
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
- * @returns {null}
+ * @returns {void}
  */
 function update(tgx, tgy) {
 	// fade effect
@@ -95,6 +118,7 @@ function update(tgx, tgy) {
 /**
  * Coleta dados emitidos pela plataforma
  * @param {char[]} dados - stream de dados em utf8
+ * @returns {void}
  */
 function coleta(dados) {
 	acc += dados.toString('utf8');
@@ -109,7 +133,8 @@ function coleta(dados) {
 
 /**
  * Connecta com a plataforma
- * @param {string} name - come da porta serial em que a Plataforma se encontra
+ * @param {string} name - Nome da porta serial em que a Plataforma se encontra
+ * @returns {void}
  */
 function connect(name) {
 
@@ -137,6 +162,7 @@ function connect(name) {
 
 /**
  * Reseta, e procura pela plataforma
+ * @returns {void}
  */
 function findPlat() {
 	console.log('batata1 findPlat()');

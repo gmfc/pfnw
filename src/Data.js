@@ -1,24 +1,25 @@
-/** @external  simple-statistics */
+/**
+ * @member {external:simple-statistics} sm
+ */
 var sm = require('simple-statistics');
-
-/** @module PlatData */
 
 /**
  * Classe responsavel por administrar e receber os dados da plataforma.
- * Faz todos os calculos com os dados da plataforma e gera os valores para o relatorio
- * @param {string} pa - Medida entre o centro da plataforma e o centro de medição no eixo x.
- * @param {string} pb - Medida entre o centro da plataforma e o centro de medição no eixo y.
+ * Faz todos os calculos com os dados da plataforma e gera os e o relatorio
+ * @constructor
+ * @param {number} pa - Medida entre o centro da plataforma e o centro de medição no eixo x.
+ * @param {number} pb - Medida entre o centro da plataforma e o centro de medição no eixo y.
  * @class
  */
 function PlatData(pa, pb) {
 	/**
-	 * Medida centro e a lateral
+	 * Medida centro - lateral
 	 * @type {number}
 	 */
 	this.a = pa;
 
 	/**
-	 * Medida centro e a topo
+	 * Medida centro - topo
 	 * @type {number}
 	 */
 	this.b = pb;
@@ -59,14 +60,12 @@ function PlatData(pa, pb) {
 
 	/**
 	 * Coordenadas X calculadas de cada COP
-	 * Bottom Right
 	 * @type {number[]}
 	 */
 	this.CPx = [];
 
 	/**
 	 * Coordenadas Y calculadas de cada COP
-	 * Bottom Right
 	 * @type {number[]}
 	 */
 	this.CPy = [];
@@ -83,7 +82,7 @@ function PlatData(pa, pb) {
  * Recebe dados da plataforma como String
  * extrai e trata os dados
  * @arg {string} data - String formatada: 'TI;TR;TL;BR;BL'
- * @returns {null}
+ * @returns {void}
  */
 PlatData.prototype.pushData = function(data) {
 	var arr = data.split(';').map(function(val) {
@@ -104,9 +103,9 @@ PlatData.prototype.pushData = function(data) {
  * @param {number} fz2 - Leitura do sensor TL
  * @param {number} fz3 - Leitura do sensor BL
  * @param {number} fz4 - Leitura do sensor BR
- * @return {number} X - Coordenada X do COP
+ * @return {number} Coordenada X do COP
  */
-function Efax(a, fz1, fz2, fz3, fz4) {
+PlatData.prototype.Efax = function(a, fz1, fz2, fz3, fz4) {
 	var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
 	return X;
 }
@@ -119,21 +118,22 @@ function Efax(a, fz1, fz2, fz3, fz4) {
  * @param {number} fz2 - Leitura do sensor TL
  * @param {number} fz3 - Leitura do sensor BL
  * @param {number} fz4 - Leitura do sensor BR
- * @return {number} Y - Coordenada Y do COP
+ * @return {number} Coordenada Y do COP
  */
-function Efay(b, fz1, fz2, fz3, fz4) {
+PlatData.prototype.Efay = function(b, fz1, fz2, fz3, fz4) {
 	var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
 	return Y;
 }
 
 /**
- * Calcula Centro de pressao (COP) para cada entrada
- * Inicializa CPx e CPy. chama Efax e Efay
+ * Percorre dados coletados dos 4 sensores (TR, TL, BR, BL) e calcula
+ * as coordenadas de seus respectivos centros de pressão (COP)
+ * @return {void}
  */
 PlatData.prototype.calcCOP = function() {
 	for (var i = 0; i < this.BR.length; i++) {
-		this.CPx[i] = Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
-		this.CPy[i] = Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
+		this.CPx[i] = this.Efax(this.a, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
+		this.CPy[i] = this.Efay(this.b, this.TR[i], this.TL[i], this.BL[i], this.BR[i]);
 	}
 };
 
@@ -141,7 +141,7 @@ PlatData.prototype.calcCOP = function() {
  * Calcula o COP para dada String recebida
  * Usado para calcular o COP em tempo real
  * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
- * @return {Object} result - objeto com atributos x,y para coordenadas
+ * @return {object} result - objeto com atributos x,y para coordenadas
  * e t para timestamp
  */
 PlatData.prototype.RTCOP = function(data) {
@@ -157,14 +157,15 @@ PlatData.prototype.RTCOP = function(data) {
 	var result = {};
 	result.t = arr[0] - this.tempDeltaTime;
 	this.tempDeltaTime = arr[0];
-	result.x = Efax(this.a, TR, TL, BL, BR);
-	result.y = Efay(this.b, TR, TL, BL, BR);
+	result.x = this.Efax(this.a, TR, TL, BL, BR);
+	result.y = this.Efay(this.b, TR, TL, BL, BR);
 	return result;
 };
 
 /**
  * Calcula o deslocamento da oscilacao total
  * DEPENDE DE calcCOP
+ * @return {void}
  */
 PlatData.prototype.calcDOT = function() {
 	this.DOT = 0;
@@ -176,6 +177,7 @@ PlatData.prototype.calcDOT = function() {
 /**
  * Calcula desvio padrao
  * DEPENDE DE calcCOP
+ * @return {void}
  */
 PlatData.prototype.calcDEV = function() {
 	this.DevAP = sm.standardDeviation(this.CPy);
@@ -185,6 +187,7 @@ PlatData.prototype.calcDEV = function() {
 /**
  * Calcula a raiz do valor quadratico medio
  * DEPENDE DE calcCOP
+ * @return {void}
  */
 PlatData.prototype.calcRMS = function() {
 	this.rmsAP = sm.rootMeanSquare(this.CPy);
@@ -194,6 +197,7 @@ PlatData.prototype.calcRMS = function() {
 /**
  * Calcula a frequencia da medicao
  * PRECISA DOS DADOS EM TI[]
+ * @return {void}
  */
 PlatData.prototype.calcFREQ = function() {
 	var deltas = [];
@@ -206,6 +210,7 @@ PlatData.prototype.calcFREQ = function() {
 /**
  * Calcula a velocidade media de deslocacao em AP e ML
  * chama calcFREQ previamente
+ * @return {void}
  */
 PlatData.prototype.calcVEL = function() {
 	this.calcFREQ();
@@ -224,6 +229,7 @@ PlatData.prototype.calcVEL = function() {
 /**
  * Calcula a amplitude de deslocamento em AP e ML
  * DEPENDE DE calcCOP
+ * @return {void}
  */
 PlatData.prototype.calcAMPL = function() {
 	this.ampAP = sm.max(this.CPy) - sm.min(this.CPy);
@@ -234,6 +240,7 @@ PlatData.prototype.calcAMPL = function() {
  * Calcula a velocidade de deslocamento
  * media total do COP
  * chama calcFREQ previamente
+ * @return {void}
  */
 PlatData.prototype.calcVELTotal = function() {
 	this.calcFREQ();
@@ -251,7 +258,7 @@ PlatData.prototype.calcVELTotal = function() {
  * Calcula a area preenchida pelo deslocamento do COP
  * Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
  * Função desenhada para lidar com medições de baixa frequencia.
- * @deprecated desde v0.3.1
+ * @return {void}
  */
 PlatData.prototype.calcAREA = function() {
 	var medianAP = sm.median(this.CPy);
@@ -269,9 +276,10 @@ PlatData.prototype.calcAREA = function() {
  * Calcula a area preenchida pelo deslocamento do COP
  * Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
  * @todo Pode ser alterado para tracar um poligono com as coordenadas perifiricas
- * DEPENDE DE calcCOP
+ * @deprecated desde v0.3.1
+ * @return {void}
  */
-PlatData.prototype.calcAREA_ignore = function() {
+PlatData.prototype.calcAREA_simple = function() {
 	var rAP = (sm.max(this.CPy) - sm.min(this.CPy)) / 2;
 	var rML = (sm.max(this.CPx) - sm.min(this.CPx)) / 2;
 	this.area = Math.PI * rAP * rML;
@@ -281,6 +289,7 @@ PlatData.prototype.calcAREA_ignore = function() {
 /**
  * Calcula e gera relatorio completo com base nas medições
  * coletadas previamente
+ * @return {void}
  */
 PlatData.prototype.fullReport = function() {
 	this.calcCOP();
@@ -301,8 +310,9 @@ PlatData.prototype.fullReport = function() {
  * Funcao usada no calculo do COP
  * Calcula forca horizontal em X da placa
  * @deprecated desde v0.1.2
+ * @return {number} coordenada X do COP
  */
-function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
+PlatData.prototype.fax = function(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t1 = a * (-fz1 + fz2 + fz3 - fz4);
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fx12 + fx34);
@@ -313,8 +323,9 @@ function fax(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
  * Funcao usada no calculo do COP
  * Calcula forca horizontal em Y da placa
  * @deprecated desde v0.1.2
+ * @return {number} coordenada Y do COP
  */
-function fay(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
+PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	var t1 = b * (fz1 + fz2 - fz3 - fz4);
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fy14 + fy23);

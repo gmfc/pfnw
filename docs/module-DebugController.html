@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Module: RealTimeController</title>
+	<title>Documentation Module: DebugController</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,7 +86,7 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: RealTimeController</h1>
+	<h1 class="page-title">Module: DebugController</h1>
 <section>
 
 <header>
@@ -98,7 +98,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>RealTimeController, Controlador da tela de visualisação em tempo real</p></div>
+            <div class="description"><p>DebugController, Controlador da tela de debug</p></div>
         
 
         
@@ -313,77 +313,6 @@
             <li>
                 
 <span class="param-type"><a href="external-browser-serialport.html">external:browser-serialport</a></span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id="~ctx">
-    <h4 id="~ctx"><span class="type-signature">&lt;inner> </span>ctx<span class="type-signature"> :2dContext</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>Canvas 2D</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">2dContext</span>
 
 
 
@@ -1122,7 +1051,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="~update"><span class="type-signature">&lt;inner> </span>update(tgx, tgy)</h4>
+    <h4 class="name" id="~update"><span class="type-signature">&lt;inner> </span>update(tgx, tgy, part)</h4>
     
     
 </dt>
@@ -1130,7 +1059,7 @@
 
     
     <div class="description">
-        <p>Plota um ponto na tela representando uma leitura do COP</p>
+        <p>Atualiza dados na tela de debug</p>
     </div>
     
 
@@ -1207,6 +1136,30 @@
             
 
             <td class="description last"><p>Coordenada Y do COP</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>part</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String formatada com dados de leitura</p></td>
         </tr>
 
     

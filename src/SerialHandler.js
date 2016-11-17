@@ -1,4 +1,5 @@
 /**
+ * Classe template para comunicação serial. Usada somente como referencia. 
  * @module SerialHandler
  * @deprecated desde v0.1.2
  */

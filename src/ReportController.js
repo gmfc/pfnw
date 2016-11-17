@@ -1,36 +1,62 @@
 /**
+ * ReportController, Controlador do gerador de relatórios
  * @module ReportController
- * @see
- * ![alt text](./UML/ReportController.svg "Funcionamento")
- *
  */
 
-/** JQuery */
+/**
+ * @member {external:jQuery} $
+ */
 global.$ = $;
-/** @external  browser-serialport */
+
+/**
+ * @member {external:browser-serialport} browserserialport
+ */
 var browserserialport = require('browser-serialport');
-var SerialPort = browserserialport.SerialPort;
 var Plataforma = require('./Data.js');
 
-/**  @member {SerialPort}  Plataforma*/
+/**
+ * Referencia estatica ao contrutor SerialPort
+ * @member {external:SerialPort} SerialPort
+ */
+var SerialPort = browserserialport.SerialPort;
+
+/**
+ * Fabrica de relatorios e biblioteca de formulas de analise de COP
+ * @member {PlatData}  Plataforma
+ */
 var calc = new Plataforma(184.5, 167);
 
-/**  @member {calc}  port*/
+/**
+ * Porta usada para acessar interfaces USB
+ * @member {SerialPort} port
+ */
 var port;
 
-/**  @member {string}  port*/
+/**
+ * Buffer de bytes recebidos via serial
+ * @member {string} acc
+ */
 var acc = '';
 
 /**  @member {2dContext}  ctx*/
 var ctx = $('#canvas')[0].getContext('2d');
 
-/**  @member {boolean}  recording, se o controlador esta gravando os dados*/
+/**
+ * Flag que sinaliza se o controlador esta gravando os dados
+ * @member {boolean}  recording
+ */
 var recording = false;
 
-/**  @member {boolean}  isConnected*/
+/**
+ * Flag de status da comunicacao serial
+ * @member {boolean}  isConnected
+ */
 var isConnected = false;
 
-/**  @member {boolean}  result*/
+/**
+ * Relatorio com dados da medicao
+ *@member {object}  result
+ */
 var result;
 
 
@@ -86,7 +112,7 @@ function btERR(err) {
  * Plota um ponto persitente no grafico
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
- * @returns {null}
+ * @returns {void}
  */
 function addPoint(tgx, tgy) {
 	tgy *= -1;
@@ -101,7 +127,7 @@ function addPoint(tgx, tgy) {
  * Plota um gráfico a partir de vetores x e y
  * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
  * @arg {Number[]} vetY - Vetor de Coordenadas Y do COP
- * @returns {null}
+ * @returns {void}
  */
 function drawGraph(vetX, vetY) {
 	for (var i = 0; i < vetX.length; i++) {
@@ -112,6 +138,7 @@ function drawGraph(vetX, vetY) {
 /**
  * Coleta dados emitidos pela plataforma e os adiciona em Data
  * @param {char[]} dados - stream de dados em utf8
+ * @returns {void}
  */
 function coleta(dados) {
 	btConnected();
@@ -126,8 +153,9 @@ function coleta(dados) {
 }
 
 /**
- * Connecta com a plataforma e registra eventos
- * @param {string} name - come da porta serial em que a Plataforma se encontra
+ * Connecta com a plataforma
+ * @param {string} name - Nome da porta serial em que a Plataforma se encontra
+ * @returns {void}
  */
 function connect(name) {
 	port = new SerialPort(name, {
@@ -153,6 +181,7 @@ function connect(name) {
 
 /**
  * Reseta, e procura pela plataforma
+ * @returns {void}
  */
 function findPlat() {
 	port = null;
@@ -179,6 +208,7 @@ $(window).unload(function() {
 
 /**
  * Atuactualiza e valida input do temporizador.
+ * @returns {void}
  */
 function ACTUpdateTime() {
 	if ($('#tempo').val() >= 1) {
@@ -191,6 +221,8 @@ function ACTUpdateTime() {
 /**
  * Converte e arredonda números de mm para cm
  * @arg {Number} num - numero a ser tratado
+ * @arg {Number} [digit] - Precisão a ser considerada
+ * @returns {Number} numero tratado
  */
 function convertNum(num, digit) {
 	if (!digit) {
@@ -201,6 +233,7 @@ function convertNum(num, digit) {
 
 /**
  * Gera relatório
+ * @returns {void}
  */
 function genReport() {
 	$('#stepexec').switchClass('active', 'completed');
@@ -224,6 +257,7 @@ function genReport() {
 
 /**
  * Processa dados colhidos pela plataforma
+ * @returns {void}
  */
 function processData() {
 	result = calc.fullReport(); //JSON.stringify(, null, 2);
@@ -234,6 +268,7 @@ function processData() {
 /**
  * Inicia a leitura e gravação dos dados
  * @arg {Number} temp - tempo de leitura
+ * @returns {void}
  */
 function startReading(temp) {
 	recording = true;
