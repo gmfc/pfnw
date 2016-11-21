@@ -67,7 +67,7 @@ gulp.task('dist:win', ['build'], function() {
 	var nw = new NwBuilder({
 		files: ['./ui/**/**'],
 		platforms: ['win32'],
-		version: '0.17.6',
+		//version: '0.17.6',
 		appVersion: pack.version,
 		winIco: './assets/logo.ico',
 		flavor: 'normal',
@@ -104,4 +104,4 @@ gulp.task('dist:osx', ['build'], function() {
 });
 
 gulp.task('build', ['clean:js', 'rtcontrol', 'reportController', 'debugcontrol']);
-gulp.task('dist', ['dist:win']);
+gulp.task('dist', ['dist:win', 'dist:osx']);
