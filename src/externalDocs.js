@@ -9,7 +9,7 @@
  */
 
 /**
- * Biblioteca de analise estatistica
+ * Biblioteca de análise estatística
  * @external  simple-statistics
  */
 

@@ -15,13 +15,13 @@ var browserserialport = require('browser-serialport');
 var Plataforma = require('./Data.js');
 
 /**
- * Referencia estatica ao contrutor SerialPort
+ * Referência estática ao construtor SerialPort
  * @member {external:SerialPort} SerialPort
  */
 var SerialPort = browserserialport.SerialPort;
 
 /**
- * Fabrica de relatorios e biblioteca de formulas de analise de COP
+ * Referência estática ao construtor SerialPort
  * @member {PlatData}  Plataforma
  */
 var calc = new Plataforma(184.5, 167);
@@ -48,13 +48,13 @@ var ctx = $('#canvas')[0].getContext('2d');
 var recording = false;
 
 /**
- * Flag de status da comunicacao serial
+ * Flag de status da comunicação serial
  * @member {boolean}  isConnected
  */
 var isConnected = false;
 
 /**
- * Relatorio com dados da medicao
+ * Relatório com dados da medição
  *@member {object}  result
  */
 var result;
@@ -109,7 +109,7 @@ function btERR(err) {
 
 /**
  * Usado por drawGraph.
- * Plota um ponto persitente no grafico
+ * Plota um ponto persitente no gráfico
  * @arg {Number} tgx - Coordenada X do COP
  * @arg {Number} tgy - Coordenada Y do COP
  * @returns {void}
@@ -207,7 +207,7 @@ $(window).unload(function() {
 });
 
 /**
- * Atuactualiza e valida input do temporizador.
+ * Atualiza e valida input do temporizador.
  * @returns {void}
  */
 function ACTUpdateTime() {
