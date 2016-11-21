@@ -49,7 +49,8 @@ gulp.task('clean:docs', function() {
 		'docs/**/*',
 		'!docs/Documentacao.mdj',
 		'!docs/jsdoc.json',
-		'!docs/UML/**'
+		'!docs/UML/**',
+		'!docs/screens/**'
 	]);
 });
 
