@@ -15,7 +15,7 @@ Neste repositório encontraras o código do software controlador, e o código do
 
 ## Progresso
 
-![Progresso](https://cdn.rawgit.com/gmfc/pfnw/master/docs/UML/progresso.svg "Progresso")
+![Progresso](https://gmfc.github.io/pfnw/UML/progresso.svg "Progresso")
 
 ## Como Compilar
 
