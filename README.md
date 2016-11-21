@@ -31,14 +31,20 @@ Na raiz do diretório execute:
 
 ### Executando o programa e desenvolvendo
 Para iniciar o software (em ambiende de desenvolvimento) execute `npm start`.
+
 Para compilar mudanças feitas no código, execute: `npm run build`.
+
 Para que as mudanças sejam compiladas automaticamente: `npm run watch:test`.
+
 Para efetuar testes unitários: `npm test`.
+
 Para que os testes sejam executados a cada mudança do código automaticamente: `npm run watch:test`.
+
 Para recompilar a documentação: `npm run docs`.
 
 ### Criando uma distribuição
 Se necessário, altere a verção do software em `./package.json`.
+
 `npm run dist` irá compilar, limpar, baixar dependencias, baixar NW, criar diretório de distribuição e por fim, criar pasta com o software pronto para ser usado.
 
 ### Programando o Arduino
