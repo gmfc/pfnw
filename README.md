@@ -25,7 +25,8 @@ Execute:
 `git clone https://github.com/gmfc/pfnw.git`
 
 ### Instale todas as dependen
-vá até o diretório em que o repositório clonado se encontra: `cd pfnw`
+vá até o diretório em que o repositório clonado se encontra: `cd pfnw`.
+
 Na raiz do diretório execute:
 `node install`
 
