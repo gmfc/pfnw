@@ -4,8 +4,8 @@
 var sm = require('simple-statistics');
 
 /**
- * Classe responsavel por administrar e receber os dados da plataforma.
- * Faz todos os calculos com os dados da plataforma e gera os e o relatorio
+ * Classe responsável por administrar e receber os dados da plataforma.
+ * Faz todos os cálculos com os dados da plataforma e gera os e o relatorio
  * @constructor
  * @param {number} pa - Medida entre o centro da plataforma e o centro de medição no eixo x.
  * @param {number} pb - Medida entre o centro da plataforma e o centro de medição no eixo y.
@@ -71,7 +71,7 @@ function PlatData(pa, pb) {
 	this.CPy = [];
 
 	/**
-	 * Frequencia de medição em tempo real
+	 * Frequência de medição em tempo real
 	 * @type {number}
 	 */
 	this.tempDeltaTime = 0;
@@ -96,8 +96,8 @@ PlatData.prototype.pushData = function(data) {
 };
 
 /**
- * Funcao usada no calculo do COP
- * Calcula forca horizontal em X da placa
+ * Função usada no calculo do COP
+ * Calcula força horizontal em X da placa
  * @param {number} a - Distancia centro lateral da plataforma
  * @param {number} fz1 - Leitura do sensor TR
  * @param {number} fz2 - Leitura do sensor TL
@@ -111,8 +111,8 @@ PlatData.prototype.Efax = function(a, fz1, fz2, fz3, fz4) {
 }
 
 /**
- * Funcao usada no calculo do COP
- * Calcula forca horizontal em Y da placa
+ * Função usada no calculo do COP
+ * Calcula força horizontal em Y da placa
  * @param {number} b - Distancia centro topo da plataforma
  * @param {number} fz1 - Leitura do sensor TR
  * @param {number} fz2 - Leitura do sensor TL
@@ -163,7 +163,7 @@ PlatData.prototype.RTCOP = function(data) {
 };
 
 /**
- * Calcula o deslocamento da oscilacao total
+ * Calcula o deslocamento da oscilação total
  * DEPENDE DE calcCOP
  * @return {void}
  */
@@ -175,7 +175,7 @@ PlatData.prototype.calcDOT = function() {
 };
 
 /**
- * Calcula desvio padrao
+ * Calcula desvio padrão
  * DEPENDE DE calcCOP
  * @return {void}
  */
@@ -185,7 +185,7 @@ PlatData.prototype.calcDEV = function() {
 };
 
 /**
- * Calcula a raiz do valor quadratico medio
+ * Calcula a raiz do valor quadrático médio
  * DEPENDE DE calcCOP
  * @return {void}
  */
@@ -195,7 +195,7 @@ PlatData.prototype.calcRMS = function() {
 };
 
 /**
- * Calcula a frequencia da medicao
+ * Calcula a frequência da medição
  * PRECISA DOS DADOS EM TI[]
  * @return {void}
  */
@@ -208,7 +208,7 @@ PlatData.prototype.calcFREQ = function() {
 };
 
 /**
- * Calcula a velocidade media de deslocacao em AP e ML
+ * Calcula a velocidade média de deslocação em AP e ML
  * chama calcFREQ previamente
  * @return {void}
  */
@@ -238,7 +238,7 @@ PlatData.prototype.calcAMPL = function() {
 
 /**
  * Calcula a velocidade de deslocamento
- * media total do COP
+ * média total do COP
  * chama calcFREQ previamente
  * @return {void}
  */
@@ -255,9 +255,9 @@ PlatData.prototype.calcVELTotal = function() {
 };
 
 /**
- * Calcula a area preenchida pelo deslocamento do COP
+ * Calcula a área preenchida pelo deslocamento do COP
  * Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
- * Função desenhada para lidar com medições de baixa frequencia.
+ * Função desenhada para lidar com medições de baixa frequência.
  * @return {void}
  */
 PlatData.prototype.calcAREA = function() {
@@ -274,9 +274,9 @@ PlatData.prototype.calcAREA = function() {
 
 /**
  * Calcula a area preenchida pelo deslocamento do COP
- * Utiliza uma oval tracada com base nas medianas das amplitudes em x e y do COP
+ * Utiliza uma oval tracada com base nas amplitudes de x e y do COP
  * @todo Pode ser alterado para tracar um poligono com as coordenadas perifiricas
- * @deprecated desde v0.3.1
+ * @deprecated desde v0.4.0
  * @return {void}
  */
 PlatData.prototype.calcAREA_simple = function() {
@@ -287,8 +287,8 @@ PlatData.prototype.calcAREA_simple = function() {
 
 
 /**
- * Calcula e gera relatorio completo com base nas medições
- * coletadas previamente
+ * Calcula e gera relatório completo com base nas medições
+ * coletadas previamente.
  * @return {void}
  */
 PlatData.prototype.fullReport = function() {
@@ -304,11 +304,10 @@ PlatData.prototype.fullReport = function() {
 	return this;
 };
 
-// ## funcoes antigas nao mais usadas
 
 /**
- * Funcao usada no calculo do COP
- * Calcula forca horizontal em X da placa
+ * Função usada no cálculo do COP
+ * Calcula força horizontal em X da placa
  * @deprecated desde v0.1.2
  * @return {number} coordenada X do COP
  */
@@ -320,8 +319,8 @@ PlatData.prototype.fax = function(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 }
 
 /**
- * Funcao usada no calculo do COP
- * Calcula forca horizontal em Y da placa
+ * Função usada no cálculo do COP
+ * Calcula força horizontal em Y da placa
  * @deprecated desde v0.1.2
  * @return {number} coordenada Y do COP
  */

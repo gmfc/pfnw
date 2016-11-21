@@ -15,13 +15,13 @@ var browserserialport = require('browser-serialport');
 var Plataforma = require('./Data.js');
 
 /**
- * Referencia estatica ao contrutor SerialPort
+ * Referência estática ao construtor SerialPort
  * @member {external:SerialPort} SerialPort
  */
 var SerialPort = browserserialport.SerialPort;
 
 /**
- * Fabrica de relatorios e biblioteca de formulas de analise de COP
+ * Fabrica de relatórios e biblioteca de fórmulas de análise de COP
  * @member {PlatData}  Plataforma
  */
 var calc = new Plataforma(184.5, 167);
@@ -45,7 +45,7 @@ var acc = '';
 var ctx = $('#canvas')[0].getContext('2d');
 
 /**
- * Flag de status da comunicacao serial
+ * Flag de status da comunicação serial
  * @member {boolean}  isConnected
  */
 var isConnected = false;

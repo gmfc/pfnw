@@ -37,7 +37,7 @@ gulp.task('reportController', function() {
 });
 
 gulp.task('docs', ['clean:docs'], function(cb) {
-	var config = require('./jsdoc.json');
+	var config = require('./docs/jsdoc.json');
 	gulp.src(['README.md', './src/**/*.js'], {
 			read: false
 		})
@@ -48,6 +48,7 @@ gulp.task('clean:docs', function() {
 	return del([
 		'docs/**/*',
 		'!docs/Documentacao.mdj',
+		'!docs/jsdoc.json',
 		'!docs/UML/**'
 	]);
 });
