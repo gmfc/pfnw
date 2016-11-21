@@ -104,4 +104,4 @@ gulp.task('dist:osx', ['build'], function() {
 });
 
 gulp.task('build', ['clean:js', 'rtcontrol', 'reportController', 'debugcontrol']);
-gulp.task('dist', ['dist:win', 'dist:osx']);
+gulp.task('dist', ['dist:win']);
