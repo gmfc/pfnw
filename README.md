@@ -6,11 +6,11 @@ Plataforma de Força NW, é um projeto desenvolvido pela Fábrica de Software Ma
 
 Neste repositório encontraras o código do software controlador, e o código do Arduino.
 
-![img1](https://gmfc.github.io/pfnw/screens/1.png)
+![img1](https://gmfc.github.io/pfnw/screens/1.png =250x)
 
-![img2](https://gmfc.github.io/pfnw/screens/2.png)
+![img2](https://gmfc.github.io/pfnw/screens/2.png =250x)
 
-![img3](https://gmfc.github.io/pfnw/screens/3.png)
+![img3](https://gmfc.github.io/pfnw/screens/3.png =250x)
 
 
 ## Progresso
