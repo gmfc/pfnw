@@ -6,11 +6,11 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec -s 0",
     "watch:test": "./node_modules/.bin/mocha --reporter nyan --watch",
-    "watch:build": "gulp stream",
-    "start": "nw .",
-    "docs": "gulp docs",
-    "build": "gulp build",
-    "dist": "gulp dist"
+    "watch:build": "./node_modules/.bin/gulp stream",
+    "start": "./node_modules/.bin/nw .",
+    "docs": "./node_modules/.bin/gulp docs",
+    "build": "./node_modules/.bin/gulp build",
+    "dist": "./node_modules/.bin/gulp dist"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.10",
     "mocha": "^3.1.2",
+    "nw": "^0.19.0-rc1",
     "nw-builder": "^3.1.2",
     "should": "^11.1.1",
     "vinyl-buffer": "^1.0.0",
