@@ -60,7 +60,7 @@
         <!-- BTN -->
 
         <div class="ui right aligned container">
-            <div class="ui labeled button" tabindex="0" id="bt">
+            <div class="ui labeled button" tabindex="0" id="bt" data-tooltip="Não suba na plataforma" data-position="left center">
                 <div class="ui button" id="label">
                     <i class="usb icon" id="ico"></i>
                     <span id="labeltxt">Conectar</span>
@@ -157,6 +157,28 @@
                 </div>
             </div>
             <div class="ui divider"></div>
+        </div>
+
+        <!-- MODAL -->
+        <div class="ui basic modal">
+            <div class="header">
+                Placa desconectada durante medição.
+            </div>
+            <div class="image content">
+                <div class="image">
+                    <i class="red warning sign icon"></i>
+                </div>
+                <div class="description">
+                    <p>A comunicação com a plataforma foi interrompida inesperadamente. O procedimento será reiniciado.</p>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="two fluid ui inverted buttons">
+                    <div class="ui ok green basic inverted button">
+                        <i class="checkmark icon"></i> Ok
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

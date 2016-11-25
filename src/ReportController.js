@@ -75,12 +75,12 @@ function btConnecting() {
 
 function btDisconnected() {
 	console.log('desconectado!');
+	$('#play').switchClass('green', 'disabled');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
 	$('#labeltxt').text('Conectar');
 	$('#statustxt').text('desconectado');
 	$('#bt').removeClass('disabled');
-	ACTUpdateTime();
 }
 
 function btConnected() {
@@ -170,9 +170,7 @@ function connect(name) {
 					isConnected = true;
 					btConnected();
 				}
-				if (recording) {
-					coleta(data);
-				}
+				coleta(data);
 			});
 			port.on('close', function(data) {
 				port = null;
@@ -275,6 +273,17 @@ function processData() {
 	genReport(result);
 }
 
+function fatalError() {
+	$('.ui.basic.modal')
+		.modal({
+			closable: false,
+			onApprove: function() {
+				window.location.reload(false);
+			}
+		})
+		.modal('show');
+}
+
 /**
  * Inicia a leitura e gravação dos dados
  * @arg {Number} temp - tempo de leitura
@@ -288,7 +297,7 @@ function startReading(temp) {
 		if (count > 0) {
 			if (isConnected === false) {
 				recording = false;
-				alert('ERRO FATAL!');
+				fatalError();
 			} else {
 				clearInterval(timer);
 				timer = setTimeout(callback, 1000);
