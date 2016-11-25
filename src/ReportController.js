@@ -57,7 +57,7 @@ var isConnected = false;
  * Relatório com dados da medição
  *@member {object}  result
  */
-var result;
+var resultReady;
 
 
 ////////////////////////////////
@@ -75,26 +75,28 @@ function btConnecting() {
 
 function btDisconnected() {
 	console.log('desconectado!');
+	$('#play').switchClass('green', 'disabled');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
 	$('#labeltxt').text('Conectar');
 	$('#statustxt').text('desconectado');
 	$('#bt').removeClass('disabled');
-	isConnected = false;
 }
 
 function btConnected() {
-	if (isConnected === false) {
+	console.time("btConnected");
+	if (!resultReady) {
 		$('#connect').switchClass('active', 'completed');
 		$('#stepduracao').switchClass('disabled', 'active');
 		$('#tempoSelect').show();
-		$('#statustxt').text('Conectado');
-		$('#label').switchClass('blue yellow red', 'green');
-		$('#status').switchClass('blue yellow red', 'green');
-		$('#labeltxt').text('Conectado');
-		$('#bt').addClass('disabled');
-		isConnected = true;
+		ACTUpdateTime();
 	}
+	$('#statustxt').text('Conectado');
+	$('#label').switchClass('blue yellow red', 'green');
+	$('#status').switchClass('blue yellow red', 'green');
+	$('#labeltxt').text('Conectado');
+	$('#bt').addClass('disabled');
+	console.timeEnd("btConnected");
 }
 
 function btERR(err) {
@@ -141,14 +143,12 @@ function drawGraph(vetX, vetY) {
  * @returns {void}
  */
 function coleta(dados) {
-	btConnected();
 	acc += dados.toString('utf8');
 	var linhas = acc.split('#');
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
-		if (recording) {
+		if (recording)
 			calc.pushData(part);
-		}
 	});
 }
 
@@ -166,13 +166,19 @@ function connect(name) {
 			btERR(error);
 		} else {
 			port.on('data', function(data) {
+				if (isConnected === false) {
+					isConnected = true;
+					btConnected();
+				}
 				coleta(data);
 			});
 			port.on('close', function(data) {
 				port = null;
+				isConnected = false;
 				btDisconnected();
 			});
 			port.on('err', function(data) {
+				isConnected = false;
 				btERR(data);
 			});
 		}
@@ -211,7 +217,7 @@ $(window).unload(function() {
  * @returns {void}
  */
 function ACTUpdateTime() {
-	if ($('#tempo').val() >= 1) {
+	if ($('#tempo').val() >= 1 && isConnected === true) {
 		$('#play').switchClass('disabled', 'green');
 	} else {
 		$('#play').switchClass('green', 'disabled');
@@ -235,24 +241,25 @@ function convertNum(num, digit) {
  * Gera relatório
  * @returns {void}
  */
-function genReport() {
+function genReport(result) {
+	console.log(result);
 	$('#stepexec').switchClass('active', 'completed');
 	$('#steprelatorio').switchClass('disabled', 'active');
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-	$('#dot').text(convertNum(calc.DOT, 100) + ' cm');
-	$('#desAP').text('Ântero-posterior: ' + convertNum(calc.DevAP) + ' cm');
-	$('#desML').text('Médio-lateral: ' + convertNum(calc.DevML) + ' cm');
-	$('#rmsAP').text('Ântero-posterior: ' + convertNum(calc.rmsAP) + ' cm');
-	$('#rmsML').text('Médio-lateral: ' + convertNum(calc.rmsML) + ' cm');
-	$('#freq').text(convertNum(calc.avgFrq, 1) + 'Hz');
-	$('#velAP').text('Ântero-posterior: ' + convertNum(calc.VMap) + ' cm/s');
-	$('#velML').text('Médio-lateral: ' + convertNum(calc.VMml) + ' cm/s');
-	$('#veltot').text(convertNum(calc.VMT) + ' cm/s');
-	$('#ampAP').text('Ântero-posterior: ' + convertNum(calc.ampAP) + ' cm');
-	$('#ampML').text('Médio-lateral: ' + convertNum(calc.ampML) + ' cm');
-	$('#area').text(convertNum(calc.area, 100) + ' cm²');
+	$('#dot').text(convertNum(result.DOT, 100) + ' cm');
+	$('#desAP').text('Ântero-posterior: ' + convertNum(result.DevAP) + ' cm');
+	$('#desML').text('Médio-lateral: ' + convertNum(result.DevML) + ' cm');
+	$('#rmsAP').text('Ântero-posterior: ' + convertNum(result.rmsAP) + ' cm');
+	$('#rmsML').text('Médio-lateral: ' + convertNum(result.rmsML) + ' cm');
+	$('#freq').text(convertNum(result.avgFrq, 1) + 'Hz');
+	$('#velAP').text('Ântero-posterior: ' + convertNum(result.VMap) + ' cm/s');
+	$('#velML').text('Médio-lateral: ' + convertNum(result.VMml) + ' cm/s');
+	$('#veltot').text(convertNum(result.VMT) + ' cm/s');
+	$('#ampAP').text('Ântero-posterior: ' + convertNum(result.ampAP) + ' cm');
+	$('#ampML').text('Médio-lateral: ' + convertNum(result.ampML) + ' cm');
+	$('#area').text(convertNum(result.area, 100) + ' cm²');
 }
 
 /**
@@ -260,9 +267,21 @@ function genReport() {
  * @returns {void}
  */
 function processData() {
-	result = calc.fullReport(); //JSON.stringify(, null, 2);
+	resultReady = true;
+	var result = calc.fullReport(); //JSON.stringify(, null, 2);
 	drawGraph(result.CPx, result.CPy);
-	genReport();
+	genReport(result);
+}
+
+function fatalError() {
+	$('.ui.basic.modal')
+		.modal({
+			closable: false,
+			onApprove: function() {
+				window.location.reload(false);
+			}
+		})
+		.modal('show');
 }
 
 /**
@@ -276,15 +295,19 @@ function startReading(temp) {
 	var count = temp;
 	var doStep = function() {
 		if (count > 0) {
-			clearInterval(timer);
-			timer = setTimeout(callback, 1000);
-			$('#progress').progress('increment');
+			if (isConnected === false) {
+				recording = false;
+				fatalError();
+			} else {
+				clearInterval(timer);
+				timer = setTimeout(callback, 1000);
+				$('#progress').progress('increment');
+			}
 		} else {
 			console.log('ACABOU! ' + count);
 			$('#status').html('Gerando relatório');
 			recording = false;
 			processData();
-			genReport();
 		}
 	};
 	var callback = function() {
