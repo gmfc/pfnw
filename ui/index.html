@@ -55,11 +55,18 @@
         <div class="ui segment">
             <h2><a class="" href="./debug.html"><i class="usb icon"></i>Teste de conexão</a></h2>
         </div>
+        
+        <div class="ui segment">
+            <h2><p id="ver"></p></h2>
+        </div>
 
     </div>
     <script>
         $(".segment").hover(function() {
             $(this).toggleClass("raised");
+        });
+        $.get('https://api.github.com/repos/gmfc/pfnw/releases', function (data) {
+            $('#ver').text(data[0].tag_name);
         });
     </script>
 </body>
