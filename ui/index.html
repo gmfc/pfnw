@@ -36,6 +36,8 @@
 
 <body>
 
+
+
     <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
@@ -46,27 +48,57 @@
     </div>
 
     <div class="ui main container">
-        <div class="ui segment">
-            <h2><a class="" href="./medicao.html"><i class="file text outline icon"></i> Gerar Relatório</a></h2>
-        </div>
-        <div class="ui segment">
-            <h2><a class="" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a></h2>
-        </div>
-        <div class="ui segment">
-            <h2><a class="" href="./debug.html"><i class="usb icon"></i>Teste de conexão</a></h2>
-        </div>
-        
-        <div class="ui segment">
-            <h2><p id="ver"></p></h2>
+        <a class="" href="./medicao.html">
+            <div class="ui segment">
+                <h2><i class="file text outline icon"></i> Gerar Relatório</h2>
+            </div>
+        </a>
+        <a class="" href="./realtime.html">
+            <div class="ui segment">
+                <h2><i class="refresh icon"></i>Visualização em tempo real</h2>
+            </div>
+        </a>
+        <a class="" href="./debug.html">
+            <div class="ui segment">
+                <h2><i class="usb icon"></i>Teste de conexão</h2>
+            </div>
+        </a>
+
+
+
+        <div id="updatepopup" class="ui icon message" style="margin-top:45px; display:none;">
+            <i class="green idea icon"></i>
+            <div class="content">
+                <div class="header">
+                    Versão
+                    <a href="" id="downloadurl">
+                        <spam id="ver"></spam>
+                    </a> disponível para download.
+                </div>
+                <p id="name"></p>
+            </div>
         </div>
 
+
+
     </div>
+
+
+
     <script>
         $(".segment").hover(function() {
             $(this).toggleClass("raised");
         });
-        $.get('https://api.github.com/repos/gmfc/pfnw/releases', function (data) {
-            $('#ver').text(data[0].tag_name);
+        var ver = require('./package.json').version;
+
+        $.get('https://api.github.com/repos/gmfc/pfnw/releases', function(data) {
+            console.log(data[0].tag_name + "!==" + ver);
+            if (data[0].tag_name !== ver) {
+                $('#updatepopup').show();
+                $('#ver').text(data[0].tag_name);
+                $('#name').text('"'+data[0].name+'"');
+                $('#downloadurl').attr('href', data[0].assets[0].browser_download_url);
+            }
         });
     </script>
 </body>
