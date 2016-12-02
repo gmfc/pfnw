@@ -76,7 +76,40 @@ function PlatData(pa, pb) {
 	 */
 	this.tempDeltaTime = 0;
 
+	/**
+	 * Dados temporários usados pelo filtro
+	 * @type {object}
+	 */
+	this.filterData = {};
+
 }
+
+/**
+ * Função coringa - Strategy para filtros
+ */
+PlatData.prototype.filter = function(num, id) {
+	return Math.abs(num);
+}
+
+/**
+ * Função helper. Recebe uma string formatada e splita a mesma em parametros.
+ * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
+ * @returns {object} - objeto com atributos TI;TR;TL;BR;BL.
+ */
+PlatData.prototype.splitData = function(data) {
+	var arr = data.split(';').map(function(val) {
+		return Number(val);
+	});
+	var result = {};
+
+	result.TI = arr[0];
+	result.TR = this.filter(arr[1], "TR");
+	result.TL = this.filter(arr[2], "TL");
+	result.BR = this.filter(arr[3], "BR");
+	result.BL = this.filter(arr[4], "BL");
+
+	return result;
+};
 
 /**
  * Recebe dados da plataforma como String
@@ -85,14 +118,12 @@ function PlatData(pa, pb) {
  * @returns {void}
  */
 PlatData.prototype.pushData = function(data) {
-	var arr = data.split(';').map(function(val) {
-		return Number(val);
-	});
-	this.TI.push(arr[0]);
-	this.TR.push(Math.abs(arr[1]));
-	this.TL.push(Math.abs(arr[2]));
-	this.BR.push(Math.abs(arr[3]));
-	this.BL.push(Math.abs(arr[4]));
+	var result = this.splitData(data);
+	this.TI.push(result.TI);
+	this.TR.push(result.TR);
+	this.TL.push(result.TL);
+	this.BR.push(result.BR);
+	this.BL.push(result.BL);
 };
 
 /**
@@ -145,18 +176,17 @@ PlatData.prototype.calcCOP = function() {
  * e t para timestamp
  */
 PlatData.prototype.RTCOP = function(data) {
-	var arr = data.split(';').map(function(val) {
-		return Number(val);
-	});
-
-	var TR = Math.abs(arr[1]),
-		TL = Math.abs(arr[2]),
-		BR = Math.abs(arr[3]),
-		BL = Math.abs(arr[4]);
+	var phrased = this.splitData(data);
+	var
+		TI = phrased.TI,
+		TR = phrased.TR,
+		TL = phrased.TL,
+		BR = phrased.BR,
+		BL = phrased.BL;
 
 	var result = {};
-	result.t = arr[0] - this.tempDeltaTime;
-	this.tempDeltaTime = arr[0];
+	result.t = TI - this.tempDeltaTime;
+	this.tempDeltaTime = TI;
 	result.x = this.Efax(this.a, TR, TL, BL, BR);
 	result.y = this.Efay(this.b, TR, TL, BL, BR);
 	return result;
@@ -334,5 +364,15 @@ PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	return (t1 + t2) / t3;
 }
 
+/**
+ * Arrendodador
+ * Recebe um número e uma precisão. Arredonda de acordo com a precisão especificada.
+ * @param {number} value - Valor a ser aredondado
+ * @param {number} precision - Precisão a ser levada em conta.
+ */
+PlatData.prototype.roundTo = function(value, precision) {
+	var multiplier = Math.pow(10, precision || 0);
+	return Math.round(value * multiplier) / multiplier;
+}
 
 module.exports = PlatData;
