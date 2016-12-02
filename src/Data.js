@@ -169,8 +169,11 @@ PlatData.prototype.RTCOP = function(data) {
  */
 PlatData.prototype.calcDOT = function() {
 	this.DOT = 0;
-	for (var i = 0; i < this.CPx.length; i++) {
-		this.DOT += Math.sqrt(Math.pow(this.CPx[i], 2) + Math.pow(this.CPy[i], 2));
+	for (var i = 1; i < this.CPx.length; i++) {
+		this.DOT += Math.sqrt(
+			Math.pow(this.CPy[i] - this.CPy[i - 1], 2) +
+			Math.pow(this.CPx[i] - this.CPx[i - 1], 2)
+		);
 	}
 };
 

@@ -24,7 +24,7 @@ var SerialPort = browserserialport.SerialPort;
  * Fabrica de relatórios e biblioteca de fórmulas de análise de COP
  * @member {PlatData}  Plataforma
  */
-var calc = new Plataforma(184.5, 167);
+var calc = new Plataforma(18.4, 16.7);
 
 /**
  * Porta usada para acessar interfaces USB
@@ -111,7 +111,7 @@ function update(tgx, tgy) {
 	ctx.globalAlpha = 1;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 2, 0, Math.PI * 2);
+	ctx.arc((tgx + calc.a) * 20, (tgy + calc.b) * 20, 2, 0, Math.PI * 2);
 	ctx.fill();
 }
 

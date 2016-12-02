@@ -5,7 +5,7 @@
   "main": "./ui/index.html",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec -s 0",
-    "watch:test": "./node_modules/.bin/mocha --reporter nyan --watch",
+    "watch:test": "./node_modules/.bin/mocha --reporter spec --watch",
     "watch:build": "./node_modules/.bin/gulp stream",
     "start": "./node_modules/.bin/nw .",
     "docs": "./node_modules/.bin/gulp docs",
