@@ -24,7 +24,7 @@ var SerialPort = browserserialport.SerialPort;
  * Referência estática ao construtor SerialPort
  * @member {PlatData}  Plataforma
  */
-var calc = new Plataforma(184.5, 167);
+var calc = new Plataforma(18.4, 16.7);
 
 /**
  * Porta usada para acessar interfaces USB
@@ -121,7 +121,7 @@ function addPoint(tgx, tgy) {
 	ctx.globalAlpha = 0.25;
 	ctx.fillStyle = '#000000';
 	ctx.beginPath();
-	ctx.arc((tgx + calc.a) * 2, (tgy + calc.b) * 2, 1, 0, Math.PI * 2);
+	ctx.arc((tgx + calc.a) * 20, (tgy + calc.b) * 20, 1, 0, Math.PI * 2);
 	ctx.fill();
 }
 
@@ -234,7 +234,8 @@ function convertNum(num, digit) {
 	if (!digit) {
 		digit = 10;
 	}
-	return Math.round(num * 10) / (10 * digit);
+	//return Math.round(num * 10) / (10 * digit);
+	return num;
 }
 
 /**

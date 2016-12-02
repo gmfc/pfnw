@@ -39,7 +39,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 
 	it('Calcula Deslocamento da oscilação total, DOT', function() {
 		rawTest.calcDOT();
-		rawTest.DOT.should.be.equal(126.18380999831666).and.not.be.NaN();
+		rawTest.DOT.should.be.equal(148.58799166283885).and.not.be.NaN();
 	});
 
 	it('Calcula Desvio padrão (AP e ML)', function() {
@@ -80,7 +80,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 		rawTest.calcAREA();
 		rawTest.area.should.be.equal(69.9139732425667).and.not.be.NaN();
 	});
-	
+
 	it('Report test ' + strings.length + ' linhas', function() {
 		rawTest = new PlatData(24.76, 15.24);
 
@@ -89,7 +89,7 @@ describe('Testes da classe Data com dados REAIS', function() {
 		}
 
 		var report = rawTest.fullReport();
-		report.DOT.should.be.equal(126.18380999831666).and.not.be.NaN();
+		report.DOT.should.be.equal(148.58799166283885).and.not.be.NaN();
 		report.DevAP.should.be.equal(1.9922037290478767).and.not.be.NaN();
 		report.DevML.should.be.equal(2.1934201029090516).and.not.be.NaN();
 		report.rmsAP.should.be.equal(2.421545965694047).and.not.be.NaN();
