@@ -80,7 +80,9 @@ function PlatData(pa, pb) {
 	 * Dados temporários usados pelo filtro
 	 * @type {object}
 	 */
-	this.filterData = {};
+	this.filterData = {
+
+	};
 
 }
 
@@ -88,6 +90,19 @@ function PlatData(pa, pb) {
  * Função coringa - Strategy para filtros
  */
 PlatData.prototype.filter = function(num, id) {
+	var result;
+	if (this.filterData[id]) {
+		var i = this.filterData[id].i;
+		this.filterData[id].vals[i] = num;
+		result = sm.mean(this.filterData[id].vals);
+		this.filterData[id].i = (this.filterData[id].i + 1) % 4;
+	} else {
+		this.filterData[id] = {
+			i: 0,
+			vals: [num, num, num, num]
+		};
+		result = num;
+	}
 	return Math.abs(num);
 }
 
