@@ -69,7 +69,11 @@
             </div>
             <button class="ui labeled icon button disabled">
               <i class="save icon"></i>
-              Salvar
+              Salvar Dados
+            </button>
+            <button class="ui labeled icon button" id="grapdownload">
+              <i class="image icon"></i>
+              Salvar Gráfico
             </button>
         </div>
         <!-- STEPS -->
@@ -182,6 +186,17 @@
         </div>
 
     </div>
+    <script>
+      function downloadCanvas(link, canvasId, filename) {
+        link.href = document.getElementById(canvasId).toDataURL();
+        link.download = filename;
+      }
+
+      document.getElementById('grapdownload').addEventListener('click', function() {
+        downloadCanvas(this, 'canvas', 'test.png');
+      }, false);
+
+    </script>
     <script src="./js/reportController.js"></script>
 </body>
 
