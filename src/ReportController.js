@@ -135,6 +135,7 @@ function drawGraph(vetX, vetY) {
 	for (var i = 0; i < vetX.length; i++) {
 		addPoint(vetX[i], vetY[i]);
 	}
+	// TODO: setup canvas save;
 }
 
 /**
