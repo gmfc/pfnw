@@ -97,17 +97,13 @@ PlatData.prototype.filter = function(num, id) {
 		this.filterData[id].vals[i] = num;
 		result = sm.median(this.filterData[id].vals);
 		this.filterData[id].i = (this.filterData[id].i + 1) % this.filterData.gr;
-		if (id === 'TL')
-			console.log(this.filterData[id].vals + ' id:' + id);
 	} else {
-		console.log('created: ' + id);
 		this.filterData[id] = {
 			i: 0,
 			vals: [num]
 		};
 		result = num;
 	}
-	//console.log(this.filterData);
 	return result;
 }
 
