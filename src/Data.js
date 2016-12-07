@@ -80,7 +80,9 @@ function PlatData(pa, pb) {
 	 * Dados temporários usados pelo filtro
 	 * @type {object}
 	 */
-	this.filterData = {};
+	this.filterData = {
+		gr: 10
+	};
 
 }
 
@@ -94,14 +96,14 @@ PlatData.prototype.filter = function(num, id) {
 		var i = this.filterData[id].i;
 		this.filterData[id].vals[i] = num;
 		result = sm.median(this.filterData[id].vals);
-		this.filterData[id].i = (this.filterData[id].i + 1) % 4;
+		this.filterData[id].i = (this.filterData[id].i + 1) % this.filterData.gr;
 		if (id === 'TL')
 			console.log(this.filterData[id].vals + ' id:' + id);
 	} else {
 		console.log('created: ' + id);
 		this.filterData[id] = {
 			i: 0,
-			vals: [num, num, num, num]
+			vals: [num]
 		};
 		result = num;
 	}
