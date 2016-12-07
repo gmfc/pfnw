@@ -81,7 +81,8 @@ function PlatData(pa, pb) {
 	 * @type {object}
 	 */
 	this.filterData = {
-		gr: 10
+		gr: 10,
+		lim: 3
 	};
 
 }
@@ -104,7 +105,7 @@ PlatData.prototype.filter = function(num, id) {
 		};
 		result = num;
 	}
-	return result;
+	return (result > this.filterData.lim) ? result : this.filterData.lim;
 }
 
 /**
@@ -112,17 +113,25 @@ PlatData.prototype.filter = function(num, id) {
  * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
  * @returns {object} - objeto com atributos TI;TR;TL;BR;BL.
  */
-PlatData.prototype.splitData = function(data) {
+PlatData.prototype.splitData = function(data, realtime) {
 	var arr = data.split(';').map(function(val) {
 		return Number(val);
 	});
 	var result = {};
 
-	result.TI = arr[0];
-	result.TR = this.filter(arr[1], "TR");
-	result.TL = this.filter(arr[2], "TL");
-	result.BR = this.filter(arr[3], "BR");
-	result.BL = this.filter(arr[4], "BL");
+	if (realtime) {
+		result.TI = arr[0];
+		result.TR = this.filter(arr[1], "rTR");
+		result.TL = this.filter(arr[2], "rTL");
+		result.BR = this.filter(arr[3], "rBR");
+		result.BL = this.filter(arr[4], "rBL");
+	} else {
+		result.TI = arr[0];
+		result.TR = this.filter(arr[1], "TR");
+		result.TL = this.filter(arr[2], "TL");
+		result.BR = this.filter(arr[3], "BR");
+		result.BL = this.filter(arr[4], "BL");
+	}
 
 	return result;
 };
@@ -192,7 +201,7 @@ PlatData.prototype.calcCOP = function() {
  * e t para timestamp
  */
 PlatData.prototype.RTCOP = function(data) {
-	var phrased = this.splitData(data);
+	var phrased = this.splitData(data, true);
 	var
 		TI = phrased.TI,
 		TR = phrased.TR,
