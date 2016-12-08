@@ -126,15 +126,30 @@ function addPoint(tgx, tgy) {
 }
 
 /**
+ * Fabrica dados para download
+ */
+function prepDownload() {
+	var canvas = document.getElementById('canvas');
+	var graphBTN = document.getElementById('grapdownload');
+	graphBTN.href = canvas.toDataURL();
+	$('#grapdownload').show();
+}
+/**
  * Plota um gráfico a partir de vetores x e y
  * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
  * @arg {Number[]} vetY - Vetor de Coordenadas Y do COP
  * @returns {void}
  */
 function drawGraph(vetX, vetY) {
+	ctx.globalAlpha = 1;
+	ctx.fillStyle = '#f4f4f4';
+	ctx.fillRect(0, 0, 738, 668);
 	for (var i = 0; i < vetX.length; i++) {
 		addPoint(vetX[i], vetY[i]);
 	}
+	console.log('prepara download links');
+	prepDownload();
+	// TODO: setup canvas save;
 }
 
 /**
