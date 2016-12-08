@@ -71,10 +71,12 @@
               <i class="save icon"></i>
               Salvar Dados
             </button>
-            <button class="ui labeled icon button" id="grapdownload">
-              <i class="image icon"></i>
-              Salvar Gráfico
-            </button>
+            <a id="grapdownload" href="" download="grafico.png" style="display: none;">
+                <button class="ui labeled icon button">
+                  <i class="image icon"></i>
+                  Salvar Gráfico
+                </button>
+            </a>
         </div>
         <!-- STEPS -->
         <div class="ui steps">
@@ -187,21 +189,21 @@
 
     </div>
     <script>
-    /*
-      function downloadCanvas(link, canvasId, filename) {
-        link.href = document.getElementById(canvasId).toDataURL();
-        link.download = filename;
-      }
-      */
+        /*
+                      function downloadCanvas(link, canvasId, filename) {
+                        link.href = document.getElementById(canvasId).toDataURL();
+                        link.download = filename;
+                      }
+                      */
+        /*
+        document.getElementById('grapdownload').addEventListener('click', function() {
+          //downloadCanvas(this, 'canvas', 'test.png');
+          var canvas = document.getElementById('canvas');
+          var dataURL = canvas.toDataURL();
+          window.location = dataURL;
 
-      document.getElementById('grapdownload').addEventListener('click', function() {
-        //downloadCanvas(this, 'canvas', 'test.png');
-        var canvas = document.getElementById('canvas');
-        var dataURL = canvas.toDataURL();
-        window.location = dataURL;
-
-      }, false);
-
+        }, false);
+        */
     </script>
     <script src="./js/reportController.js"></script>
 </body>
