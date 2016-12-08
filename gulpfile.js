@@ -14,7 +14,7 @@ gulp.task('rtcontrol', function() {
 		.bundle()
 		.pipe(source('rtcontrol.js'))
 		.pipe(buffer())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('./ui/js'));
 });
 
@@ -23,7 +23,7 @@ gulp.task('debugcontrol', function() {
 		.bundle()
 		.pipe(source('debugcontrol.js'))
 		.pipe(buffer())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('./ui/js'));
 });
 
@@ -32,7 +32,7 @@ gulp.task('reportController', function() {
 		.bundle()
 		.pipe(source('reportController.js'))
 		.pipe(buffer())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('./ui/js'));
 });
 
