@@ -128,7 +128,7 @@ function addPoint(tgx, tgy) {
 /**
  * Fabrica dados para download
  */
-function prepDownload() {
+function prepImgDownload() {
 	var canvas = document.getElementById('canvas');
 	var graphBTN = document.getElementById('grapdownload');
 	graphBTN.href = canvas.toDataURL();
@@ -148,8 +148,7 @@ function drawGraph(vetX, vetY) {
 		addPoint(vetX[i], vetY[i]);
 	}
 	console.log('prepara download links');
-	prepDownload();
-	// TODO: setup canvas save;
+	prepImgDownload();
 }
 
 /**
@@ -241,12 +240,37 @@ function ACTUpdateTime() {
 
 
 
+function prepCSV(result) {
+	var csvContent =
+		'data:text/csv;charset=utf-8,' +
+		'DOT;' + result.DOT.toString().replace('.', ',') + '\n' +
+		'Desvio Padrão;\n' +
+		'AP;' + result.DevAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.DevML.toString().replace('.', ',') + '\n' +
+		'RMS;\n' +
+		'AP;' + result.rmsAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.rmsML.toString().replace('.', ',') + '\n' +
+		'Frequencia;' + result.avgFrq.toString().replace('.', ',') + '\n' +
+		'Velocidade media;\n' +
+		'AP;' + result.VMap.toString().replace('.', ',') + '\n' +
+		'ML;' + result.VMml.toString().replace('.', ',') + '\n' +
+		'Velocidade media total;' + result.VMT.toString().replace('.', ',') + '\n' +
+		'Amplitude de deslocamento;\n' +
+		'AP;' + result.ampAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.ampML.toString().replace('.', ',') + '\n' +
+		'Area;' + result.area.toString().replace('.', ',') + '\n';
+	var encodedUri = encodeURI(csvContent);
+	var csvBTN = document.getElementById('csvdownload');
+	csvBTN.href = encodedUri;
+	$('#csvdownload').show();
+}
+
 /**
  * Gera relatório
  * @returns {void}
  */
 function genReport(result) {
-	console.log(result);
+	prepCSV(result);
 	$('#stepexec').switchClass('active', 'completed');
 	$('#steprelatorio').switchClass('disabled', 'active');
 	$('#tempoSelect').hide();
