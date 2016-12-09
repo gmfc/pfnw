@@ -126,15 +126,29 @@ function addPoint(tgx, tgy) {
 }
 
 /**
+ * Fabrica dados para download
+ */
+function prepImgDownload() {
+	var canvas = document.getElementById('canvas');
+	var graphBTN = document.getElementById('grapdownload');
+	graphBTN.href = canvas.toDataURL();
+	$('#grapdownload').show();
+}
+/**
  * Plota um gráfico a partir de vetores x e y
  * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
  * @arg {Number[]} vetY - Vetor de Coordenadas Y do COP
  * @returns {void}
  */
 function drawGraph(vetX, vetY) {
+	ctx.globalAlpha = 1;
+	ctx.fillStyle = '#f4f4f4';
+	ctx.fillRect(0, 0, 738, 668);
 	for (var i = 0; i < vetX.length; i++) {
 		addPoint(vetX[i], vetY[i]);
 	}
+	console.log('prepara download links');
+	prepImgDownload();
 }
 
 /**
@@ -224,18 +238,31 @@ function ACTUpdateTime() {
 	}
 }
 
-/**
- * Converte e arredonda números de mm para cm
- * @arg {Number} num - numero a ser tratado
- * @arg {Number} [digit] - Precisão a ser considerada
- * @returns {Number} numero tratado
- */
-function convertNum(num, digit) {
-	if (!digit) {
-		digit = 10;
-	}
-	//return Math.round(num * 10) / (10 * digit);
-	return num;
+
+
+function prepCSV(result) {
+	var csvContent =
+		'data:text/csv;charset=utf-8,' +
+		'DOT;' + result.DOT.toString().replace('.', ',') + '\n' +
+		'Desvio Padrao;\n' +
+		'AP;' + result.DevAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.DevML.toString().replace('.', ',') + '\n' +
+		'RMS;\n' +
+		'AP;' + result.rmsAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.rmsML.toString().replace('.', ',') + '\n' +
+		'Frequencia;' + result.avgFrq.toString().replace('.', ',') + '\n' +
+		'Velocidade media;\n' +
+		'AP;' + result.VMap.toString().replace('.', ',') + '\n' +
+		'ML;' + result.VMml.toString().replace('.', ',') + '\n' +
+		'Velocidade media total;' + result.VMT.toString().replace('.', ',') + '\n' +
+		'Amplitude de deslocamento;\n' +
+		'AP;' + result.ampAP.toString().replace('.', ',') + '\n' +
+		'ML;' + result.ampML.toString().replace('.', ',') + '\n' +
+		'Area;' + result.area.toString().replace('.', ',') + '\n';
+	var encodedUri = encodeURI(csvContent);
+	var csvBTN = document.getElementById('csvdownload');
+	csvBTN.href = encodedUri;
+	$('#csvdownload').show();
 }
 
 /**
@@ -243,24 +270,24 @@ function convertNum(num, digit) {
  * @returns {void}
  */
 function genReport(result) {
-	console.log(result);
+	prepCSV(result);
 	$('#stepexec').switchClass('active', 'completed');
 	$('#steprelatorio').switchClass('disabled', 'active');
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-	$('#dot').text(convertNum(result.DOT, 100) + ' cm');
-	$('#desAP').text('Ântero-posterior: ' + convertNum(result.DevAP) + ' cm');
-	$('#desML').text('Médio-lateral: ' + convertNum(result.DevML) + ' cm');
-	$('#rmsAP').text('Ântero-posterior: ' + convertNum(result.rmsAP) + ' cm');
-	$('#rmsML').text('Médio-lateral: ' + convertNum(result.rmsML) + ' cm');
-	$('#freq').text(convertNum(result.avgFrq, 1) + 'Hz');
-	$('#velAP').text('Ântero-posterior: ' + convertNum(result.VMap) + ' cm/s');
-	$('#velML').text('Médio-lateral: ' + convertNum(result.VMml) + ' cm/s');
-	$('#veltot').text(convertNum(result.VMT) + ' cm/s');
-	$('#ampAP').text('Ântero-posterior: ' + convertNum(result.ampAP) + ' cm');
-	$('#ampML').text('Médio-lateral: ' + convertNum(result.ampML) + ' cm');
-	$('#area').text(convertNum(result.area, 100) + ' cm²');
+	$('#dot').text(calc.roundTo(result.DOT, 2) + ' cm');
+	$('#desAP').text('Ântero-posterior: ' + calc.roundTo(result.DevAP, 2) + ' cm');
+	$('#desML').text('Médio-lateral: ' + calc.roundTo(result.DevML, 2) + ' cm');
+	$('#rmsAP').text('Ântero-posterior: ' + calc.roundTo(result.rmsAP, 2) + ' cm');
+	$('#rmsML').text('Médio-lateral: ' + calc.roundTo(result.rmsML, 2) + ' cm');
+	$('#freq').text(calc.roundTo(result.avgFrq, 2) + 'Hz');
+	$('#velAP').text('Ântero-posterior: ' + calc.roundTo(result.VMap, 2) + ' cm/s');
+	$('#velML').text('Médio-lateral: ' + calc.roundTo(result.VMml, 2) + ' cm/s');
+	$('#veltot').text(calc.roundTo(result.VMT, 2) + ' cm/s');
+	$('#ampAP').text('Ântero-posterior: ' + calc.roundTo(result.ampAP, 2) + ' cm');
+	$('#ampML').text('Médio-lateral: ' + calc.roundTo(result.ampML, 2) + ' cm');
+	$('#area').text(calc.roundTo(result.area, 2) + ' cm²');
 }
 
 /**
