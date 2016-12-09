@@ -244,7 +244,7 @@ function prepCSV(result) {
 	var csvContent =
 		'data:text/csv;charset=utf-8,' +
 		'DOT;' + result.DOT.toString().replace('.', ',') + '\n' +
-		'Desvio Padrão;\n' +
+		'Desvio Padrao;\n' +
 		'AP;' + result.DevAP.toString().replace('.', ',') + '\n' +
 		'ML;' + result.DevML.toString().replace('.', ',') + '\n' +
 		'RMS;\n' +
