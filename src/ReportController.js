@@ -239,19 +239,7 @@ function ACTUpdateTime() {
 	}
 }
 
-/**
- * Converte e arredonda números de mm para cm
- * @arg {Number} num - numero a ser tratado
- * @arg {Number} [digit] - Precisão a ser considerada
- * @returns {Number} numero tratado
- */
-function convertNum(num, digit) {
-	if (!digit) {
-		digit = 10;
-	}
-	//return Math.round(num * 10) / (10 * digit);
-	return num;
-}
+
 
 /**
  * Gera relatório
@@ -264,18 +252,18 @@ function genReport(result) {
 	$('#tempoSelect').hide();
 	$('#execute').hide();
 	$('#relatorio').show();
-	$('#dot').text(convertNum(result.DOT, 100) + ' cm');
-	$('#desAP').text('Ântero-posterior: ' + convertNum(result.DevAP) + ' cm');
-	$('#desML').text('Médio-lateral: ' + convertNum(result.DevML) + ' cm');
-	$('#rmsAP').text('Ântero-posterior: ' + convertNum(result.rmsAP) + ' cm');
-	$('#rmsML').text('Médio-lateral: ' + convertNum(result.rmsML) + ' cm');
-	$('#freq').text(convertNum(result.avgFrq, 1) + 'Hz');
-	$('#velAP').text('Ântero-posterior: ' + convertNum(result.VMap) + ' cm/s');
-	$('#velML').text('Médio-lateral: ' + convertNum(result.VMml) + ' cm/s');
-	$('#veltot').text(convertNum(result.VMT) + ' cm/s');
-	$('#ampAP').text('Ântero-posterior: ' + convertNum(result.ampAP) + ' cm');
-	$('#ampML').text('Médio-lateral: ' + convertNum(result.ampML) + ' cm');
-	$('#area').text(convertNum(result.area, 100) + ' cm²');
+	$('#dot').text(calc.roundTo(result.DOT, 2) + ' cm');
+	$('#desAP').text('Ântero-posterior: ' + calc.roundTo(result.DevAP, 2) + ' cm');
+	$('#desML').text('Médio-lateral: ' + calc.roundTo(result.DevML, 2) + ' cm');
+	$('#rmsAP').text('Ântero-posterior: ' + calc.roundTo(result.rmsAP, 2) + ' cm');
+	$('#rmsML').text('Médio-lateral: ' + calc.roundTo(result.rmsML, 2) + ' cm');
+	$('#freq').text(calc.roundTo(result.avgFrq, 2) + 'Hz');
+	$('#velAP').text('Ântero-posterior: ' + calc.roundTo(result.VMap, 2) + ' cm/s');
+	$('#velML').text('Médio-lateral: ' + calc.roundTo(result.VMml, 2) + ' cm/s');
+	$('#veltot').text(calc.roundTo(result.VMT, 2) + ' cm/s');
+	$('#ampAP').text('Ântero-posterior: ' + calc.roundTo(result.ampAP, 2) + ' cm');
+	$('#ampML').text('Médio-lateral: ' + calc.roundTo(result.ampML, 2) + ' cm');
+	$('#area').text(calc.roundTo(result.area, 2) + ' cm²');
 }
 
 /**
