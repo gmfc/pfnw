@@ -89,13 +89,10 @@ function PlatData(pa, pb) {
 
 /**
  * Filtro. Tira a média dos ultimos filterData.gr valores lidos pelo ID.
- * Ignora valores menores do que filterData.lim.
  * @param {number} num - Integer com o valor lido.
  * @param {string} id - ID da leirura. Usado para separar os conjuntos de dados
  * a serem levados em conta no calculo da média.
  * @returns {number} - Média dos filterData.gr ultimos valoder de ID.
- * TODO: limitar valores individualmente antes de inserir eles na séria de
- * cálculo ao inves de limitar o retorno na função.
  */
 PlatData.prototype.filter = function(num, id) {
 	var result;
@@ -112,7 +109,36 @@ PlatData.prototype.filter = function(num, id) {
 		};
 		result = num;
 	}
-	return (result > this.filterData.lim) ? result : this.filterData.lim;
+	return result;
+}
+
+/**
+ * Filtro. Ignora valores menores do que filterData.lim.
+ * @param {number} ti - num com timestamp.
+ * @param {number} tr - num com o valor lido.
+ * @param {number} tl - num com o valor lido.
+ * @param {number} br - num com o valor lido.
+ * @param {number} bl - num com o valor lido.
+ * @returns {number} - Valor limitado.
+ */
+PlatData.prototype.limiter = function(ti, tr, tl, br, bl) {
+	if (tr < this.filterData.lim || tl < this.filterData.lim || br < this.filterData.lim || bl < this.filterData.lim) {
+		return {
+			TI: ti,
+			TR: this.filterData.lim,
+			TL: this.filterData.lim,
+			BR: this.filterData.lim,
+			BL: this.filterData.lim
+		};
+	} else {
+		return {
+			TI: ti,
+			TR: tr,
+			TL: tl,
+			BR: br,
+			BL: bl
+		};
+	}
 }
 
 /**
@@ -129,17 +155,21 @@ PlatData.prototype.splitData = function(data, realtime) {
 	});
 	var result = {};
 	if (realtime) {
-		result.TI = arr[0];
-		result.TR = this.filter(arr[1], "rTR");
-		result.TL = this.filter(arr[2], "rTL");
-		result.BR = this.filter(arr[3], "rBR");
-		result.BL = this.filter(arr[4], "rBL");
+		result = this.limiter(
+			arr[0],
+			this.filter(arr[1], "rTR"),
+			this.filter(arr[2], "rTL"),
+			this.filter(arr[3], "rBR"),
+			this.filter(arr[4], "rBL")
+		);
 	} else {
-		result.TI = arr[0];
-		result.TR = this.filter(arr[1], "TR");
-		result.TL = this.filter(arr[2], "TL");
-		result.BR = this.filter(arr[3], "BR");
-		result.BL = this.filter(arr[4], "BL");
+		result = this.limiter(
+			arr[0],
+			this.filter(arr[1], "TR"),
+			this.filter(arr[2], "TL"),
+			this.filter(arr[3], "BR"),
+			this.filter(arr[4], "BL")
+		);
 	}
 	return result;
 };
