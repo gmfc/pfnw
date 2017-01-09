@@ -701,6 +701,77 @@ Bottom Right</p>
         
             
 <hr>
+<dt class="name" id="filterData">
+    <h4 id="filterData"><span class="type-signature"></span>filterData<span class="type-signature"> :object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Dados temporários usados pelo filtro</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
 <dt class="name" id="tempDeltaTime">
     <h4 id="tempDeltaTime"><span class="type-signature"></span>tempDeltaTime<span class="type-signature"> :number</span></h4>
 
@@ -2724,6 +2795,188 @@ Calcula força horizontal em Y da placa</p>
             
 <hr>
 <dt>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter(num, id)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Filtro. Tira a média dos ultimos filterData.gr valores lidos pelo ID.
+Ignora valores menores do que filterData.lim.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>num</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Integer com o valor lido.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ID da leirura. Usado para separar os conjuntos de dados
+a serem levados em conta no calculo da média.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>Média dos filterData.gr ultimos valoder de ID.
+TODO: limitar valores individualmente antes de inserir eles na séria de
+cálculo ao inves de limitar o retorno na função.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="fullReport"><span class="type-signature"></span>fullReport()</h4>
     
     
@@ -2798,6 +3051,12 @@ coletadas previamente.</p>
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    <ul>
+<li>todo o objeto Data (this).</li>
+</ul>
+</div>
+
 
 
 <dl>
@@ -2806,7 +3065,7 @@ coletadas previamente.</p>
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">Object</span>
 
 
 
@@ -2972,6 +3231,159 @@ extrai e trata os dados</p>
             
 <hr>
 <dt>
+    <h4 class="name" id="roundTo"><span class="type-signature"></span>roundTo(value, precision)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Arrendodador
+Recebe um número e uma precisão. Arredonda de acordo com a precisão especificada.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Valor a ser aredondado</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>precision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Precisão a ser levada em conta.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="RTCOP"><span class="type-signature"></span>RTCOP(data)</h4>
     
     
@@ -3122,6 +3534,186 @@ e t para timestamp</p>
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="splitData"><span class="type-signature"></span>splitData(data, realtime)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Recebe uma string formatada e splita a mesma em parametros.
+Aplica os filtros.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>String formatada: 'TI;TR;TL;BR;BL'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>realtime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Flag que sinaliza se a leitura estará sendo
+feita em tempo real.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <ul>
+<li>objeto com atributos TI;TR;TL;BR;BL.</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
         </dl>
     
 
@@ -3172,7 +3764,7 @@ e t para timestamp</p>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a>
 	
-		on November 21st 2016, 2:13:40 pm
+		on January 9th 2017, 12:49:49 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
