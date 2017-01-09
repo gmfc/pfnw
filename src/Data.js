@@ -88,7 +88,14 @@ function PlatData(pa, pb) {
 }
 
 /**
- * Função coringa - Strategy para filtros
+ * Filtro. Tira a média dos ultimos filterData.gr valores lidos pelo ID.
+ * Ignora valores menores do que filterData.lim.
+ * @param {number} num - Integer com o valor lido.
+ * @param {string} id - ID da leirura. Usado para separar os conjuntos de dados
+ * a serem levados em conta no calculo da média.
+ * @returns {number} - Média dos filterData.gr ultimos valoder de ID.
+ * TODO: limitar valores individualmente antes de inserir eles na séria de
+ * cálculo ao inves de limitar o retorno na função.
  */
 PlatData.prototype.filter = function(num, id) {
 	var result;
@@ -109,8 +116,11 @@ PlatData.prototype.filter = function(num, id) {
 }
 
 /**
- * Função helper. Recebe uma string formatada e splita a mesma em parametros.
+ * Recebe uma string formatada e splita a mesma em parametros.
+ * Aplica os filtros.
  * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
+ * @param {boolean} realtime - Flag que sinaliza se a leitura estará sendo
+ * feita em tempo real.
  * @returns {object} - objeto com atributos TI;TR;TL;BR;BL.
  */
 PlatData.prototype.splitData = function(data, realtime) {
@@ -118,7 +128,6 @@ PlatData.prototype.splitData = function(data, realtime) {
 		return Number(val);
 	});
 	var result = {};
-
 	if (realtime) {
 		result.TI = arr[0];
 		result.TR = this.filter(arr[1], "rTR");
@@ -132,7 +141,6 @@ PlatData.prototype.splitData = function(data, realtime) {
 		result.BR = this.filter(arr[3], "BR");
 		result.BL = this.filter(arr[4], "BL");
 	}
-
 	return result;
 };
 
@@ -347,7 +355,7 @@ PlatData.prototype.calcAREA_simple = function() {
 /**
  * Calcula e gera relatório completo com base nas medições
  * coletadas previamente.
- * @return {void}
+ * @return {Object} - todo o objeto Data (this).
  */
 PlatData.prototype.fullReport = function() {
 	this.calcCOP();

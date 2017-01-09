@@ -21,7 +21,7 @@ var Plataforma = require('./Data.js');
 var SerialPort = browserserialport.SerialPort;
 
 /**
- * Referência estática ao construtor SerialPort
+ * Fabrica de relatórios e biblioteca de fórmulas de análise de COP
  * @member {PlatData}  Plataforma
  */
 var calc = new Plataforma(18.4, 16.7);
@@ -38,7 +38,10 @@ var port;
  */
 var acc = '';
 
-/**  @member {2dContext}  ctx*/
+/**
+ * Canvas 2D
+ * @member {2dContext}  ctx
+ */
 var ctx = $('#canvas')[0].getContext('2d');
 
 /**
@@ -126,7 +129,8 @@ function addPoint(tgx, tgy) {
 }
 
 /**
- * Fabrica dados para download
+ * Fabrica imagem para download
+ * @returns {void}
  */
 function prepImgDownload() {
 	var canvas = document.getElementById('canvas');
@@ -134,6 +138,7 @@ function prepImgDownload() {
 	graphBTN.href = canvas.toDataURL();
 	$('#grapdownload').show();
 }
+
 /**
  * Plota um gráfico a partir de vetores x e y
  * @arg {Number[]} vetX - Vetor de Coordenadas X do COP
@@ -239,7 +244,11 @@ function ACTUpdateTime() {
 }
 
 
-
+/**
+ * Fabrica CSV para download.
+ * @param {object} result - Objeto com dados do relatório.
+ * @returns {void}
+ */
 function prepCSV(result) {
 	var csvContent =
 		'data:text/csv;charset=utf-8,' +
@@ -266,7 +275,8 @@ function prepCSV(result) {
 }
 
 /**
- * Gera relatório
+ * Gera relatório.
+ * @param {object} result - Objeto com dados do relatório.
  * @returns {void}
  */
 function genReport(result) {
@@ -301,6 +311,10 @@ function processData() {
 	genReport(result);
 }
 
+/**
+ * Trata erros fatais.
+ * @returns {void}
+ */
 function fatalError() {
 	$('.ui.basic.modal')
 		.modal({
@@ -349,6 +363,10 @@ function startReading(temp) {
 	doStep();
 }
 
+/**
+ * Inicia todo o processo.
+ * @returns {void}
+ */
 function ACTPlay() {
 	$('#stepduracao').switchClass('active', 'completed');
 	$('#stepexec').switchClass('disabled', 'active');
