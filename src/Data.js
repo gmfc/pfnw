@@ -5,7 +5,7 @@ var sm = require('simple-statistics');
 
 /**
  * Classe responsável por administrar e receber os dados da plataforma.
- * Faz todos os cálculos com os dados da plataforma e gera os e o relatorio
+ * Faz todos os cálculos com os dados da plataforma e gera relatórios.
  * @constructor
  * @param {number} pa - Medida entre o centro da plataforma e o centro de medição no eixo x.
  * @param {number} pb - Medida entre o centro da plataforma e o centro de medição no eixo y.
@@ -139,10 +139,10 @@ PlatData.prototype.limiter = function(ti, tr, tl, br, bl) {
 			BL: bl
 		};
 	}
-}
+};
 
 /**
- * Recebe uma string formatada e splita a mesma em parametros.
+ * Recebe uma string formatada e separa a mesma em parametros.
  * Aplica os filtros.
  * @param {string} data - String formatada: 'TI;TR;TL;BR;BL'
  * @param {boolean} realtime - Flag que sinaliza se a leitura estará sendo
@@ -246,7 +246,6 @@ PlatData.prototype.RTCOP = function(data) {
 		TL = phrased.TL,
 		BR = phrased.BR,
 		BL = phrased.BL;
-
 	var result = {};
 	result.t = TI - this.tempDeltaTime;
 	this.tempDeltaTime = TI;

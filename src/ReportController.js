@@ -15,7 +15,7 @@ var browserserialport = require('browser-serialport');
 var Plataforma = require('./Data.js');
 
 /**
- * Referência estática ao construtor SerialPort
+ * Refêrencia estática ao construtor SerialPort
  * @member {external:SerialPort} SerialPort
  */
 var SerialPort = browserserialport.SerialPort;
@@ -79,7 +79,6 @@ function ACTUpdateTime() {
 }
 
 function btConnecting() {
-	console.log('Conectando...');
 	$('#label').switchClass('yellow green red', 'blue');
 	$('#status').switchClass('yellow green red', 'blue');
 	$('#labeltxt').text('Conectando');
@@ -88,7 +87,6 @@ function btConnecting() {
 }
 
 function btDisconnected() {
-	console.log('desconectado!');
 	$('#play').switchClass('green', 'disabled');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
@@ -98,7 +96,6 @@ function btDisconnected() {
 }
 
 function btConnected() {
-	console.time('btConnected');
 	if (!resultReady) {
 		$('#connect').switchClass('active', 'completed');
 		$('#stepduracao').switchClass('disabled', 'active');
@@ -110,11 +107,9 @@ function btConnected() {
 	$('#status').switchClass('blue yellow red', 'green');
 	$('#labeltxt').text('Conectado');
 	$('#bt').addClass('disabled');
-	console.timeEnd('btConnected');
 }
 
 function btERR(err) {
-	console.log('ERRO! ' + err);
 	$('#label').switchClass('blue yellow green', 'red');
 	$('#status').switchClass('blue yellow green', 'red');
 	$('#labeltxt').text('Reset');
@@ -163,7 +158,6 @@ function drawGraph(vetX, vetY) {
 	for (var i = 0; i < vetX.length; i++) {
 		addPoint(vetX[i], vetY[i]);
 	}
-	console.log('prepara download links');
 	prepImgDownload();
 }
 
@@ -177,8 +171,9 @@ function coleta(dados) {
 	var linhas = acc.split('#');
 	acc = linhas.pop();
 	linhas.forEach(function(part) {
-		if (recording)
+		if (recording) {
 			calc.pushData(part);
+		}
 	});
 }
 
@@ -304,7 +299,7 @@ function genReport(result) {
  */
 function processData() {
 	resultReady = true;
-	var result = calc.fullReport(); //JSON.stringify(, null, 2);
+	var result = calc.fullReport();
 	drawGraph(result.CPx, result.CPy);
 	genReport(result);
 }
@@ -344,7 +339,6 @@ function startReading(temp) {
 				$('#progress').progress('increment');
 			}
 		} else {
-			console.log('ACABOU! ' + count);
 			$('#status').html('Gerando relatório');
 			recording = false;
 			processData();
@@ -352,7 +346,6 @@ function startReading(temp) {
 	};
 	var callback = function() {
 		$('#status').html('Medindo');
-		console.log(count + ' of ' + temp);
 		clearInterval(timer);
 		timer = null;
 		count--;
@@ -380,3 +373,4 @@ function ACTPlay() {
 $('#bt').click(findPlat);
 $('#play').click(ACTPlay);
 $('#tempo').on('input', ACTUpdateTime);
+);
