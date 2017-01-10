@@ -373,4 +373,3 @@ function ACTPlay() {
 $('#bt').click(findPlat);
 $('#play').click(ACTPlay);
 $('#tempo').on('input', ACTUpdateTime);
-);
