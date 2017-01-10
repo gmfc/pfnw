@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
-    <!--    <script type="text/javascript" src="main.js"></script>-->
     <style type="text/css">
         .ui.menu .item i.icon {
             margin-right: 1.5em;
@@ -29,29 +28,84 @@
 
 <body>
 
-  <div class="ui inverted menu">
-      <div class="ui container">
-          <a href="./index.html" class="header item">
-              <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
-          </a>
-          <div class="ui simple dropdown item">
-              Medições <i class="dropdown icon"></i>
-              <div class="menu">
-                  <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                  <a class="item" href="./medicao.html"><i class="file text outline icon"></i> Gerar Relatório</a>
-                  <div class="divider"></div>
-                  <div class="header">Plataforma</div>
-                  <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
-              </div>
-          </div>
-          <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
-      </div>
-  </div>
+    <div class="ui inverted menu">
+        <div class="ui container">
+            <a href="./index.html" class="header item">
+                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
+            </a>
+            <div class="ui simple dropdown item">
+                Medições <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
+                    <a class="item" href="./medicao.html"><i class="file text outline icon"></i> Gerar Relatório</a>
+                    <div class="divider"></div>
+                    <div class="header">Plataforma</div>
+                    <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
+                </div>
+            </div>
+            <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+        </div>
+    </div>
 
     <div class="ui main container">
+      <div class="ui segment green">
+        <h4>Versão do programa: <span id="appver">??</span></h4>
+        <hr />
+        <h4>Versão node-webkit: <span id="nwver">??</span></h4>
+        <h4>Versão node: <span id="nodever">??</span></h4>
+        <h4>Versão chromium: <span id="chromiumver">??</span></h4>
 
+      </div>
+        <div class="ui container" style="padding-bottom:25px;">
+            <p>
+                <a href="https://travis-ci.org/gmfc/pfnw"><img src="https://travis-ci.org/gmfc/pfnw.svg?branch=master" alt="Build Status" /></a>
+                <a href="https://www.codacy.com/app/gabriel-mfcorreia/pfnw?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gmfc/pfnw&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/2ca31189b4db4851afb4b411783272d3" alt="Codacy Badge" /></a>
+                <a href="https://david-dm.org"><img src="https://david-dm.org/gmfc/pfnw.svg" alt="Dependencies" /></a>
+            </p>
+            <h1 id="pfnw">pfnw</h1>
+            <p>Plataforma de Força NW, é um projeto desenvolvido pela Fábrica de Software Mackenzie com o objetivo de criar uma solução para medição e análise ortopédica baseada em Centro de Pressão. O Projeto consiste de um Software controlador feito em
+                NODE e NW (antigo Node Webkit), e uma plataforma física controlada por um Arduino.</p>
+            <p>Neste repositório encontraras o código do software controlador, e o código do Arduino.</p>
+            <p><img src="https://gmfc.github.io/pfnw/screens/1.png" alt="img1" /></p>
+            <p><img src="https://gmfc.github.io/pfnw/screens/2.png" alt="img2" /></p>
+            <p><img src="https://gmfc.github.io/pfnw/screens/3.png" alt="img3" /></p>
+            <h2 id="estrutura">Estrutura</h2>
+            <p><img src="https://gmfc.github.io/pfnw/UML/estrutura.svg" alt="Estrutura" /></p>
+            <h2 id="comocompilar">Como Compilar</h2>
+            <h3 id="prrequisitos">Pré requisitos:</h3>
+            <ul>
+                <li>git instalado e configurado.</li>
+                <li>Node instalado e configurado.</li>
+                <li><a href="https://www.arduino.cc/en/Main/Software">Arnuino IDE e drivers</a></li>
+            </ul>
+            <h3 id="clonarorepositrio">Clonar o repositório</h3>
+            <p>Execute: <code>git clone https://github.com/gmfc/pfnw.git</code></p>
+            <h3 id="instaletodasasdependen">Instale todas as dependen</h3>
+            <p>vá até o diretório em que o repositório clonado se encontra: <code>cd pfnw</code>.</p>
+            <p>Na raiz do diretório execute:<code>node install</code></p>
+            <h3 id="executandooprogramaedesenvolvendo">Executando o programa e desenvolvendo</h3>
+            <p>Para iniciar o software (em ambiende de desenvolvimento) execute <code>npm start</code>.</p>
+            <p>Para compilar mudanças feitas no código, execute: <code>npm run build</code>.</p>
+            <p>Para que as mudanças sejam compiladas automaticamente: <code>npm run watch:test</code>.</p>
+            <p>Para efetuar testes unitários: <code>npm test</code>.</p>
+            <p>Para que os testes sejam executados a cada mudança do código automaticamente: <code>npm run watch:test</code>.</p>
+            <p>Para recompilar a documentação: <code>npm run docs</code>.</p>
+            <h3 id="criandoumadistribuio">Criando uma distribuição</h3>
+            <p>Se necessário, altere a verção do software em <code>./package.json</code>.</p>
+            <p><code>npm run dist</code> irá compilar, limpar, baixar dependencias, baixar NW, criar diretório de distribuição e por fim, criar pasta com o software pronto para ser usado.</p>
+            <h3 id="programandooarduino">Programando o Arduino</h3>
+            <p>O Código do mesmo se encontra em <code>./Arduino/arnuino.ino</code>. Utiliza-se da bibliotéca <a href="https://github.com/bogde/HX711"><code>HX711.h</code></a></p>
+        </div>
 
     </div>
+    <script>
+    console.log(process);
+    var ver = require('./package.json').version;
+    $('#appver').html(ver);
+    $('#nwver').html(process.versions['nw']);
+    $('#nodever').html(process.versions['node']);
+    $('#chromiumver').html(process.versions['chromium']);
+    </script>
 </body>
 
 </html>
