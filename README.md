@@ -13,9 +13,9 @@ Neste repositório encontraras o código do software controlador, e o código do
 ![img3](https://gmfc.github.io/pfnw/screens/3.png)
 
 
-## Progresso
+## Estrutura
 
-![Progresso](https://gmfc.github.io/pfnw/UML/progresso.svg)
+![Estrutura](https://gmfc.github.io/pfnw/UML/estrutura.svg)
 
 ## Como Compilar
 
