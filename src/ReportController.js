@@ -62,10 +62,21 @@ var isConnected = false;
  */
 var resultReady;
 
-
 ////////////////////////////////
 /// UI
 ///////////////////////////////
+
+/**
+ * Atualiza e valida input do temporizador.
+ * @returns {void}
+ */
+function ACTUpdateTime() {
+	if ($('#tempo').val() >= 1 && isConnected === true) {
+		$('#play').switchClass('disabled', 'green');
+	} else {
+		$('#play').switchClass('green', 'disabled');
+	}
+}
 
 function btConnecting() {
 	console.log('Conectando...');
@@ -87,7 +98,7 @@ function btDisconnected() {
 }
 
 function btConnected() {
-	console.time("btConnected");
+	console.time('btConnected');
 	if (!resultReady) {
 		$('#connect').switchClass('active', 'completed');
 		$('#stepduracao').switchClass('disabled', 'active');
@@ -99,7 +110,7 @@ function btConnected() {
 	$('#status').switchClass('blue yellow red', 'green');
 	$('#labeltxt').text('Conectado');
 	$('#bt').addClass('disabled');
-	console.timeEnd("btConnected");
+	console.timeEnd('btConnected');
 }
 
 function btERR(err) {
@@ -230,19 +241,6 @@ function findPlat() {
 $(window).unload(function() {
 	port.close();
 });
-
-/**
- * Atualiza e valida input do temporizador.
- * @returns {void}
- */
-function ACTUpdateTime() {
-	if ($('#tempo').val() >= 1 && isConnected === true) {
-		$('#play').switchClass('disabled', 'green');
-	} else {
-		$('#play').switchClass('green', 'disabled');
-	}
-}
-
 
 /**
  * Fabrica CSV para download.
