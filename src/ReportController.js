@@ -87,7 +87,7 @@ function btDisconnected() {
 }
 
 function btConnected() {
-	console.time("btConnected");
+	console.time('btConnected');
 	if (!resultReady) {
 		$('#connect').switchClass('active', 'completed');
 		$('#stepduracao').switchClass('disabled', 'active');
@@ -99,7 +99,7 @@ function btConnected() {
 	$('#status').switchClass('blue yellow red', 'green');
 	$('#labeltxt').text('Conectado');
 	$('#bt').addClass('disabled');
-	console.timeEnd("btConnected");
+	console.timeEnd('btConnected');
 }
 
 function btERR(err) {

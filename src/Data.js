@@ -110,7 +110,7 @@ PlatData.prototype.filter = function(num, id) {
 		result = num;
 	}
 	return result;
-}
+};
 
 /**
  * Filtro. Ignora valores menores do que filterData.lim.
@@ -157,18 +157,18 @@ PlatData.prototype.splitData = function(data, realtime) {
 	if (realtime) {
 		result = this.limiter(
 			arr[0],
-			this.filter(arr[1], "rTR"),
-			this.filter(arr[2], "rTL"),
-			this.filter(arr[3], "rBR"),
-			this.filter(arr[4], "rBL")
+			this.filter(arr[1], 'rTR'),
+			this.filter(arr[2], 'rTL'),
+			this.filter(arr[3], 'rBR'),
+			this.filter(arr[4], 'rBL')
 		);
 	} else {
 		result = this.limiter(
 			arr[0],
-			this.filter(arr[1], "TR"),
-			this.filter(arr[2], "TL"),
-			this.filter(arr[3], "BR"),
-			this.filter(arr[4], "BL")
+			this.filter(arr[1], 'TR'),
+			this.filter(arr[2], 'TL'),
+			this.filter(arr[3], 'BR'),
+			this.filter(arr[4], 'BL')
 		);
 	}
 	return result;
@@ -375,7 +375,7 @@ PlatData.prototype.calcAREA = function() {
  * @deprecated desde v0.4.0
  * @return {void}
  */
-PlatData.prototype.calcAREA_simple = function() {
+PlatData.prototype.calcAreaSimple = function() {
 	var rAP = (sm.max(this.CPy) - sm.min(this.CPy)) / 2;
 	var rML = (sm.max(this.CPx) - sm.min(this.CPx)) / 2;
 	this.area = Math.PI * rAP * rML;
@@ -405,7 +405,7 @@ PlatData.prototype.fullReport = function() {
  * Função usada no cálculo do COP
  * Calcula força horizontal em X da placa
  * @deprecated desde v0.1.2
- * @return {number} coordenada X do COP
+ * @return {number} fax - coordenada X do COP
  */
 PlatData.prototype.fax = function(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t1 = a * (-fz1 + fz2 + fz3 - fz4);
@@ -418,7 +418,7 @@ PlatData.prototype.fax = function(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
  * Função usada no cálculo do COP
  * Calcula força horizontal em Y da placa
  * @deprecated desde v0.1.2
- * @return {number} coordenada Y do COP
+ * @return {number} fay - coordenada Y do COP
  */
 PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	var t1 = b * (fz1 + fz2 - fz3 - fz4);
