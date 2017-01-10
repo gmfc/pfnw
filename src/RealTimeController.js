@@ -57,7 +57,6 @@ var isConnected = false;
 ///////////////////////////////
 
 function btConnecting() {
-	console.log('Conectando...');
 	$('#label').switchClass('yellow green red', 'blue');
 	$('#status').switchClass('yellow green red', 'blue');
 	$('#labeltxt').text('Conectando');
@@ -66,7 +65,6 @@ function btConnecting() {
 }
 
 function btDisconnected() {
-	console.log('desconectado!');
 	$('#label').switchClass('blue green red', 'yellow');
 	$('#status').switchClass('blue green red', 'yellow');
 	$('#labeltxt').text('Conectar');
@@ -87,7 +85,6 @@ function btConnected(freq) {
 }
 
 function btERR(err) {
-	console.log('ERRO! ' + err);
 	$('#label').switchClass('blue yellow green', 'red');
 	$('#status').switchClass('blue yellow green', 'red');
 	$('#labeltxt').text('Reset');
@@ -147,7 +144,6 @@ function connect(name) {
 		} else {
 			port.on('data', function(data) {
 				coleta(data);
-				//console.log('data received: ' + data);
 			});
 			port.on('close', function(data) {
 				port = null;
