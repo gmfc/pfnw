@@ -62,10 +62,21 @@ var isConnected = false;
  */
 var resultReady;
 
-
 ////////////////////////////////
 /// UI
 ///////////////////////////////
+
+/**
+ * Atualiza e valida input do temporizador.
+ * @returns {void}
+ */
+function ACTUpdateTime() {
+	if ($('#tempo').val() >= 1 && isConnected === true) {
+		$('#play').switchClass('disabled', 'green');
+	} else {
+		$('#play').switchClass('green', 'disabled');
+	}
+}
 
 function btConnecting() {
 	console.log('Conectando...');
@@ -230,19 +241,6 @@ function findPlat() {
 $(window).unload(function() {
 	port.close();
 });
-
-/**
- * Atualiza e valida input do temporizador.
- * @returns {void}
- */
-function ACTUpdateTime() {
-	if ($('#tempo').val() >= 1 && isConnected === true) {
-		$('#play').switchClass('disabled', 'green');
-	} else {
-		$('#play').switchClass('green', 'disabled');
-	}
-}
-
 
 /**
  * Fabrica CSV para download.
