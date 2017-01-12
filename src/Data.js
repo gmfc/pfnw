@@ -202,7 +202,7 @@ PlatData.prototype.pushData = function(data) {
 PlatData.prototype.Efax = function(a, fz1, fz2, fz3, fz4) {
 	var X = a * (fz1 - fz2 - fz3 + fz4) / (fz1 + fz2 + fz3 + fz4);
 	return X;
-}
+};
 
 /**
  * Função usada no calculo do COP
@@ -217,7 +217,7 @@ PlatData.prototype.Efax = function(a, fz1, fz2, fz3, fz4) {
 PlatData.prototype.Efay = function(b, fz1, fz2, fz3, fz4) {
 	var Y = b * (fz1 + fz2 - fz3 - fz4) / (fz1 + fz2 + fz3 + fz4);
 	return Y;
-}
+};
 
 /**
  * Percorre dados coletados dos 4 sensores (TR, TL, BR, BL) e calcula
@@ -411,7 +411,7 @@ PlatData.prototype.fax = function(a, fz1, fz2, fz3, fz4, az0, fx12, fx34) {
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fx12 + fx34);
 	return (-t1 - t2) / t3;
-}
+};
 
 /**
  * Função usada no cálculo do COP
@@ -424,7 +424,7 @@ PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 	var t3 = fz1 + fz2 + fz3 + fz4;
 	var t2 = az0 * (fy14 + fy23);
 	return (t1 + t2) / t3;
-}
+};
 
 /**
  * Arrendodador
@@ -435,6 +435,6 @@ PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
 PlatData.prototype.roundTo = function(value, precision) {
 	var multiplier = Math.pow(10, precision || 0);
 	return Math.round(value * multiplier) / multiplier;
-}
+};
 
 module.exports = PlatData;
