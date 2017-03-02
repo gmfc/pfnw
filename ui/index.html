@@ -24,9 +24,8 @@
         }
 
         .ui.menu {
-          border-radius: 0;
+            border-radius: 0;
         }
-
 
         .main.container {
             margin-top: 7em;
@@ -40,15 +39,15 @@
 </head>
 
 <body>
-
-
-
     <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
-                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
+                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" />Menu
             </a>
-            <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+            <div class="right menu">
+                <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+                <a href="#" class="item"><i class="help icon"></i>Ajuda</a>
+            </div>
         </div>
     </div>
 
@@ -56,7 +55,7 @@
 
 
         <div class="fluid ui big vertical labeled icon buttons">
-            <button id="hv" class="ui button" onclick="document.location.href='./medicao.html'"><i class="file text outline icon"></i> Gerar Relatório</button>
+            <button id="hv" class="ui button" onclick="document.location.href='./medicao.html'"><i class="file text outline icon"></i>Gerar relatório</button>
             <button id="hv" class="ui button" onclick="document.location.href='./realtime.html'"><i class="unhide icon"></i>Visualização em tempo real</button>
             <button id="hv" class="ui button" onclick="document.location.href='./debug.html'"><i class="usb icon"></i>Teste de conexão</button>
         </div>

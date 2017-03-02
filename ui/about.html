@@ -15,6 +15,10 @@
             margin-right: 1.5em;
         }
 
+        .ui.menu {
+            border-radius: 0;
+        }
+
         .main.container {
             margin-top: 7em;
         }
@@ -27,27 +31,29 @@
 </head>
 
 <body>
-
+    <!-- MENU -->
     <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
                 <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
             </a>
-            <div class="ui simple dropdown item">
-                Medições <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="./realtime.html"><i class="refresh icon"></i>Visualização em tempo real</a>
-                    <a class="item" href="./medicao.html"><i class="file text outline icon"></i> Gerar Relatório</a>
-                    <div class="divider"></div>
-                    <div class="header">Plataforma</div>
-                    <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
+            <a class="item" href="./medicao.html"><i class="file text outline icon"></i>Gerar relatório</a>
+            <a class="item" href="./realtime.html"><i class="unhide icon"></i>Visualização em tempo real</a>
+
+            <div class="right menu">
+                <div class="ui simple dropdown item">
+                    Informações <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="./about.html" class="active item"><i class="info icon"></i>Sobre</a>
+                        <a href="#" class="item"><i class="help icon"></i>Ajuda</a>
+                        <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
+                    </div>
                 </div>
             </div>
-            <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
         </div>
     </div>
-
     <div class="ui main container">
+      <h1>Sobre o programa</h1>
       <div class="ui segment green">
         <h4>Versão do programa: <span id="appver">??</span></h4>
         <hr />
