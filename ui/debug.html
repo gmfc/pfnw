@@ -22,7 +22,7 @@
         }
 
         .main.container {
-            margin-top: 7em;
+            margin-top: 20px;
         }
 
         .ui.menu .item {
@@ -57,6 +57,12 @@
     <!-- /MENU -->
     <div class="ui main container">
         <div class="ui right aligned container">
+            <a href="./debug.html">
+                <button class="ui labeled icon button">
+          <i class="refresh icon"></i>
+          Reset
+        </button>
+            </a>
             <div class="ui labeled button" tabindex="0" id="bt" data-tooltip="Não suba na plataforma" data-position="left center">
                 <div class="ui button" id="label">
                     <i class="usb icon" id="ico"></i>
@@ -89,7 +95,7 @@
                 </tbody>
             </table>
             <h4 id="raw"></h4>
-            <div id="ports">
+            <div class="ui grid" id="ports">
             </div>
         </div>
 
