@@ -3,13 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Plataforma de força: Tempo real</title>
+    <title>Plataforma de força: Ajuda</title>
     <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16" />
     <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
-    <script type="text/javascript" src="libs/jquery-ui.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <script src="css/semantic.min.js"></script>
     <style type="text/css">
@@ -22,7 +20,7 @@
         }
 
         .main.container {
-            margin-top: 20px;
+            margin-top: 7em;
         }
 
         .ui.menu .item {
@@ -40,39 +38,30 @@
                 <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
             </a>
             <a class="item" href="./medicao.html"><i class="file text outline icon"></i>Gerar relatório</a>
-            <a class="active item" href="./realtime.html"><i class="unhide icon"></i>Visualização em tempo real</a>
+            <a class="item" href="./realtime.html"><i class="unhide icon"></i>Visualização em tempo real</a>
 
             <div class="right menu">
                 <div class="ui simple dropdown item">
                     Informações <i class="dropdown icon"></i>
                     <div class="menu">
                         <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
-                        <a href="./help.html" class="item"><i class="help icon"></i>Ajuda</a>
+                        <a href="./help.html" class="active item"><i class="help icon"></i>Ajuda</a>
                         <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="ui main container">
-        <div class="ui right aligned container">
-            <div class="ui labeled button" tabindex="0" id="bt" data-tooltip="Não suba na plataforma" data-position="left center">
-                <div class="ui button" id="label">
-                    <i class="usb icon" id="ico"></i>
-                    <span id="labeltxt">Conectar</span>
-                </div>
-                <a class="ui basic left pointing label" id="statustxt">off</a>
-            </div>
-        </div>
-        <div class="ui divider"></div>
-        <div class="ui center aligned container">
-            <canvas id="canvas" width="738" height="668" style="border: 1px solid black;"></canvas>
-        </div>
+      <h1>Sobre o programa</h1>
 
+        <div class="ui container" style="padding-bottom:25px;">
+          coisas
+        </div>
 
     </div>
-    <script src="./js/rtcontrol.js"></script>
+    <script>
+    </script>
 </body>
 
 </html>
