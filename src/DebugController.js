@@ -149,6 +149,7 @@ function connect(name) {
 
 /**
  * Reseta, e procura pela plataforma
+ * Mostra portas encontradas, criando uma lista
  * @returns {void}
  */
 function findPlat() {
