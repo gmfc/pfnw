@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gmfc/pfnw.svg?branch=master)](https://travis-ci.org/gmfc/pfnw) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ca31189b4db4851afb4b411783272d3)](https://www.codacy.com/app/gabriel-mfcorreia/pfnw?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gmfc/pfnw&amp;utm_campaign=Badge_Grade) [![Dependencies](https://david-dm.org/gmfc/pfnw.svg)](https://david-dm.org)
+[![Build Status](https://travis-ci.org/gmfc/pfnw.svg?branch=master)](https://travis-ci.org/gmfc/pfnw) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ca31189b4db4851afb4b411783272d3)](https://www.codacy.com/app/gabriel-mfcorreia/pfnw?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gmfc/pfnw&amp;utm_campaign=Badge_Grade) [![Dependencies](https://david-dm.org/gmfc/pfnw.svg)](https://david-dm.org/gmfc/pfnw)
 
 # pfnw
 

@@ -23,6 +23,10 @@
             margin-right: 1.5em;
         }
 
+        .ui.menu {
+            border-radius: 0;
+        }
+
         .main.container {
             margin-top: 7em;
         }
@@ -35,35 +39,26 @@
 </head>
 
 <body>
-
-
-
     <div class="ui inverted menu">
         <div class="ui container">
             <a href="./index.html" class="header item">
-                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
+                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" />Menu
             </a>
-            <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+            <div class="right menu">
+                <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+                <a href="./help.html" class="item"><i class="help icon"></i>Ajuda</a>
+            </div>
         </div>
     </div>
 
-    <div class="ui main container">
-        <a class="" href="./medicao.html">
-            <div class="ui segment">
-                <h2><i class="file text outline icon"></i> Gerar Relatório</h2>
-            </div>
-        </a>
-        <a class="" href="./realtime.html">
-            <div class="ui segment">
-                <h2><i class="refresh icon"></i>Visualização em tempo real</h2>
-            </div>
-        </a>
-        <a class="" href="./debug.html">
-            <div class="ui segment">
-                <h2><i class="usb icon"></i>Teste de conexão</h2>
-            </div>
-        </a>
+    <div id="navbtn" class="ui main container">
 
+
+        <div class="fluid ui big vertical labeled icon buttons">
+            <button id="hv" class="ui button" onclick="document.location.href='./medicao.html'"><i class="file text outline icon"></i>Gerar relatório</button>
+            <button id="hv" class="ui button" onclick="document.location.href='./realtime.html'"><i class="unhide icon"></i>Visualização em tempo real</button>
+            <button id="hv" class="ui button" onclick="document.location.href='./debug.html'"><i class="usb icon"></i>Teste de conexão</button>
+        </div>
 
 
         <div id="updatepopup" class="ui icon message" style="margin-top:45px; display:none;">
@@ -86,8 +81,8 @@
 
 
     <script>
-        $(".segment").hover(function() {
-            $(this).toggleClass("raised");
+        $(".button").hover(function() {
+            $(this).toggleClass("black");
         });
         var ver = require('./package.json').version;
 
@@ -96,7 +91,7 @@
             if (data[0].tag_name !== ver) {
                 $('#updatepopup').show();
                 $('#ver').text(data[0].tag_name);
-                $('#name').text('"'+data[0].name+'"');
+                $('#name').text('"' + data[0].name + '"');
                 $('#downloadurl').attr('href', data[0].assets[0].browser_download_url);
             }
         });

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Plataforma de força: Ajuda</title>
+    <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./img/favicon-16x16.png" sizes="16x16" />
+    <script type="text/javascript" src="libs/jquery-2.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <script src="css/semantic.min.js"></script>
+    <style type="text/css">
+        .ui.menu .item i.icon {
+            margin-right: 1.5em;
+        }
+
+        .ui.menu {
+            border-radius: 0;
+        }
+
+        .main.container {
+            margin-top: 20px;
+        }
+
+        .ui.menu .item {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- MENU -->
+    <div class="ui inverted menu">
+        <div class="ui container">
+            <a href="./index.html" class="header item">
+                <img src="./img/logo.svg" style="margin-right: 42px;" alt="" /> Menu
+            </a>
+            <a class="item" href="./medicao.html"><i class="file text outline icon"></i>Gerar relatório</a>
+            <a class="item" href="./realtime.html"><i class="unhide icon"></i>Visualização em tempo real</a>
+
+            <div class="right menu">
+                <div class="ui simple dropdown item">
+                    Informações <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="./about.html" class="item"><i class="info icon"></i>Sobre</a>
+                        <a href="./help.html" class="active item"><i class="help icon"></i>Ajuda</a>
+                        <a class="item" href="debug.html"><i class="usb icon"></i>Teste de conexão</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui main container">
+        <h1>Sobre o programa</h1>
+
+        <div class="ui container" style="padding-bottom:25px;">
+
+            <body id="preview">
+                <ol>
+                    <li>Utilização da plataforma</li>
+                    <li>Medições</li>
+                    <li>Resolução de erros</li>
+                </ol>
+                <h2><a id="Utilizao_da_plataforma_6"></a>Utilização da plataforma</h2>
+                <p>A plataforma de força de comunica com o software via USB. Para estabelecer uma coneção basta conectar o cabo USB na plataforma e no computador com o software instalado. Note que para que o computador possa reconhecer a plataforma, os drivers
+                    devem estar instalados.</p>
+                <p>Para obter medições válidas, a plataforma deve estar devidamente nivelada, o que pode ser feito com a ajuda de sua base ajustavel. Basta rosquear os pés da plataforma até que a mesma esteja completamente em contato com o chão e devidamente
+                    nivelada.</p>
+                <h2><a id="Medies_11"></a>Medições</h2>
+                <p>O software fornece dois modos de medição.</p>
+                <h3><a id="Visualizao_em_tempo_real_14"></a>Visualização em tempo real</h3>
+                <p>É usado para visualizar o centro de pressão em tempo real. Este modo não gravará dados, nem fará medidas, somente mostrara o centro de pressão e sua trajetória.</p>
+                <p>Para usa-lo:</p>
+                <ol>
+                    <li>Selecione o modo no menu do software.</li>
+                    <li>Com a plataforma conectada ao computador, clique no botão conectar.</li>
+                    <li>A plataforma começara a transmitir os dados e estará pronta para uso.</li>
+                </ol>
+                <p>É importante que não se suba na plataforma enquanto a mesma não estiver conectada ao software (Botão de coneção ficará verde quando a plataforma estiver pronta)</p>
+                <h3><a id="Relatrio_24"></a>Relatório</h3>
+                <p>É usado para se obter um relatório completo com uma análise detalhada do centro de pressão e sua trajetória em função do tempo.</p>
+                <p>Para usa-lo:</p>
+                <ol>
+                    <li>Selecione o modo no menu do software.</li>
+                    <li>Com a plataforma conectada ao computador, clique no botão conectar.</li>
+                    <li>Especifique o tempo de medição (em segundos) desejado.</li>
+                    <li>A plataforma estará pronta para o uso. Aperte a seta verde para iniciar a medição.</li>
+                    <li>Após o término da medição, o relatório sera mostrado na tela.</li>
+                    <li>Para salvar os dados, selecione a opção de gravação desejada, e o local e nome do arquivo a ser gravado.</li>
+                </ol>
+                <p>É importante que não se suba na plataforma enquanto a mesma não estiver conectada ao software (Botão de coneção ficará verde quando a plataforma estiver pronta)</p>
+                <h2><a id="Resoluo_de_erros_37"></a>Resolução de erros</h2>
+                <p>Caso aja algum erro durante o uso da plataforma, o software irá diagnostica-lo. Siga as instruções dadas pelo botão de conecção.</p>
+                <p>Se o erro persistir, reconecte a plataforma e refaça a medição. Caso o erro ainda persisti, disconecte a plataforma e reinicie o software.</p>
+
+            </body>
+        </div>
+
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

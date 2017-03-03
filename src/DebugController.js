@@ -149,6 +149,7 @@ function connect(name) {
 
 /**
  * Reseta, e procura pela plataforma
+ * Mostra portas encontradas, criando uma lista
  * @returns {void}
  */
 function findPlat() {
@@ -160,19 +161,19 @@ function findPlat() {
 		$('#ports').empty();
 		ports.forEach(function(port) {
 			counter++;
-			$('#ports').append('<div class="ui divider"></div>');
-			$('#ports').append('<p>comName: ' + port.comName + ' </p>');
-			$('#ports').append('<p>manufacturer: ' + port.manufacturer + ' </p>');
-			$('#ports').append('<p>serialNumber: ' + port.serialNumber + ' </p>');
-			$('#ports').append('<p>pnpId: ' + port.pnpId + ' </p>');
-			$('#ports').append('<p>locationId: ' + port.locationId + ' </p>');
-			$('#ports').append('<p>vendorId: ' + port.vendorId + ' </p>');
-			$('#ports').append('<p>productId: ' + port.productId + ' </p>');
-
+			$('#ports').append('<div class="eight wide column"><div class="ui raised segments" id="portN' + counter + '"></div></div>');
+			$('#portN' + counter).append('<div class="ui segment" id="namePortN' + counter + '"><p>manufacturer: ' + port.manufacturer + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui blue secondary segment"><p>comName: ' + port.comName + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui secondary segment"><p>serialNumber: ' + port.serialNumber + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui secondary segment"><p>pnpId: ' + port.pnpId + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui secondary segment"><p>locationId: ' + port.locationId + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui secondary segment"><p>vendorId: ' + port.vendorId + ' </p></div>');
+			$('#portN' + counter).append('<div class="ui secondary segment"><p>productId: ' + port.productId + ' </p></div>');
 
 			if (port.manufacturer.indexOf('Arduino') !== -1 && !found) {
 				connect(port.comName);
 				found = true;
+				$('#namePortN' + counter).addClass("blue message");
 			}
 			if (counter === ports.length && !found) {
 				btERR('Porta não encontrada!');
