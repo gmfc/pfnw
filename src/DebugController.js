@@ -173,7 +173,7 @@ function findPlat() {
 			if (port.manufacturer.indexOf('Arduino') !== -1 && !found) {
 				connect(port.comName);
 				found = true;
-				$('#namePortN' + counter).addClass("blue message");
+				$('#namePortN' + counter).addClass('blue message');
 			}
 			if (counter === ports.length && !found) {
 				btERR('Porta não encontrada!');
