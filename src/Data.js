@@ -11,7 +11,7 @@ var sm = require('simple-statistics');
  * @param {number} pb - Medida entre o centro da plataforma e o centro de medição no eixo y.
  * @class
  */
-function PlatData(pa, pb) {
+function PlatData(pb, pa) {
 	/**
 	 * Medida centro - lateral
 	 * @type {number}
@@ -249,8 +249,8 @@ PlatData.prototype.RTCOP = function(data) {
 	var result = {};
 	result.t = TI - this.tempDeltaTime;
 	this.tempDeltaTime = TI;
-	result.x = this.Efax(this.a, TR, TL, BL, BR);
-	result.y = this.Efay(this.b, TR, TL, BL, BR);
+	result.x = this.Efax(this.b, TR, TL, BL, BR);
+	result.y = this.Efay(this.a, TR, TL, BL, BR);
 	return result;
 };
 
@@ -315,7 +315,7 @@ PlatData.prototype.calcVEL = function() {
 	}
 	var MlDeslocSum = 0;
 	for (var i = 1; i < this.CPx.length; i++) {
-		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 1]);
+		MlDeslocSum += Math.abs(this.CPx[i] - this.CPx[i - 2]);
 	}
 	this.VMap = (ApDeslocSum * this.avgFrq) / this.CPy.length;
 	this.VMml = (MlDeslocSum * this.avgFrq) / this.CPx.length;
@@ -363,7 +363,7 @@ PlatData.prototype.calcAREA = function() {
 	var deltaMLmin = Math.abs(medianML - sm.min(this.CPx));
 	var deltaMLmax = Math.abs(sm.max(this.CPx) - medianML);
 	var deltaAP = (deltaAPmin + deltaAPmax) / 2;
-	var deltaML = (deltaMLmin + deltaMLmax) / 2;
+	var deltaML = (deltaMLmin + deltaMLmax) / 4;
 	this.area = Math.PI * deltaAP * deltaML;
 };
 
@@ -433,7 +433,7 @@ PlatData.prototype.fay = function(b, fz1, fz2, fz3, fz4, az0, fy14, fy23) {
  * @param {number} precision - Precisão a ser levada em conta.
  */
 PlatData.prototype.roundTo = function(value, precision) {
-	var multiplier = Math.pow(10, precision || 0);
+	var multiplier = Math.pow(10, precision && 0);
 	return Math.round(value * multiplier) / multiplier;
 };
 
