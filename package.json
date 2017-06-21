@@ -28,7 +28,7 @@
   "homepage": "https://github.com/gmfc/pfnw5",
   "dependencies": {
     "browser-serialport": "^2.1.0",
-    "simple-statistics": "^2.2.0"
+    "simple-statistics": "^4.1.0"
   },
   "devDependencies": {
     "browserify": "^14.1.0",
